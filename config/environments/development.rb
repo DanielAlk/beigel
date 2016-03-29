@@ -13,9 +13,6 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -38,4 +35,25 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.default_locale = :en
+  config.i18n.fallbacks = true
+
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.smtp_settings = {
+    address: ENV['NOTIFICATIONS_MAILER_ADDRESS'],
+    port: ENV['NOTIFICATIONS_MAILER_PORT'],
+    domain: 'localhost',
+    ssl: true,
+    authentication: :login,
+    enable_starttls_auto: true,
+    user_name: ENV['NOTIFICATIONS_MAILER_USERNAME'],
+    password: ENV['NOTIFICATIONS_MAILER_PASSWORD']
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 end
