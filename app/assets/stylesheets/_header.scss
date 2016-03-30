@@ -1,0 +1,36 @@
+header { position: relative; background-color: #FFF; height: 95px; z-index: 1; }
+.brand { position: absolute; text-align: center; left: 50%; width: 200px; margin: 0 -100px; height: 100%; 
+	>h1 { margin: 0; height: 100%; }
+}
+.brand-logo { width: 100%; height: auto; margin-top: 15px; }
+.brand-tel { color: #FFF; background-color: $brand-primary; display: block; font-family: Times, serif; line-height: 1.3; font-weight: 300; font-size: 2em; letter-spacing: 7px; text-indent: 6px; }
+.brand-tel:hover,.brand-tel:focus { background-color: darken($brand-primary, 10%); color:#FFF;}
+
+@mixin border-nav($left, $right) {
+	content: " ";position: absolute;height: 5px;border-right: 2px solid #C4CEDC;right: $right;left:$left;top: calc(50% - 1px);
+}
+
+.navigation { margin: 38px 0 0; font-weight: 600;
+	nav { @include clear-both; 
+		>ul { margin: 0;
+			a { color: #bfcad9; 
+				&:hover, &:focus, &.active {color: $grey-base;}
+			}
+			li { position: relative; padding: 0 20px;
+				&:after { @include border-nav(auto, 0); }
+				span.social-links {
+					a { color: $brand-primary; margin-left: 20px; 
+						&:hover, &:focus { color: darken($brand-primary, 10%); }
+					}
+				}
+			}
+			&:first-child { float: left; }
+			&:last-child { float: right;
+				>li {
+					&:first-child:before { @include border-nav(0, auto); }
+					&:last-child:after { display: none; }
+				}
+			}
+		}
+	}
+}

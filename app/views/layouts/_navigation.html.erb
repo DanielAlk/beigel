@@ -1,1 +1,33 @@
-<header></header>
+<header>
+	<div class="container">
+		<div class="brand">
+			<h1><img class="brand-logo" alt="Beigel Bienes Raices" src="<%= asset_path 'brand-logo.png' %>"></h1>
+			<a class="brand-tel" href="tel:+541145531700">4553-1700</a>
+		</div>
+		<div class="navigation">
+			<nav role="navigation">
+				<ul class="list-inline">
+					<li><%= link_to 'Servicios', nil, class: nav_class('home') %></li>
+					<li><%= link_to 'Emprendimientos', nil, class: nav_class('enterprises') %></li>
+					<li><%= link_to 'Comprar', nil, class: nav_class('buy') %></li>
+					<li><%= link_to 'Alquilar', nil, class: nav_class('rent') %></li>
+				</ul>
+				<ul class="list-inline">
+					<li><%= link_to 'Empresas amigas', nil, class: nav_class('friends') %></li>
+					<li><%= link_to 'La Empresa', nil, class: nav_class('brand') %></li>
+					<li>
+						<%= link_to 'Contacto', nil, class: nav_class('contact') %>
+						<span class="social-links">
+							<%= link_to '#' do %>
+								<i class="fa fa-envelope"></i>
+							<% end %>
+							<%= link_to '#' do %>
+								<i class="fa fa-facebook"></i>
+							<% end %>
+						</span>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>

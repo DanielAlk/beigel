@@ -1,0 +1,11 @@
+@mixin clear-both {
+	&:before, &:after {content: " "; display: table;}
+	&:after {clear: both;}
+}
+
+.bootstrap-select .btn:focus, a:focus, .btn:focus, .btn:active:focus, .btn.active:focus { outline: none!important; }
+
+.page-content { margin-top: -85px; position: relative; }
+
+button.btn.dropdown-toggle.form-control.selectpicker { @extend .form-control }
+button.btn.dropdown-toggle.form-control.selectpicker.input-sm { @extend .input-sm }

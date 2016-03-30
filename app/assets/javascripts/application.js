@@ -20,5 +20,6 @@
 //= require jquery.validate.localization/messages_es_AR
 //= require tinymce-jquery
 //= require bootstrap-sprockets
+//= require bootstrap-select
 //= require turbolinks
 //= require_tree .

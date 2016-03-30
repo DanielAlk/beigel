@@ -1,0 +1,7 @@
+section.search-box {
+	>.container { padding-top: 42px; padding-bottom: 42px; }
+	.search-box-submit { position: absolute; right: 40px; top: 0; margin-top: 20px; }
+	form { position: relative; padding-right: 230px; padding-left: 40px; 
+		.form-group+.form-group { margin-bottom: 0; }
+	}
+}

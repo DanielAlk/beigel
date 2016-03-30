@@ -1,3 +1,69 @@
-<section>
-	<h1>BEIGEL</h1>
+<section class="main-slider">
+	<div class="slider-items">
+		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-1.jpg') %>')">
+			<div class="container">
+				<div class="slider-item-dialog">
+					<h5 class="slider-item-subtitle">Emprendimiento</h5>
+					<h2 class="slider-item-title">11 de Septiembre 5762</h2>
+					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+					<a href="#" class="btn btn-primary btn-fix">Más Info</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="slider-indicators">
+		<a href="#"></a>
+		<a class="active" href="#"></a>
+		<a href="#"></a>
+		<a href="#"></a>
+		<a href="#"></a>
+	</div>
 </section>
+
+<div class="page-content">
+	<section class="search-box">
+		<div class="container bg-primary">
+			<%= form_tag '', method: :post, role: 'form' do %>
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="form-group">
+							<%= select_tag :operation_type, options_for_select([['Comprar',:buy],['Alquilar',:rent]]), title: 'Tipo de operación', class: 'form-control selectpicker', multiple: true, data: { style: 'input-sm', max_options: 1 } %>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-4">
+									<%= text_field_tag :price_min, nil, class: 'form-control input-sm', placeholder: 'Desde' %>
+								</div>
+								<div class="col-xs-4">
+									<%= text_field_tag :price_max, nil, class: 'form-control input-sm', placeholder: 'Hasta' %>
+								</div>
+								<div class="col-xs-4">
+									<!-- aca van los radio de dolar o peso -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<%= select_tag :property_type, options_for_select([['PH',:ph],['Casa',:house],['Departamento',:apartment]]), class: 'form-control selectpicker', multiple: true, title: 'Tipo de propiedad', data: { style: 'input-sm' } %>
+						</div>
+						<div class="form-group">
+							<%= select_tag :rooms, options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]]), class: 'form-control selectpicker', multiple: true, title: 'Ambientes', data: { style: 'input-sm' } %>
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="form-group">
+							<%= select_tag :neighborhood, options_for_select(['Palermo', 'Colegiales', 'Chacarita']), class: 'form-control selectpicker', multiple: true, title: 'Barrio', data: { style: 'input-sm' } %>
+						</div>
+						<div class="form-group">
+							<%= select_tag :surface, options_for_select(['Menos de 100', '101 a 200', '201 a 300', '301 o más']), class: 'form-control selectpicker', multiple: true, title: 'Superficie', data: { style: 'input-sm' } %>
+						</div>
+					</div>
+				</div>
+				<div class="search-box-submit">
+					<button class="btn btn-default btn-fix">Buscar</button>
+				</div>
+			<% end %>
+		</div>
+	</section>
+</div>
