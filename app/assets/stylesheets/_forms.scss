@@ -1,0 +1,15 @@
+@mixin radioBtn($size, $color) {
+	content: " ";display: inline-block;height: $size;width: $size;background-color: $color;border-radius: 50%;position: absolute;left: 0;top: 50%;
+}
+
+.radio-inline { height: 32px; line-height: 32px; position: relative; font-size: .9em; padding-left: 17px;
+	&:before {@include radioBtn(10px, transparent); border: 1px solid #FFF;margin: -5px 0;}
+	&.active:after {@include radioBtn(6px, #fff); margin: -3px 2px;}
+	>input { display: none; }
+}
+
+.form-control { padding: 6px 12px; height: 32px; font-size: 12px; }
+button.btn.dropdown-toggle.form-control.selectpicker { @extend .form-control }
+.dropdown-menu > li > a { padding: 3px 12px; }
+
+.alternative-inputs .form-control { color: #7F8999; background-color: #efefef; border: 1px solid #029351; font-size: 1em; }

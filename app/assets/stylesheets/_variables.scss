@@ -42,7 +42,7 @@ $btn-info-border: $btn-info-bg !default;
 
 $btn-warning-color: #fff !default;
 $btn-warning-bg: $brand-warning !default;
-$btn-warning-border:             $btn-warning-bg !default;
+$btn-warning-border: $btn-warning-bg !default;
 
 $btn-danger-color: #fff !default;
 $btn-danger-bg: $brand-danger !default;
@@ -51,7 +51,7 @@ $btn-danger-border: $btn-danger-bg !default;
 $font-family-sans-serif:  "Lato", Helvetica, Arial, sans-serif !default;
 
 /* FORMS */
-$input-bg: inherit !default;
+$input-bg: transparent !default;
 $input-color: #FFF !default;
 $input-border: $input-color !default;
 $input-border-radius: 0 !default;

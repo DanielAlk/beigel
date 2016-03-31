@@ -1,0 +1,48 @@
+<section class="search-box">
+	<div class="container bg-primary">
+		<%= form_tag '', method: :post, role: 'form' do %>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="form-group">
+						<%= select_tag :operation_type, options_for_select([['Comprar',:buy],['Alquilar',:rent]]), title: 'Tipo de operación', class: 'form-control selectpicker', multiple: true, data: { max_options: 1 } %>
+					</div>
+					<div class="form-group row">
+						<div class="col-xs-4">
+							<%= text_field_tag :price_min, nil, class: 'form-control', placeholder: 'Desde', data: autonumeric %>
+						</div>
+						<div class="col-xs-4">
+							<%= text_field_tag :price_max, nil, class: 'form-control', placeholder: 'Hasta', data: autonumeric %>
+						</div>
+						<div class="col-xs-4">
+							<label class="radio-inline">
+								<%= radio_button_tag :currency, :ars, true %> $
+							</label>
+							<label class="radio-inline">
+								<%= radio_button_tag :currency, :usd %> u$s
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<%= select_tag :property_type, options_for_select([['PH',:ph],['Casa',:house],['Departamento',:apartment]]), class: 'form-control selectpicker', multiple: true, title: 'Tipo de propiedad' %>
+					</div>
+					<div class="form-group">
+						<%= select_tag :rooms, options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]]), class: 'form-control selectpicker', multiple: true, title: 'Ambientes' %>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="form-group">
+						<%= select_tag :neighborhood, options_for_select(['Palermo', 'Colegiales', 'Chacarita']), class: 'form-control selectpicker', multiple: true, title: 'Barrio' %>
+					</div>
+					<div class="form-group">
+						<%= select_tag :surface, options_for_select(['Menos de 100', '101 a 200', '201 a 300', '301 o más']), class: 'form-control selectpicker', multiple: true, title: 'Superficie' %>
+					</div>
+				</div>
+			</div>
+			<div class="search-box-submit">
+				<%= submit_tag 'Buscar', class: 'btn btn-default btn-fix' %>
+			</div>
+		<% end %>
+	</div>
+</section>

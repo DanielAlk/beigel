@@ -1,0 +1,21 @@
+<section class="pad-xs-NS-50 cover text-white" style="background-image: url('<%= asset_path 'contact-bg.jpg' %>')">
+	<div class="container">
+		<div class="section-title">
+			<h2 class="text-white">Contactese ahora</h2>
+			<p class="text-white">Un profesional responderá su consulta a la brevedad.</p>
+		</div>
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-4">
+				<%= form_tag '', method: :post, role: 'form', class: 'stack-5' do %>
+					<%= text_field_tag :name, nil, class: 'form-control', placeholder: 'Nombre' %>
+					<%= email_field_tag :email, nil, class: 'form-control', placeholder: 'Email' %>
+					<%= phone_field_tag :phone, nil, class: 'form-control', placeholder: 'Teléfono' %>
+					<%= text_area_tag :message, nil, class: 'form-control', placeholder: 'Mensaje', rows: '6' %>
+					<div class="text-center mar-xs-NS-30">
+						<%= submit_tag 'Consultar', class: 'btn btn-default btn-fix' %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</section>

@@ -3,9 +3,33 @@
 	&:after {clear: both;}
 }
 
+a:hover, a:focus { text-decoration: none; }
+
 .bootstrap-select .btn:focus, a:focus, .btn:focus, .btn:active:focus, .btn.active:focus { outline: none!important; }
 
-.page-content { margin-top: -85px; position: relative; }
+.text-white { color: #FFF!important; }
 
-button.btn.dropdown-toggle.form-control.selectpicker { @extend .form-control }
-button.btn.dropdown-toggle.form-control.selectpicker.input-sm { @extend .input-sm }
+img.cover { width: 100%; height: auto; }
+section.cover { background-size: cover; background-position: center center; }
+
+.vertical-align { height: 100%; width: 100%; display: table;
+	>.middle { display: table-cell; vertical-align: middle; }
+}
+
+/* STACK */
+.stack-5>* { margin-bottom: 5px; }
+
+/* PADDINGS */
+.pad-xs-N-50 { padding-top: 50px; }
+
+.pad-xs-S-50 { padding-bottom: 50px; }
+.pad-xs-S-70 { padding-bottom: 70px; }
+
+.pad-xs-NS-50 { padding-top: 50px; padding-bottom: 50px; }
+.pad-xs-NS-70 { padding-top: 70px; padding-bottom: 70px; }
+
+/* MARGINS */
+.mar-xs-N-30 { margin-top: 30px; }
+.mar-xs-N-50 { margin-top: 50px; }
+
+.mar-xs-NS-30 { margin-top: 30px; margin-bottom: 30px; }

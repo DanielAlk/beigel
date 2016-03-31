@@ -22,4 +22,5 @@
 //= require bootstrap-sprockets
 //= require bootstrap-select
 //= require turbolinks
+//= require autonumeric
 //= require_tree .

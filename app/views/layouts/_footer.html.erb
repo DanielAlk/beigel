@@ -1,1 +1,83 @@
-<footer></footer>
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="brand">
+					<%= link_to root_path do %>
+						<%= image_tag 'brand-logo.png', alt: 'Beigel Bienes Raices', class: 'brand-logo' %>
+					<% end %>
+					<%= link_to '4553-1700', 'tel:+541145531700', class: 'brand-tel' %>
+				</div>
+			</div>
+			<div class="col-xs-3">
+				<ul class="list-unstyled footer-navigation">
+					<li><%= link_to 'Home', nil, class: nav_class('home') %></li>
+					<li><%= link_to 'Servicios', nil, class: nav_class('services') %></li>
+					<li><%= link_to 'Emprendimientos', nil, class: nav_class('enterprises') %></li>
+					<li><%= link_to 'Comprar', nil, class: nav_class('buy') %></li>
+					<li><%= link_to 'Alquilar', nil, class: nav_class('rent') %></li>
+					<li><%= link_to 'La Empresa', nil, class: nav_class('brand') %></li>
+					<li><%= link_to 'Contacto', nil, class: nav_class('contact') %></li>
+				</ul>
+			</div>
+			<div class="col-xs-3">
+				<h4>Contacto</h4>
+				<ul class="list-unstyled footer-contact">
+					<li>
+						<%= link_to 'tel:+541145531700' do %>
+							<div class="icon">
+								<span class="fa-stack">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-mobile fa-stack-1x fa-inverse"></i>
+								</span>
+							</div>
+							<div><strong>Teléfono</strong></div>
+							<div><span>4553-1700</span></div>
+						<% end %>
+					</li>
+					<li>
+						<%= link_to 'mailto:info@beigel.com.ar' do %>
+							<div class="icon">
+								<span class="fa-stack">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+								</span>
+							</div>
+							<div><strong>Email</strong></div>
+							<div><span>info@beigel.com.ar</span></div>
+						<% end %>
+					</li>
+					<li>
+						<%= link_to 'https://www.facebook.com/BEIGEL-Bienes-Raices-18748629592/?fref=ts', target: '_blank' do %>
+							<div class="icon">
+								<span class="fa-stack">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+								</span>
+							</div>
+							<div><strong>Facebook</strong></div>
+							<div><span>Beigel Bienes Raices</span></div>
+						<% end %>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-3">
+				<div class="footer-contact-form">
+					<p>Dejanos tu mail y nos contactaremos para asesorarte.</p>
+					<%= form_tag '', method: :post, role: 'form', class: 'alternative-inputs' do %>
+						<div class="form-group">
+							<%= email_field_tag :email, nil, class: 'form-control', placeholder: 'Email' %>
+						</div>
+						<%= submit_tag 'Enviar', class: 'btn btn-sm btn-primary btn-fix' %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-legend">
+		<p>
+			2016 - Beigel Bienes Raices. Todos los derechos reservados. &nbsp; &nbsp; &nbsp;
+			Powered by <%= image_tag 'logo-vertigo.png', class: 'inline' %>
+		</p>
+	</div>
+</footer>

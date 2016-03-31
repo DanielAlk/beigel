@@ -1,0 +1,25 @@
+footer { background-color: #fafafa; padding: 50px 0 0; color: #7b8696;
+	.brand { position: static; margin: 0; height: auto; left: auto; width: 120px; }
+	.brand-logo { margin: 0; }
+	.brand-tel { font-size: 1em; letter-spacing: 5px; margin-top: 5px; }
+	a { color: inherit; }
+	a:hover, a:focus, a.active { color: #535B67; }
+	h4 { margin: 0; font-weight: 600; }
+}
+
+.footer-navigation>li { margin-bottom: 10px; font-weight: 600; }
+
+.footer-contact { margin-top: 15px;
+	>li>a { display: block; position: relative; padding-left: 35px; height: 40px; margin-bottom: 15px; padding-top: 2px;
+		>div:last-child { font-size: .8em; }
+		>.icon { position: absolute; left: 0; top: 6px; color: #029351;
+			.fa-mobile { font-size: 1.3em; }
+			.fa-envelope { font-size: .9em; margin-top: -1px; }
+		}
+	}
+}
+
+.footer-legend { background-color: #000; color: #fff; text-align: center; font-size: .7em; font-weight: 300; padding: 25px 0; margin-top: 55px;
+	>p { margin: 0; }
+	img.inline { height: 3.2em; margin-left: 5px; }
+}
