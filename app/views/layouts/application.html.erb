@@ -15,6 +15,7 @@
 	<%= render 'modals/notice' %>
 	<script>
 		$(function() {
+			Utils.init();
 			<%= yield :extra_js if content_for? :extra_js %>
 		});
 	</script>
