@@ -1,0 +1,12 @@
+/*
+.slider-item { display: none; left: 0; -webkit-transition: left 600ms ease-in; -moz-transition: left 600ms ease-in; -ms-transition: left 600ms ease-in; -o-transition: left 600ms ease-in; transition: left 600ms ease-in; }
+.slider-item.active { display: block; }
+*/
+.slider-items { overflow: hidden; }
+.slider-item:not(.active) { display: none; }
+.slider-indicators {
+	>a { display: inline-block; background-color: #FFF; width: 10px; height: 10px; border-radius: 50%; margin: 0 3px; 
+		&.active { background-color: $brand-primary; }
+		&:hover { background-color: darken($brand-primary, 10%); }
+	}
+}
