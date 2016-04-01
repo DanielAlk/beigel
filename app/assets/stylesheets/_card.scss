@@ -1,0 +1,6 @@
+.card { @include clear-both; position: relative; height: 280px; margin-bottom: 30px; }
+.card-image { float: left; width: 53%; overflow: hidden; height: 100%; }
+.card-body { float: left; width: 46%; background-color: #f3f3f3; height: 100%; padding: 40px; }
+.card-title { margin: 0 0 10px; text-transform: uppercase; font-weight: 600; font-size: 22px; }
+.card-text { color: #97a6b7; }
+.card-price { margin: 0 0 40px; font-size: 20px; }

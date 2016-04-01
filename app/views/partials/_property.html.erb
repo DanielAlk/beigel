@@ -1,0 +1,11 @@
+<div class="card">
+	<div class="card-image">
+		<%= image_tag property[:cover], class: 'cover' %>
+	</div>
+	<div class="card-body">
+		<h2 class="card-title"><%= property[:neighborhood] %></h2>
+		<p class="card-text">PUERTO PAMPA, Caboto 420.| Boca | Departamentos, Oficinas, Locales y Venta Puerto Pampa es un complejo de usos mixtos compuestos por viviendas, oficinas.</p>
+		<h3 class="card-price"><%= number_to_currency property[:price], delimiter: '.', separator: ',', precision: 0, unit: '$ ' %></h3>
+		<%= link_to 'Ver Ficha', '#', class: 'btn btn-primary btn-fix' %>
+	</div>
+</div>

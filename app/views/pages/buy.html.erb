@@ -1,0 +1,21 @@
+<%= render 'partials/main_slider' %>
+<div class="page-content">
+	<section class="pad-xs-S-70">
+		<div class="container bg-white">
+			<div class="section-title">
+				<h2>Comprar</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+			</div>
+			<div>
+				<% @properties.each do |property| %>
+					<%= render 'partials/property', property: property %>
+				<% end %>
+			</div>
+			<div class="text-center mar-xs-N-70">
+				<%= link_to '#' do %>
+					Ver Más &nbsp;<i class="fa fa-arrow-circle-down"></i>
+				<% end %>
+			</div>
+		</div>
+	</section>
+</div>
