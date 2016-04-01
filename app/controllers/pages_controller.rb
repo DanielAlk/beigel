@@ -23,6 +23,9 @@ class PagesController < ApplicationController
   def about
   end
 
+  def contact
+  end
+
   private
 
 	  def set_slider_items

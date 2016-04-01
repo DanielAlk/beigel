@@ -15,7 +15,7 @@ a:hover, a:focus { text-decoration: none; }
 .text-white { color: #FFF!important; }
 
 img.cover { width: 100%; height: auto; }
-section.cover { background-size: cover; background-position: center center; }
+section.cover, div.cover { background-size: cover; background-position: center center; }
 
 .vertical-align { height: 100%; width: 100%; display: table;
 	>.middle { display: table-cell; vertical-align: middle; }

@@ -1,0 +1,9 @@
+<%= form_tag '', method: :post, role: 'form', class: 'stack-5' do %>
+	<%= text_field_tag :name, nil, class: 'form-control', placeholder: 'Nombre' %>
+	<%= email_field_tag :email, nil, class: 'form-control', placeholder: 'Email' %>
+	<%= phone_field_tag :phone, nil, class: 'form-control', placeholder: 'Teléfono' %>
+	<%= text_area_tag :message, nil, class: 'form-control', placeholder: 'Mensaje', rows: '6' %>
+	<div class="text-center mar-xs-NS-30">
+		<%= submit_tag 'Consultar', class: 'btn btn-default btn-fix' %>
+	</div>
+<% end %>
