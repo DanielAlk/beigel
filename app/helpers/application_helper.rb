@@ -22,9 +22,9 @@ module ApplicationHelper
 
 	def nav_class(action = nil)
 		if action.kind_of? Array
-			'active' if action.include? params['action']
+			'active' if action.include? params['action'].to_sym
 		else
-			'active' if action == params['action']
+			'active' if action.to_s == params['action']
 		end
 	end
 end

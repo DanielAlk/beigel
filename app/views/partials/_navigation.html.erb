@@ -1,0 +1,29 @@
+<% format = false unless local_assigns.has_key? :format %>
+
+<nav role="navigation">
+	<ul class="<%= 'list-inline' if format == :header %> <%= 'list-unstyled footer-navigation' if format == :footer %>">
+		<% if format == :footer %>
+			<li><%= link_to 'Home', root_path, class: nav_class(:home) %></li>
+		<% end %>
+		<li><%= link_to 'Servicios', services_path, class: nav_class([:services, :assessments, :investments]) %></li>
+		<li><%= link_to 'Emprendimientos', developments_path, class: nav_class(:developments) %></li>
+		<li><%= link_to 'Comprar', buy_path, class: nav_class(:buy) %></li>
+		<li><%= link_to 'Alquilar', rent_path, class: nav_class(:rent) %></li>
+		<%= '</ul><ul class="list-inline">'.html_safe if format == :header %>
+		<li><%= link_to 'Empresas amigas', friends_path, class: nav_class(:friends) %></li>
+		<li><%= link_to 'La Empresa', about_path, class: nav_class(:about) %></li>
+		<li>
+			<%= link_to 'Contacto', contact_path, class: nav_class(:contact) %>
+			<% if format == :header %>
+				<span class="social-links">
+					<%= link_to 'mailto:info@beigel.com.ar' do %>
+						<i class="fa fa-envelope"></i>
+					<% end %>
+					<%= link_to 'https://www.facebook.com/BEIGEL-Bienes-Raices-18748629592/?fref=ts', target: '_blank' do %>
+						<i class="fa fa-facebook"></i>
+					<% end %>
+				</span>
+			<% end %>
+		</li>
+	</ul>
+</nav>

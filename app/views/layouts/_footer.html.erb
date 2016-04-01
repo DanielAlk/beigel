@@ -10,16 +10,7 @@
 				</div>
 			</div>
 			<div class="col-xs-3">
-				<ul class="list-unstyled footer-navigation">
-					<li><%= link_to 'Home', root_path, class: nav_class('home') %></li>
-					<li><%= link_to 'Servicios', services_path, class: nav_class(['services', 'assessments', 'investments']) %></li>
-					<li><%= link_to 'Emprendimientos', developments_path, class: nav_class('developments') %></li>
-					<li><%= link_to 'Comprar', buy_path, class: nav_class('buy') %></li>
-					<li><%= link_to 'Alquilar', rent_path, class: nav_class('rent') %></li>
-					<li><%= link_to 'Empresas amigas', friends_path, class: nav_class('friends') %></li>
-					<li><%= link_to 'La Empresa', about_path, class: nav_class('about') %></li>
-					<li><%= link_to 'Contacto', contact_path, class: nav_class('contact') %></li>
-				</ul>
+				<%= render 'partials/navigation', format: :footer %>
 			</div>
 			<div class="col-xs-3">
 				<h4>Contacto</h4>
@@ -78,7 +69,7 @@
 	<div class="footer-legend">
 		<p>
 			2016 - Beigel Bienes Raices. Todos los derechos reservados. &nbsp; &nbsp; &nbsp;
-			Powered by <%= link_to 'http://vertigodesign.com.ar' do %>
+			Powered by <%= link_to 'http://vertigodesign.com.ar', target: '_blank' do %>
 				<%= image_tag 'logo-vertigo.png', class: 'inline' %>
 			<% end %>
 		</p>

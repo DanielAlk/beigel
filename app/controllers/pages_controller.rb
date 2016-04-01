@@ -59,7 +59,7 @@ class PagesController < ApplicationController
 	  		{ cover: 'ventures-6.jpg', neighborhood: 'San Telmo' },
 	  		{ cover: 'ventures-7.jpg', neighborhood: 'Belgrano' },
 	  		{ cover: 'ventures-8.jpg', neighborhood: 'La Boca' }
-	  	]
+	  	].shuffle
 	  end
 
 	  def set_developments
@@ -80,7 +80,7 @@ class PagesController < ApplicationController
 	  		{ cover: 'ventures-14.jpg', neighborhood: 'San Telmo' },
 	  		{ cover: 'ventures-15.jpg', neighborhood: 'Belgrano' },
 	  		{ cover: 'ventures-16.jpg', neighborhood: 'La Boca' }
-	  	]
+	  	].shuffle
 	  end
 
 	  def set_properties_for_buy
@@ -89,7 +89,7 @@ class PagesController < ApplicationController
 	  		{ cover: 'card-image-2.jpg', neighborhood: 'Villa Urquiza', price: '1808694' },
 	  		{ cover: 'card-image-3.jpg', neighborhood: 'San Telmo', price: '2029176' },
 	  		{ cover: 'card-image-4.jpg', neighborhood: 'Cañitas', price: '1718910' }
-	  	]
+	  	].shuffle
 	  end
 
 	  def set_properties_for_rent
@@ -98,7 +98,7 @@ class PagesController < ApplicationController
 	  		{ cover: 'card-image-2.jpg', neighborhood: 'Villa Urquiza', price: '7000' },
 	  		{ cover: 'card-image-3.jpg', neighborhood: 'San Telmo', price: '8000' },
 	  		{ cover: 'card-image-4.jpg', neighborhood: 'Cañitas', price: '9000' }
-	  	]
+	  	].shuffle
 	  end
 
 end

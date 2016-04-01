@@ -9,29 +9,7 @@
 			<%= link_to '4553-1700', 'tel:+541145531700', class: 'brand-tel' %>
 		</div>
 		<div class="navigation">
-			<nav role="navigation">
-				<ul class="list-inline">
-					<li><%= link_to 'Servicios', services_path, class: nav_class(['services', 'assessments', 'investments']) %></li>
-					<li><%= link_to 'Emprendimientos', developments_path, class: nav_class('developments') %></li>
-					<li><%= link_to 'Comprar', buy_path, class: nav_class('buy') %></li>
-					<li><%= link_to 'Alquilar', rent_path, class: nav_class('rent') %></li>
-				</ul>
-				<ul class="list-inline">
-					<li><%= link_to 'Empresas amigas', friends_path, class: nav_class('friends') %></li>
-					<li><%= link_to 'La Empresa', about_path, class: nav_class('about') %></li>
-					<li>
-						<%= link_to 'Contacto', contact_path, class: nav_class('contact') %>
-						<span class="social-links">
-							<%= link_to 'mailto:info@beigel.com.ar' do %>
-								<i class="fa fa-envelope"></i>
-							<% end %>
-							<%= link_to 'https://www.facebook.com/BEIGEL-Bienes-Raices-18748629592/?fref=ts', target: '_blank' do %>
-								<i class="fa fa-facebook"></i>
-							<% end %>
-						</span>
-					</li>
-				</ul>
-			</nav>
+			<%= render 'partials/navigation', format: :header %>
 		</div>
 	</div>
 </header>
