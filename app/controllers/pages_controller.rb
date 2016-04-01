@@ -26,6 +26,15 @@ class PagesController < ApplicationController
   def contact
   end
 
+  def services
+  end
+
+  def assessments
+  end
+
+  def investments
+  end
+
   private
 
 	  def set_slider_items
@@ -37,7 +46,7 @@ class PagesController < ApplicationController
 	  		{ cover: 'main-image-5.jpg', type: 'PH 3 Ambientes', address: 'Colombres 3426' },
 	  		{ cover: 'main-image-6.jpg', type: 'CASA 5 Ambientes', address: 'Chivilcoy 8762' },
 	  		{ cover: 'main-image-7.jpg', type: 'Emprendimiento', address: 'Cramer 3461' }
-	  	]
+	  	].shuffle
 	  end
 
 	  def set_developments_limited

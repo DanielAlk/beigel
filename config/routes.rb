@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'empresas-amigas' => 'pages#friends', as: :friends
   get 'la-empresa' => 'pages#about', as: :about
   get 'contacto' => 'pages#contact', as: :contact
+  get 'servicios' => 'pages#services', as: :services
+  get 'servicios/tasaciones' => 'pages#assessments', as: :assessments
+  get 'servicios/inversiones' => 'pages#investments', as: :investments
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

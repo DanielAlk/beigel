@@ -12,7 +12,7 @@
 			<div class="col-xs-3">
 				<ul class="list-unstyled footer-navigation">
 					<li><%= link_to 'Home', root_path, class: nav_class('home') %></li>
-					<li><%= link_to 'Servicios', nil, class: nav_class('services') %></li>
+					<li><%= link_to 'Servicios', services_path, class: nav_class(['services', 'assessments', 'investments']) %></li>
 					<li><%= link_to 'Emprendimientos', developments_path, class: nav_class('developments') %></li>
 					<li><%= link_to 'Comprar', buy_path, class: nav_class('buy') %></li>
 					<li><%= link_to 'Alquilar', rent_path, class: nav_class('rent') %></li>

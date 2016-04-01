@@ -1,0 +1,32 @@
+<%= render 'partials/main_slider' %>
+<div class="page-content">
+	<section class="pad-xs-S-70">
+		<div class="container bg-white">
+			<div class="content">
+				<div class="card">
+					<div class="card-image">
+						<%= image_tag 'card-servicios.jpg', class: 'cover' %>
+					</div>
+					<div class="card-body">
+						<h2 class="card-title">Tasaciones</h2>
+						<p class="card-text">
+							Si usted desea pedir una tasación, por favor no dude en contactarse con nosotros telefónicamente a nuestras sucursales:<br>
+							<br> 	
+							Av. Alvarez Thomas 1199 (CP 1427)<br>
+							Tel. 4553-1700 y Líneas Rotativas<br>
+							<br><br>
+							También puede hacerlo completando el siguiente formulario:
+						</p>
+					</div>
+				</div>
+				<div class="pad-xs-NS-50 cover" style="background-image: url('<%= asset_path 'contact-bg.jpg' %>')">
+					<div class="row">
+						<div class="col-xs-4 col-xs-offset-4">
+							<%= render 'partials/contact_form' %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

@@ -2,6 +2,8 @@
 	content: " ";display: inline-block;height: $size;width: $size;background-color: $color;border-radius: 50%;position: absolute;left: 0;top: 50%;
 }
 
+textarea.form-control { resize: none; }
+
 .radio-inline { height: 32px; line-height: 32px; position: relative; font-size: .9em; padding-left: 17px;
 	&:before {@include radioBtn(10px, transparent); border: 1px solid #FFF;margin: -5px 0;}
 	&.active:after {@include radioBtn(6px, #fff); margin: -3px 2px;}
