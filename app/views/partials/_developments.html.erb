@@ -1,0 +1,24 @@
+<section class="pad-xs-S-70">
+	<div class="container bg-white">
+		<div class="section-title">
+			<h2>Emprendimientos</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+		</div>
+		<div class="row">
+			<% @developments.each do |development| %>
+				<%= render 'partials/development', development: development %>
+			<% end %>
+		</div>
+		<div class="text-center mar-xs-N-30">
+			<% if params[:action] == 'developments' %>
+				<%= link_to '#' do %>
+					Ver Más &nbsp;<i class="fa fa-arrow-circle-down"></i>
+				<% end %>
+			<% else %>
+				<%= link_to developments_path do %>
+					Ver Más &nbsp;<i class="fa fa-arrow-circle-right"></i>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+</section>

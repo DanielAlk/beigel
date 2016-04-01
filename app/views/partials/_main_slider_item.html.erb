@@ -1,0 +1,10 @@
+<div class="slider-item <%= 'active' if slider_item == @slider_items.first %>" style="background-image:url('<%= asset_path(slider_item[:cover]) %>')">
+	<div class="container">
+		<div class="slider-item-caption">
+			<h5 class="slider-item-subtitle"><%= slider_item[:subtitle] %></h5>
+			<h2 class="slider-item-title"><%= slider_item[:address] %></h2>
+			<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+			<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
+		</div>
+	</div>
+</div>

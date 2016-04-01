@@ -4,75 +4,8 @@
 
 <section class="main-slider" data-slider=".slider-item">
 	<div class="slider-items">
-		<div class="slider-item active" style="background-image:url('<%= asset_path('main-image-1.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">Emprendimiento</h5>
-					<h2 class="slider-item-title">11 de Septiembre 5762</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
-		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-2.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">Emprendimiento</h5>
-					<h2 class="slider-item-title">Alvarez thomas 3321</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
-		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-3.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">PH</h5>
-					<h2 class="slider-item-title">Alcaraz 6734</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
-		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-4.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">Emprendimiento</h5>
-					<h2 class="slider-item-title">Elcano 1278</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
-		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-5.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">PH 3 Ambientes</h5>
-					<h2 class="slider-item-title">Colombres 3426</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
-		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-6.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">CASA 5 Ambientes</h5>
-					<h2 class="slider-item-title">Chivilcoy 8762</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
-		<div class="slider-item" style="background-image:url('<%= asset_path('main-image-7.jpg') %>')">
-			<div class="container">
-				<div class="slider-item-caption">
-					<h5 class="slider-item-subtitle">Emprendimiento</h5>
-					<h2 class="slider-item-title">Cramer 3461</h2>
-					<p class="slider-item-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-					<%= link_to 'Más Info', '#', class: 'btn btn-primary btn-fix' %>
-				</div>
-			</div>
-		</div>
+		<% @slider_items.each do |slider_item| %>
+			<%= render 'partials/main_slider_item', slider_item: slider_item %>
+		<% end %>
 	</div>
 </section>
