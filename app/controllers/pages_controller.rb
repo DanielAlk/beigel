@@ -17,6 +17,9 @@ class PagesController < ApplicationController
   def rent
   end
 
+  def friends
+  end
+
   private
 
 	  def set_slider_items

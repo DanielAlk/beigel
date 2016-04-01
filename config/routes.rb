@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'emprendimientos' => 'pages#developments', as: :developments
   get 'comprar' => 'pages#buy', as: :buy
   get 'alquilar' => 'pages#rent', as: :rent
+  get 'empresas-amigas' => 'pages#friends', as: :friends
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
