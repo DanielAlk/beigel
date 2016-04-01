@@ -20,6 +20,9 @@ class PagesController < ApplicationController
   def friends
   end
 
+  def about
+  end
+
   private
 
 	  def set_slider_items

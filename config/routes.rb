@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'comprar' => 'pages#buy', as: :buy
   get 'alquilar' => 'pages#rent', as: :rent
   get 'empresas-amigas' => 'pages#friends', as: :friends
+  get 'la-empresa' => 'pages#about', as: :about
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
