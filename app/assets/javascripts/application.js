@@ -20,6 +20,6 @@
 //= require tinymce-jquery
 //= require bootstrap-sprockets
 //= require bootstrap-select
-//= require turbolinks
 //= require autonumeric
+//= require turbolinks
 //= require_tree .
