@@ -1,7 +1,27 @@
 section.search-box {
 	>.container { padding-top: 42px; padding-bottom: 42px; }
 	.search-box-submit { position: absolute; right: 40px; top: 0; margin-top: 20px; }
-	form { position: relative; padding-right: 230px; padding-left: 40px; 
-		.form-group+.form-group { margin-bottom: 0; }
+	form { position: relative; padding-right: 230px; padding-left: 40px;
+		@media(min-width: $screen-md-min){
+			.form-group+.form-group { margin-bottom: 0; }
+		}
+		@media(min-width: $screen-sm-min) and (max-width: $screen-sm-max){
+			>.row>div:last-child .form-group { margin-bottom: 0; }
+		}
+		@media(max-width: $screen-xs-max) {
+			>.row>div:last-child .form-group:last-child { margin-bottom: 0; }
+		}
 	}
+}
+
+@media(max-width: $screen-md-max) {
+	section.search-box form { padding-right: 40px; }
+	section.search-box .search-box-submit { position: static; right: auto; top: auto; margin: 20px auto 0; text-align: center; }
+	section.search-box > .container { padding-top: 20px; padding-bottom: 20px; }
+	section.search-box .search-box-submit .btn { padding: 8px 16px; border-radius: 3px; }
+}
+
+@media(max-width: $screen-xs-max) {
+	section.search-box form { padding-left: 10px; padding-right: 10px; }
+	section.search-box .search-box-submit { margin-top: 0; }
 }

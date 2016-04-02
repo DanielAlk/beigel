@@ -8,6 +8,14 @@
 	&:active { -webkit-box-shadow: none; box-shadow: none; }
 }
 
+@mixin transition($property, $duration, $ease-function) {
+	-webkit-transition: $property $duration $ease-function;
+	-moz-transition: $property $duration $ease-function;
+	-ms-transition: $property $duration $ease-function;
+	-o-transition: $property $duration $ease-function;
+	transition: $property $duration $ease-function;
+}
+
 a:hover, a:focus { text-decoration: none; }
 
 .bootstrap-select .btn:focus, a:focus, .btn:focus, .btn:active:focus, .btn.active:focus { outline: none!important; }
@@ -25,11 +33,17 @@ strong .text-link, b .text-link {
 }
 
 img.cover { width: 100%; height: auto; }
+img.cover-inverted { height: 100%; width: auto; }
 section.cover, div.cover { background-size: cover; background-position: center center; }
 
 .clear-both { @include clear-both; }
 .vertical-align { height: 100%; width: 100%; display: table;
 	>.middle { display: table-cell; vertical-align: middle; }
+}
+
+/* SCROLL */
+.scroll-900 { overflow-x: scroll;
+	.scroll-window { min-width: 900px; }
 }
 .scroll-1100 { overflow-x: scroll;
 	.scroll-window { min-width: 1100px; }
@@ -44,6 +58,55 @@ section.cover, div.cover { background-size: cover; background-position: center c
 .stack-10>* { margin-bottom: 10px; }
 .stack-15-i>* { margin-bottom: 15px!important; }
 
+/* MAX */
+.max-xs-330 { max-width: 330px; }
+
+/* DRAWER */
+@mixin drawer($height) { @include transition(height, 200ms, ease-in); overflow: hidden; height: $height;
+	&.closed { height: 0; }
+}
+@media(max-width:$screen-xs-max) {
+	.drawer-xs-285 { @include drawer(285px); }
+}
+
+/* ITEMS */
+@media(max-width:$screen-xs-max) {
+	.items-xs-2>*:nth-child(n+3) { display: none!important; }
+}
+@media(min-width:$screen-sm-min) and (max-width:$screen-sm-max) {
+	.items-sm-4>*:nth-child(n+5) { display: none!important; }
+}
+@media(min-width:$screen-md-min) and (max-width:$screen-md-max) {
+	.items-md-6>*:nth-child(n+7) { display: none!important; }
+}
+
+/* CLEARFIXES */
+.clearfix-xs, .clearfix-sm, .clearfix-md, .clearfix-lg {display: none;}
+@media(max-width: $screen-xs-max) {
+	.clearfix-xs { @include clear-both; display: block; }
+}
+@media(min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+	.clearfix-sm { @include clear-both; display: block; }
+}
+@media(min-width: $screen-md-min) and (max-width: $screen-md-max) {
+	.clearfix-md { @include clear-both; display: block; }
+}
+@media(min-width: $screen-lg-min) {
+	.clearfix-lg { @include clear-both; display: block; }
+}
+
+/* COLS */
+@mixin cols($width) { @include clear-both; margin-left:-10px; margin-right:-10px;
+	>* { width: $width; float: left; padding-left: 10px; padding-right: 10px; }
+}
+
+@media(max-width: $screen-xs-max) {
+	.cols-xs-2 { @include cols(50%); }
+}
+@media(min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+	.cols-sm-2 { @include cols(50%); }
+}
+
 /* PADDINGS */
 .pad-xs-N-20 { padding-top: 20px; }
 .pad-xs-N-50 { padding-top: 50px; }
@@ -56,10 +119,12 @@ section.cover, div.cover { background-size: cover; background-position: center c
 .pad-xs-NS-70 { padding-top: 70px; padding-bottom: 70px; }
 
 /* MARGINS */
+.mar-xs-N-15 { margin-top: 15px; }
 .mar-xs-N-30 { margin-top: 30px; }
 .mar-xs-N-50 { margin-top: 50px; }
 .mar-xs-N-70 { margin-top: 70px; }
 
+.mar-xs-S-15 { margin-bottom: 15px; }
 .mar-xs-S-30 { margin-bottom: 30px; }
 .mar-xs-S-50 { margin-bottom: 50px; }
 .mar-xs-S-70 { margin-bottom: 70px; }

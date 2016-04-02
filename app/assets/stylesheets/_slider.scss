@@ -1,5 +1,5 @@
 /*
-.slider-item { display: none; left: 0; -webkit-transition: left 600ms ease-in; -moz-transition: left 600ms ease-in; -ms-transition: left 600ms ease-in; -o-transition: left 600ms ease-in; transition: left 600ms ease-in; }
+.slider-item { display: none; left: 0; @include transition(left, 600ms, ease-in) }
 .slider-item.active { display: block; }
 */
 .slider-items { overflow: hidden; }

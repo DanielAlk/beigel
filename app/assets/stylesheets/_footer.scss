@@ -22,4 +22,18 @@ footer { background-color: #fafafa; padding: 50px 0 0; color: #7b8696;
 .footer-legend { background-color: #000; color: #fff; text-align: center; font-size: .7em; font-weight: 300; padding: 25px 0; margin-top: 55px;
 	>p { margin: 0; }
 	img.inline { height: 3.2em; margin-left: 5px; }
+	span { margin-right: 10px; }
+	@media(max-width: $screen-xs-max) {
+		span { margin-right: 0; display: block; margin-bottom: 10px; }
+	}
+}
+
+@media(max-width: $screen-xs-max) {
+	footer { text-align: center;
+		.brand { margin: 0 auto; }
+		.row>div:not(:last-child) { margin-bottom: 30px; }
+		.footer-contact { width: 160px; margin: 15px auto;
+			a { padding-left: 0; }
+		}
+	}
 }

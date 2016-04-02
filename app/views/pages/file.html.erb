@@ -14,7 +14,7 @@
 			<div class="content stack-15-i">
 				<div class="card card-compress">
 					<div class="card-image">
-						<%= image_tag 'card-image-2.jpg', class: 'cover' %>
+						<%= image_tag 'card-image-2.jpg' %>
 					</div>
 					<div class="card-body">
 						<h2 class="card-title">La Boca</h2>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="content-wall">
 					<div class="row">
-						<div class="col-xs-7">
+						<div class="col-xs-12 col-md-6 col-lg-7">
 							<h3 class="title">Descripción</h3>
 							<p class="mar-xs-S-50">
 								Puerto pampa es el reciclado del antiguo Frigorifico Pampa situado en el distrito de lasl artes, es un complejo que integra arte-office,vivienda y paseo comercial.<br>
@@ -56,40 +56,42 @@
 									BEIGEL BIENES RAÍCES | <%= link_to '4553-1700', 'tel:+541145531700', class: 'text-link' %>
 								</strong>
 							</p>
-							<%= link_to 'Otros inmuebles similares', '#', class: 'btn btn-primary btn-fix' %>
 						</div>
-						<div class="col-xs-5">
-							<div class="col-xs-6">
-								<h3 class="title">Srevicios</h3>
-								<ul class="list-unstyled">
-									<li>- Agua Corriente.</li>
-									<li>- Internet.</li>
-									<li>- Electricidad.</li>
-									<li>- Pavimento.</li>
-									<li>- Telefono.</li>
-									<li>- Cable.</li>
-									<li>- Seguridad 24Hs.</li>
-								</ul>
-							</div>
-							<div class="col-xs-6">
-								<h3 class="title">Adicionales</h3>
-								<ul class="list-unstyled">
-									<li>- Gimnasio.</li>
-									<li>- Sauna.</li>
-									<li>- Solarium.</li>
-									<li>- SUM.</li>
-									<li>- Seguridad.</li>
-									<li>- Apto mascotas.</li>
-									<li>- Apto profesional.</li>
-									<li>- Piscina.</li>
-									<li>- Cochera subterránea.</li>
-									<li>- Public Laundry.</li>
-								</ul>
+						<div class="col-xs-12 col-md-6 col-lg-5">
+							<div class="row">
+								<div class="col-sm-6">
+									<h3 class="title">Srevicios</h3>
+									<ul class="list-unstyled mar-xs-S-50">
+										<li>- Agua Corriente.</li>
+										<li>- Internet.</li>
+										<li>- Electricidad.</li>
+										<li>- Pavimento.</li>
+										<li>- Telefono.</li>
+										<li>- Cable.</li>
+										<li>- Seguridad 24Hs.</li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<h3 class="title">Adicionales</h3>
+									<ul class="list-unstyled mar-xs-S-50">
+										<li>- Gimnasio.</li>
+										<li>- Sauna.</li>
+										<li>- Solarium.</li>
+										<li>- SUM.</li>
+										<li>- Seguridad.</li>
+										<li>- Apto mascotas.</li>
+										<li>- Apto profesional.</li>
+										<li>- Piscina.</li>
+										<li>- Cochera subterránea.</li>
+										<li>- Public Laundry.</li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
+					<%= link_to 'Otros inmuebles similares', '#', class: 'btn btn-primary btn-fix' %>
 				</div>
-				<div class="scroll-1100">
+				<div class="scroll-900">
 					<div class="scroll-window">
 						<table class="content-table">
 							<thead>
@@ -121,12 +123,12 @@
 				</div>
 				<div class="content-wall-20">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-sm-6 hidden-xs">
 							<div class="map-xs-300">
 								<div class="map-canvas" id="file-map"></div>
 							</div>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-xs-12 col-sm-6">
 							<div class="map-xs-300">
 								<div class="map-canvas" id="file-street"></div>
 							</div>

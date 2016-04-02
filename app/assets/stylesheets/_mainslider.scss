@@ -7,3 +7,11 @@ section.main-slider { color: #FFF; text-align: center; height: 500px; position: 
 	.slider-item-text { font-size: 1.2em; font-weight: 300; margin: 0 0 40px; }
 	.slider-indicators {position: absolute;width: 100%;bottom: 100px;}
 }
+
+@media(max-width: $screen-xs-max) {
+	section.main-slider { height: 420px;
+		.slider-item-caption { margin-top: 55px; max-width: 350px; margin-left: auto; margin-right: auto; }
+		.slider-item-title { font-size: 30px; }
+		.slider-item-text { font-size: 1em; margin-bottom: 30px; }
+	}
+}

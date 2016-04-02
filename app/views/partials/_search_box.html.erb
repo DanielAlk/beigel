@@ -1,8 +1,8 @@
 <section class="search-box">
 	<div class="container bg-primary">
 		<%= form_tag buy_path, method: :post, role: 'form' do %>
-			<div class="row">
-				<div class="col-xs-4">
+			<div class="row drawer-xs-285 closed" data-handle="#search-box-handle">
+				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
 						<%= select_tag :operation_type, options_for_select([['Comprar',:buy],['Alquilar',:rent]]), title: 'Tipo de operación', class: 'form-control', multiple: true, data: { max_options: 1 } %>
 					</div>
@@ -23,7 +23,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
 						<%= select_tag :property_type, options_for_select([['PH',:ph],['Casa',:house],['Departamento',:apartment]]), class: 'form-control', multiple: true, title: 'Tipo de propiedad' %>
 					</div>
@@ -31,7 +31,8 @@
 						<%= select_tag :rooms, options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]]), class: 'form-control', multiple: true, title: 'Ambientes' %>
 					</div>
 				</div>
-				<div class="col-xs-4">
+				<div class="clearfix-xs clearfix-sm"></div>
+				<div class="cols-sm-2 col-md-4">
 					<div class="form-group">
 						<%= select_tag :neighborhood, options_for_select(['Palermo', 'Colegiales', 'Chacarita']), class: 'form-control', multiple: true, title: 'Barrio' %>
 					</div>
@@ -41,7 +42,7 @@
 				</div>
 			</div>
 			<div class="search-box-submit">
-				<%= submit_tag 'Buscar', class: 'btn btn-default btn-fix' %>
+				<%= submit_tag 'Buscar', class: 'btn btn-default btn-fix', id: 'search-box-handle' %>
 			</div>
 		<% end %>
 	</div>

@@ -5,3 +5,15 @@
 
 .content-wall { background-color: #f3f3f3; padding: 50px 70px; }
 .content-wall-20 { background-color: #f3f3f3; padding: 20px; }
+
+@media(max-width: $screen-md-max) {
+	.content-wall { padding: 50px; }
+}
+
+@media(max-width: $screen-sm-max) {
+	.content-wall { padding: 20px; }
+}
+
+@media(max-width: $screen-xs-max) {
+	.wall { margin: 15px 5px; padding: 15px; }
+}

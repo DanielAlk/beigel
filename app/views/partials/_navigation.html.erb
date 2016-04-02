@@ -1,7 +1,7 @@
 <% format = false unless local_assigns.has_key? :format %>
 
 <nav role="navigation">
-	<ul class="<%= 'list-inline' if format == :header %> <%= 'list-unstyled footer-navigation' if format == :footer %>">
+	<ul class="<%= navigation_ul_class format %>">
 		<% if format == :footer %>
 			<li><%= link_to 'Home', root_path, class: nav_class(:home) %></li>
 		<% end %>

@@ -4,11 +4,24 @@
 .tile-title { margin: 0 0 15px; text-transform: uppercase; font-weight: 800; font-size: 22px; }
 .tile-text { color: #97a6b7; margin-bottom: 20px; }
 
+a.tile{ @include block-link; }
+
+@media(min-width: $screen-sm-min) {
+	.tile-btn { position: absolute; bottom: 0; left: 50%; margin: 25px -85px; }
+}
+
+@media(max-width: $screen-sm-max) {
+	.tile { height: 460px; }
+}
+
+@media(max-width: $screen-xs-max) {
+	.tile, .tile-body { height: auto; }
+	.tile-image { height: 160px; }
+}
+
 .tile-sm { color: inherit; height: 320px; margin-bottom: 20px;
 	.tile-body { padding: 17px 10px; height: 40%; }
 	.tile-title { font-size: 20px; margin-bottom: 10px; }
 	.tile-text { margin-bottom: 0; font-weight: 300; }
 	.tile-image { height: 60%; }
 }
-
-a.tile{ @include block-link; }

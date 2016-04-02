@@ -1,5 +1,8 @@
 .page-content { margin-top: -85px; position: relative; }
 .content { padding: 30px; margin: 0 -10px; }
+@media(max-width: $screen-xs-max) {
+	.content { padding: 10px; }
+}
 
 .btn-fix { min-width: 170px; padding: 10px 20px; }
 .btn-fix.btn-sm { min-width: 105px; padding: 8px 16px; border-radius: 3px; }
@@ -13,6 +16,12 @@
 	img { max-width: 225px; max-height: 85px; height: auto; width: auto; }
 	&.sm img { max-height: 35px; max-width: 150px; }
 }
+@media(max-width: $screen-sm-max) {
+	.partner-logo img { max-width: 170px; max-height: 65px; }
+}
+@media(max-width: $screen-md-max) {
+	.partner-logo img { max-width: 190px; max-height: 70px; }
+}
 
 .contact-map>.map-canvas { height: 400px; }
 
@@ -25,4 +34,7 @@
 		&:before, &:after { content: ' '; display: block; height: 10px; }
 		>tr:hover { background-color: #029351; color: #fff; }
 	}
+}
+@media(max-width: $screen-md-max) {
+	.content-table { font-size: 1em; }
 }

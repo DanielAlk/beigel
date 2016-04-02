@@ -1,15 +1,33 @@
-.card { @include clear-both; position: relative; height: 280px; margin-bottom: 30px; color: #333333; }
-.card-image { float: left; width: 53%; overflow: hidden; height: 100%; }
-.card-body { float: left; width: 47%; background-color: #f3f3f3; height: 100%; padding: 40px; }
+.card { position: relative; margin-bottom: 30px; color: #333333; padding-left: 53%; background-color: #f3f3f3; }
+.card-image { position: absolute; width: 53%; overflow: hidden; height: 100%; left: 0; top: 0; 
+	img { height: 100%; width: auto; }
+}
+.card-body { padding: 40px; }
 .card-title { @extend .title; font-size: 22px; margin-bottom: 10px; }
 .card-text { color: #97a6b7; }
 .card-price { margin: 0 0 40px; font-size: 20px; }
 
 a.card { @include block-link; }
 
-.content .card { height: 272px; }
-
-.card-compress { font-size: .9em; 
+.card-compress { font-size: .9em;
 	.card-body { padding: 25px 40px; }
 	.card-price { margin: 0 0 15px; }
+	@media(max-width: $screen-xs-max) {
+		.card-body { padding: 15px; }
+	}
+}
+
+@media(max-width: $screen-sm-max) {
+	.card { padding-left: 0; }
+	.card-image { position: relative; width: 100%; height: 250px; }
+	.card-image img { width: 100%; height: auto; margin-top: -6%; }
+}
+
+@media(max-width: $screen-xs-max) {
+	.card-image { height: auto; }
+	.card-body { padding: 15px; }
+}
+
+@media(min-width: $screen-md-min) and (max-width: $screen-md-max) {
+	.card-image img { margin-left: -6%; }
 }

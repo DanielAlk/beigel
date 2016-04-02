@@ -1,7 +1,7 @@
 <footer>
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-3">
+			<div class="col-xs-12 col-sm-3">
 				<div class="brand">
 					<%= link_to root_path do %>
 						<%= image_tag 'brand-logo.png', alt: 'Beigel Bienes Raices', class: 'brand-logo' %>
@@ -9,10 +9,10 @@
 					<%= link_to '4553-1700', 'tel:+541145531700', class: 'brand-tel' %>
 				</div>
 			</div>
-			<div class="col-xs-3">
+			<div class="col-xs-12 col-sm-3">
 				<%= render 'partials/navigation', format: :footer %>
 			</div>
-			<div class="col-xs-3">
+			<div class="col-xs-12 col-sm-3">
 				<h4>Contacto</h4>
 				<ul class="list-unstyled footer-contact">
 					<li>
@@ -53,7 +53,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-xs-3">
+			<div class="col-xs-12 col-sm-3">
 				<div class="footer-contact-form">
 					<p>Dejanos tu mail y nos contactaremos para asesorarte.</p>
 					<%= form_tag '', method: :post, role: 'form', class: 'alternative-inputs' do %>
@@ -68,7 +68,7 @@
 	</div>
 	<div class="footer-legend">
 		<p>
-			2016 - Beigel Bienes Raices. Todos los derechos reservados. &nbsp; &nbsp; &nbsp;
+			<span>2016 - Beigel Bienes Raices. Todos los derechos reservados.</span>
 			Powered by <%= link_to 'http://vertigodesign.com.ar', target: '_blank' do %>
 				<%= image_tag 'logo-vertigo.png', class: 'inline' %>
 			<% end %>
