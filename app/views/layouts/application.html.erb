@@ -6,13 +6,15 @@
 </head>
 
 <body>
-	<%= render 'layouts/navigation' %>
-	<div class="page-container">
-		<%= yield %>
-		<%= render 'layouts/footer' %>
+	<div class="body">
+		<%= render 'layouts/navigation' %>
+		<div class="page-container">
+			<%= yield %>
+			<%= render 'layouts/footer' %>
+		</div>
+		<%= render 'modals/generic' %>
+		<%= render 'modals/notice' %>
 	</div>
-	<%= render 'modals/generic' %>
-	<%= render 'modals/notice' %>
 	<script>
 		$(function() {
 			Utils.init();

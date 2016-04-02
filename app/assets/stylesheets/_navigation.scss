@@ -73,7 +73,8 @@ header { position: relative; background-color: #FFF; height: 95px; z-index: 1; }
 	.navigation-menu { display: none; }
 }
 @media(max-width: $screen-md-max) {
-	body { overflow: hidden; 
+	body { 
+		>.body { overflow-x: hidden; }
 		&.navigate .navigation-menu { left: 0; }
 	}
 	.nav-toggler {position: absolute;font-size: 25px;line-height: 0;top: 50%;margin-top: -12.5px;
