@@ -6,12 +6,13 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'pages#home'
   get 'emprendimientos' => 'pages#developments', as: :developments
-  get 'comprar' => 'pages#buy', as: :buy
+  match 'comprar' => 'pages#buy', as: :buy, via: [:get, :post]
   get 'alquilar' => 'pages#rent', as: :rent
   get 'empresas-amigas' => 'pages#friends', as: :friends
   get 'la-empresa' => 'pages#about', as: :about
   get 'contacto' => 'pages#contact', as: :contact
   get 'servicios' => 'pages#services', as: :services
+  get 'ficha' => 'pages#file', as: :file
   get 'servicios/tasaciones' => 'pages#assessments', as: :assessments
   get 'servicios/inversiones' => 'pages#investments', as: :investments
 

@@ -4,6 +4,7 @@ class PagesController < ApplicationController
 	before_action :set_developments, only: :developments
 	before_action :set_properties_for_buy, only: :buy
 	before_action :set_properties_for_rent, only: :rent
+	before_action :set_units, only: :file
 
   def home
   end
@@ -33,6 +34,9 @@ class PagesController < ApplicationController
   end
 
   def investments
+  end
+
+  def file
   end
 
   private
@@ -100,5 +104,22 @@ class PagesController < ApplicationController
 	  		{ cover: 'card-image-4.jpg', neighborhood: 'Cañitas', price: '9000' }
 	  	].shuffle
 	  end
+
+	  def set_units
+	  	@units = [
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 92.00, area: 95.70, garage: 'No', sale_price: 2522898, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 94.16, area: 98.02, garage: 'No', sale_price: 2332313, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 89.41, area: 94.00, garage: 'No', sale_price: 2324889, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 75.41, area: 78.00, garage: 'No', sale_price: 2029176, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 58.59, area: 93.68, garage: 'No', sale_price: 1955504, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 84.68, area: 87.21, garage: 'No', sale_price: 1945850, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 92.00, area: 95.70, garage: 'No', sale_price: 2522898, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 94.16, area: 98.02, garage: 'No', sale_price: 2332313, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 89.41, area: 94.00, garage: 'No', sale_price: 2324889, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 75.41, area: 78.00, garage: 'No', sale_price: 2029176, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 58.59, area: 93.68, garage: 'No', sale_price: 1955504, rent_price: nil },
+	  		{ address: 'Caboto 420', rooms: 3, covered_area: 84.68, area: 87.21, garage: 'No', sale_price: 1945850, rent_price: nil }
+	  	]
+  	end
 
 end

@@ -1,7 +1,9 @@
+<% title = nil unless local_assigns.has_key? :title %>
+
 <section class="pad-xs-NS-50 cover text-white" style="background-image: url('<%= asset_path 'contact-bg.jpg' %>')">
 	<div class="container">
 		<div class="section-title">
-			<h2 class="text-white">Contactese ahora</h2>
+			<h2 class="text-white"><%= title || 'Contactese ahora' %></h2>
 			<p class="text-white">Un profesional responderá su consulta a la brevedad.</p>
 		</div>
 		<div class="row">

@@ -1,0 +1,147 @@
+<% content_for :extra_script do %>
+	<script type="text/javascript">
+		var startMap = function() {
+			Maps.file();
+		};
+	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?callback=startMap"></script>
+<% end %>
+
+<section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
+<div class="page-content">
+	<section>
+		<div class="container bg-white">
+			<div class="content stack-15-i">
+				<div class="card card-compress">
+					<div class="card-image">
+						<%= image_tag 'card-image-2.jpg', class: 'cover' %>
+					</div>
+					<div class="card-body">
+						<h2 class="card-title">La Boca</h2>
+						<p class="card-text">
+							PUERTO PAMPA, Caboto 420.| Boca | Departamentos, Oficinas, Locales y Venta Puerto Pampa es un complejo de usos mixtos compuestos por viviendas, oficinas.<br>
+							<br>
+							EXPENSAS: $1<br>
+							SUPERFICIE: 92.00 M2
+						</p>
+						<h3 class="card-price">
+							<strong><big><%= currency 2522898, '$' %></big></strong>
+						</h3>
+						<span class="card-text">
+							Ver publicación en &nbsp;
+							<%= link_to '#', class: 'partner-logo sm' do %>
+								<%= image_tag 'logo-zonaprop-grey-bg.jpg' %>
+							<% end %>
+						</span>
+					</div>
+				</div>
+				<div class="content-wall">
+					<div class="row">
+						<div class="col-xs-7">
+							<h3 class="title">Descripción</h3>
+							<p class="mar-xs-S-50">
+								Puerto pampa es el reciclado del antiguo Frigorifico Pampa situado en el distrito de lasl artes, es un complejo que integra arte-office,vivienda y paseo comercial.<br>
+								<br>
+								Unico en la zona a metros de puerto madero, vias de acceso inmejorables a todos los puntos de la ciudad resultando un sitio excelente como pie a tierra para cualquier ciudadano que sea del interior o de algun cualquier pais vecino.<br>
+								<br>
+								Las unidades son entregadas para terminar por parte del propietario a su gusto y para el fin especifico que fueron adquiridas.<br>
+								<br>
+								<strong>
+									Cocheras Opcionales: $ 436.871<br>
+									<br>
+									BASE CAC ENERO 2016<br>
+									<br>
+									VENDEDOR EN EDIFICIO DE JUEVES A DOMINGO DE 15 A 19 HS.<br>
+									<br>
+									BEIGEL BIENES RAÍCES | <%= link_to '4553-1700', 'tel:+541145531700', class: 'text-link' %>
+								</strong>
+							</p>
+							<%= link_to 'Otros inmuebles similares', '#', class: 'btn btn-primary btn-fix' %>
+						</div>
+						<div class="col-xs-5">
+							<div class="col-xs-6">
+								<h3 class="title">Srevicios</h3>
+								<ul class="list-unstyled">
+									<li>- Agua Corriente.</li>
+									<li>- Internet.</li>
+									<li>- Electricidad.</li>
+									<li>- Pavimento.</li>
+									<li>- Telefono.</li>
+									<li>- Cable.</li>
+									<li>- Seguridad 24Hs.</li>
+								</ul>
+							</div>
+							<div class="col-xs-6">
+								<h3 class="title">Adicionales</h3>
+								<ul class="list-unstyled">
+									<li>- Gimnasio.</li>
+									<li>- Sauna.</li>
+									<li>- Solarium.</li>
+									<li>- SUM.</li>
+									<li>- Seguridad.</li>
+									<li>- Apto mascotas.</li>
+									<li>- Apto profesional.</li>
+									<li>- Piscina.</li>
+									<li>- Cochera subterránea.</li>
+									<li>- Public Laundry.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="scroll-1100">
+					<div class="scroll-window">
+						<table class="content-table">
+							<thead>
+								<tr>
+									<th>Direccion</th>
+									<th>Ambientes</th>
+									<th>Sup. Cubierta</th>
+									<th>Sup. Total</th>
+									<th>Cochera</th>
+									<th>Venta</th>
+									<th>Alquiler</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @units.each do |unit| %>
+									<tr>
+										<td><%= unit[:address] %></td>
+										<td><%= unit[:rooms] %></td>
+										<td><%= unit[:covered_area] %></td>
+										<td><%= unit[:area] %></td>
+										<td><%= unit[:garage] %></td>
+										<td><%= currency unit[:sale_price], '$' %></td>
+										<td><%= currency unit[:rent_price], '$' %></td>
+									</tr>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="content-wall-20">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="map-xs-300">
+								<div class="map-canvas" id="file-map"></div>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="map-xs-300">
+								<div class="map-canvas" id="file-street"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="pad-xs-S-30">
+		<div class="container">
+			<div class="content">
+				<p><small>Toda la información comercial, descripción, precios, planos, imágenes, medidas y superficies que se proporcionan en esta web se basa en información que consideramos fiable. No podemos asegurar que sea exacta, ni completa, representa material preliminar al solo efecto informativo e ilustrativo de las características del inmueble, pudiendo estar sujeta a errores, omisiones y cambios, incluyendo el precio o la retirada de oferta sin previo aviso.</small></p>
+			</div>
+		</div>
+	</section>
+	<%= render 'partials/contact', title: '¿querés saber más sobre esta propiedad?' %>
+</div>

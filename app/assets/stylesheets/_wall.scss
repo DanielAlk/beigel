@@ -1,4 +1,7 @@
 .wall { background-color: #f3f3f3; padding: 50px 70px; margin: 30px 20px; color: #97a6b7;
-	p:not(:last-child) { margin: 0 0 60px; }
+	>p:not(:last-child) { margin: 0 0 60px; }
 }
 .wall-title { text-transform: uppercase; letter-spacing: 5px; color: #7b8696; font-size: 18px; margin: 0 0 40px; font-weight: 600; }
+
+.content-wall { background-color: #f3f3f3; padding: 50px 70px; }
+.content-wall-20 { background-color: #f3f3f3; padding: 20px; }
