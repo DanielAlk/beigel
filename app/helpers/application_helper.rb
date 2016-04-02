@@ -5,10 +5,28 @@ module ApplicationHelper
 
 	def head_title
 		case params['action']
-		when 'home'
-			'Beigel'
+		when 'developments'
+			'Emprendimientos | Beigel Bienes Raices'
+		when 'buy'
+			'Comprar | Beigel Bienes Raices'
+		when 'rent'
+			'Alquilar | Beigel Bienes Raices'
+		when 'friends'
+			'Empresas amigas | Beigel Bienes Raices'
+		when 'about'
+			'La Empresa | Beigel Bienes Raices'
+		when 'contact'
+			'Contacto | Beigel Bienes Raices'
+		when 'services'
+			'Servicios | Beigel Bienes Raices'
+		when 'assessments'
+			'Tasaciones | Beigel Bienes Raices'
+		when 'investments'
+			'Inversiones | Beigel Bienes Raices'
+		when 'file'
+			'Ficha Técnica | Beigel Bienes Raices'
 		else
-			'Beigel'
+			'Beigel Bienes Raices'
 		end
 	end
 
