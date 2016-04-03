@@ -32,23 +32,26 @@ Drawer.extension = function() {
 			if ($(e.target).parents().is($drawer)) return;
 			close();
 		};
-		if ($toggler.length) $toggler.click(function(e) {
+		var toggleClick = function(e) {
 			if (!is_media()) return;
 			e.preventDefault();
 			e.stopPropagation();
 			if ($drawer.hasClass('closed')) open();
 			else close();
-		});
-		if ($handle.length) $handle.click(function(e) {
+		};
+		var handleClick = function(e) {
 			if (!is_media()) return;
 			e.stopPropagation();
 			if ($drawer.hasClass('closed')) {
 				e.preventDefault();
 				open();
 			};
-		});
-		$drawer.on('transitionend', function(e) {
+		};
+		var onTransitionEnd = function(e) {
 			if (!$drawer.hasClass('closed')) $drawer.css('overflow', 'visible');
-		});
+		};
+		if ($toggler.length) $toggler.click(toggleClick);
+		if ($handle.length) $handle.click(handleClick);
+		$drawer.on('transitionend', onTransitionEnd);
 	});
 };
