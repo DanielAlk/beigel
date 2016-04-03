@@ -1,3 +1,7 @@
+$(function() {
+	$.fn.slider = Slider.extension;
+});
+
 var Slider = {};
 
 Slider.extension = function() {
@@ -62,7 +66,3 @@ Slider.extension = function() {
 		init();
 	});
 };
-
-$(function() {
-	$.fn.slider = Slider.extension;
-});
