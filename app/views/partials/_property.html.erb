@@ -1,6 +1,18 @@
 <%= link_to file_path, class: 'card' do %>
-	<div class="card-image">
-		<%= image_tag property[:cover] %>
+	<div class="card-gallery">
+		<div class="gallery-items">
+			<% @properties.shuffle.each_with_index do |p, i| %>
+				<div class="<%= 'active' if i == 0 %>">
+					<%= image_tag p[:cover] %>
+				</div>
+			<% end %>
+		</div>
+		<div class="gallery-left">
+			<i class="fa fa-chevron-left"></i>
+		</div>
+		<div class="gallery-right">
+			<i class="fa fa-chevron-right"></i>
+		</div>
 	</div>
 	<div class="card-body">
 		<h2 class="card-title"><%= property[:neighborhood] %></h2>

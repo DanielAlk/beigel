@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 	before_action :set_slider_items
 	before_action :set_developments_limited, only: :home
 	before_action :set_developments, only: :developments
-	before_action :set_properties_for_buy, only: :buy
+	before_action :set_properties_for_buy, only: [:buy, :file]
 	before_action :set_properties_for_rent, only: :rent
 	before_action :set_units, only: :file
 
