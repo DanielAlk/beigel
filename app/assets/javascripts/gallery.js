@@ -43,7 +43,7 @@ Gallery.extension = function() {
 		};
 		$right.click(next);
 		$left.click(prev);
-		$gallery.on('transitionend', onTransitionEnd);
+		$items.on('transitionend', onTransitionEnd);
 	});
 };
 
