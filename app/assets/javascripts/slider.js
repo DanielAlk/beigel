@@ -1,8 +1,8 @@
-$(function() {
-	$.fn.slider = Slider.extension;
-});
-
 var Slider = {};
+
+Slider.load = function() {
+	$.fn.slider = Slider.extension;
+};
 
 Slider.extension = function() {
 	this.each(function() {
@@ -66,3 +66,5 @@ Slider.extension = function() {
 		init();
 	});
 };
+
+$(Slider.load);

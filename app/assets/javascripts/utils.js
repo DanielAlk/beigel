@@ -1,5 +1,17 @@
 var Utils = {}
 
+Utils.init = function() {
+	Utils.radios();
+	Utils.selectpicker();
+	Utils.autonumeric();
+	Utils.drawer();
+};
+
+Utils.load = function() {
+	Utils.radios.init();
+	Utils.nav();
+};
+
 Utils.message = function(text) {
 	var $modal = $('#modalGeneric');
 	$modal.modal('show').find('p').text(text);
@@ -36,16 +48,14 @@ Utils.nav = function() {
 		var $body = $('body');
 		$body.toggleClass('navigate');
 	});
+	$(document).on('click', function(e) {
+		var $body = $('body');
+		if (!$body.hasClass('navigate')) return;
+		var $target = $(e.target).add($(e.target).parents());
+		var $cancel = $('#nav-toggler, .navigation-menu');
+		if ($target.is($cancel)) return;
+		$body.removeClass('navigate');
+	});
 };
 
-Utils.init = function() {
-	Utils.radios();
-	Utils.selectpicker();
-	Utils.autonumeric();
-	Utils.drawer();
-};
-
-$(function() {
-	Utils.radios.init();
-	Utils.nav();
-});
+$(Utils.load);

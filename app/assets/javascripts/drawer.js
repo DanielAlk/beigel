@@ -1,8 +1,8 @@
-$(function() {
-	$.fn.drawer = Drawer.extension;
-});
-
 var Drawer = {};
+
+Drawer.load = function() {
+	$.fn.drawer = Drawer.extension;
+};
 
 Drawer.extension = function() {
 	this.each(function() {
@@ -29,7 +29,8 @@ Drawer.extension = function() {
 			$(document).on('click', documentClick);
 		};
 		var documentClick = function(e) {
-			if ($(e.target).parents().is($drawer)) return;
+			var $target = $(e.target).add($(e.target).parents());
+			if ($target.is($drawer)) return;
 			close();
 		};
 		var toggleClick = function(e) {
@@ -55,3 +56,5 @@ Drawer.extension = function() {
 		$drawer.on('transitionend', onTransitionEnd);
 	});
 };
+
+$(Drawer.load);
