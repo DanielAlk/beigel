@@ -6,28 +6,28 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
-				<div class="tile">
+				<%= link_to investments_path, class: 'tile' do %>
 					<div class="tile-image">
 						<%= image_tag 'tile-inversiones.jpg', class: 'cover-inverted' %>
 					</div>
 					<div class="tile-body">
 						<h2 class="tile-title">Inversiones</h2>
 						<p class="tile-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut .</p>
-						<%= link_to 'Consultar', investments_path, class: 'btn btn-primary btn-fix tile-btn' %>
+						<span class="btn btn-primary btn-fix tile-btn">Consultar</span>
 					</div>
-				</div>
+				<% end %>
 			</div>
 			<div class="col-xs-12 col-sm-6">
-				<div class="tile">
+				<%= link_to assessments_path, class: 'tile' do %>
 					<div class="tile-image">
 						<%= image_tag 'tile-tasaciones.jpg', class: 'cover-inverted' %>
 					</div>
 					<div class="tile-body">
 						<h2 class="tile-title">Tasaciones</h2>
 						<p class="tile-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-						<%= link_to 'Solicitar', assessments_path, class: 'btn btn-primary btn-fix tile-btn' %>
+						<span class="btn btn-primary btn-fix tile-btn">Solicitar</span>
 					</div>
-				</div>
+				<% end %>
 			</div>
 		</div>
 	</div>

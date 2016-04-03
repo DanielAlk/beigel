@@ -1,4 +1,4 @@
-<div class="card">
+<%= link_to file_path, class: 'card' do %>
 	<div class="card-image">
 		<%= image_tag property[:cover] %>
 	</div>
@@ -6,6 +6,6 @@
 		<h2 class="card-title"><%= property[:neighborhood] %></h2>
 		<p class="card-text">PUERTO PAMPA, Caboto 420.| Boca | Departamentos, Oficinas, Locales y Venta Puerto Pampa es un complejo de usos mixtos compuestos por viviendas, oficinas.</p>
 		<h3 class="card-price"><%= currency property[:price], '$' %></h3>
-		<%= link_to 'Ver Ficha', file_path, class: 'btn btn-primary btn-fix' %>
+		<span class="btn btn-primary btn-fix">Ver Ficha</span>
 	</div>
-</div>
+<% end %>
