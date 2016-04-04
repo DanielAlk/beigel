@@ -1,5 +1,6 @@
 <% content_for :extra_js do %>
-	$('.card-gallery').gallery();
+	$('.card-gallery').gallery({ toggle: '.fullscreen-gallery' });
+	$('.fullscreen-gallery').gallery({ fullscreen: true });
 <% end %>
 
 <% content_for :extra_script do %>
@@ -12,29 +13,13 @@
 <% end %>
 
 <section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
+<%= render 'partials/gallery', gallery_class: 'fullscreen-gallery', images: @properties.shuffle, fullscreen: true %>
 <div class="page-content">
 	<section>
 		<div class="container bg-white">
 			<div class="content stack-15-i">
 				<div class="card card-compress">
-					<div class="card-gallery">
-						<div class="gallery-items">
-							<% @properties.shuffle.each_with_index do |p, i| %>
-								<div class="<%= 'active' if i == 0 %>">
-									<%= image_tag p[:cover] %>
-								</div>
-							<% end %>
-						</div>
-						<div class="gallery-left">
-							<i class="fa fa-chevron-left"></i>
-						</div>
-						<div class="gallery-right">
-							<i class="fa fa-chevron-right"></i>
-						</div>
-						<!--div class="gallery-toggle">
-							<i class="fa fa-arrows-alt"></i>
-						</div-->
-					</div>
+					<%= render 'partials/gallery', gallery_class: 'card-gallery', images: @properties.shuffle, toggle: true %>
 					<div class="card-body">
 						<h2 class="card-title">La Boca</h2>
 						<p class="card-text">

@@ -1,0 +1,36 @@
+<% toggle = false unless local_assigns.has_key? :toggle %>
+<% fullscreen = false unless local_assigns.has_key? :fullscreen %>
+
+<div class="<%= gallery_class %>">
+	<div class="gallery-caption">
+		<div class="gallery-items">
+			<% images.each_with_index do |image, i| %>
+				<%  if i == 0 %>
+					<div class="active">
+						<%= image_tag image[:cover] %>
+					</div>
+				<% else %>
+					<div><%= image_tag '', data: { src: asset_path(image[:cover]) } %></div>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="gallery-loader">
+			<i class="fa fa-spinner fa-spin"></i>
+		</div>
+	</div>
+	<div class="gallery-left">
+		<i class="fa fa-chevron-left"></i>
+	</div>
+	<div class="gallery-right">
+		<i class="fa fa-chevron-right"></i>
+	</div>
+	<% if toggle %>
+		<div class="gallery-toggle">
+			<i class="fa fa-arrows-alt"></i>
+		</div>
+	<% elsif fullscreen %>
+		<div class="gallery-toggle">
+			<i class="fa fa-times"></i>
+		</div>
+	<% end %>
+</div>
