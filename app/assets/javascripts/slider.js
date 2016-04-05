@@ -42,6 +42,11 @@ Slider.extension = function() {
 			var $next = $active.is($items.last()) ? $items.first() : $active.next();
 			goto($next);
 		};
+		var prev = function() {
+			var $active = $items.filter('.active');
+			var $prev = $active.is($items.first()) ? $items.last() : $active.prev();
+			goto($prev);
+		};
 		var clickHandler = function(e) {
 			e.preventDefault();
 			var $this = $(this);
@@ -61,6 +66,8 @@ Slider.extension = function() {
 		var init = function() {
 			createIndicators();
 			$slider.hover(hoverIn, hoverOut);
+			$slider.swiperight(prev);
+			$slider.swipeleft(next);
 			setTimer();
 		};
 		init();

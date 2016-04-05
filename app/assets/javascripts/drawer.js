@@ -51,9 +51,12 @@ Drawer.extension = function() {
 		var onTransitionEnd = function(e) {
 			if (!$drawer.hasClass('closed')) $drawer.css('overflow', 'visible');
 		};
-		if ($toggler.length) $toggler.click(toggleClick);
-		if ($handle.length) $handle.click(handleClick);
-		$drawer.on('transitionend', onTransitionEnd);
+		var init = function() {
+			if ($toggler.length) $toggler.click(toggleClick);
+			if ($handle.length) $handle.click(handleClick);
+			$drawer.on('transitionend', onTransitionEnd);
+		};
+		init();
 	});
 };
 

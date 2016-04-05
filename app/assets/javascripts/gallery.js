@@ -42,11 +42,10 @@ Gallery.extension = function(options) {
 				$img.css('margin-top', containerHeight/2 - $img.height()/2);
 			};
 		};
-		var go = function(e) {
-			e.preventDefault();
+		var go = function(dir) {
 			if (is_transitioning) return;
 			is_transitioning = true;
-			var dir = e.data == 'next';
+			dir = dir == 'next';
 			var target_item = ['prev', 'next'];
 			var alternative_target_item = ['last', 'first'];
 			var directions = ['left', 'right'];
@@ -69,6 +68,14 @@ Gallery.extension = function(options) {
 			};
 			if (empty_attr) $img.attr('src', $img.data('src'));
 			else setTimeoutToShow();
+		};
+		var next = function(e) {
+			e.preventDefault();
+			go('next');
+		};
+		var prev = function(e) {
+			e.preventDefault();
+			go('prev');
 		};
 		var setTimeoutToShow = function() {
 			if (is_transitioning) setTimeout(show, 30);
@@ -98,12 +105,17 @@ Gallery.extension = function(options) {
 			$gallery.on('gallery.show', fullscreenGalleryOnShow);
 			$gallery.click(fullscreenGalleryClick);
 		};
-		$images.load(setTimeoutToShow);
-		$right.click('next', go);
-		$left.click('prev', go);
-		$items.on('transitionend', onTransitionEnd);
-		if (options.toggle || options.fullscreen) $toggle.click(toggle);
-		if (options.fullscreen) fullscreenGalleryInit();
+		var init = function() {
+			$images.load(setTimeoutToShow);
+			$right.click(next);
+			$left.click(prev);
+			$gallery.swipeleft(next);
+			$gallery.swiperight(prev);
+			$items.on('transitionend', onTransitionEnd);
+			if (options.toggle || options.fullscreen) $toggle.click(toggle);
+			if (options.fullscreen) fullscreenGalleryInit();
+		};
+		init();
 	});
 };
 
