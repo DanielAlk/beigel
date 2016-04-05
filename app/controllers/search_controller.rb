@@ -24,7 +24,10 @@ class SearchController < ApplicationController
 
 	  def search_params_format
 	  	{
-	  		property_type: 1,
+	  		property_type: {
+	  			id: 1,
+	  			map: { house: :casa, apartment: :departamento },
+  			},
 	  		neighborhood: 2,
 	  		price: {
 	  			currency: 3,
@@ -39,7 +42,10 @@ class SearchController < ApplicationController
   	def build_params_string(params_list, params_format)
   		string = ''
   		params_format.each do |key, param|
-  			if param.respond_to? :each
+  			if param.respond_to? :each and param[:map].present? and params_list[key].present?
+  				string << '/' + params_list[key].map { |p| param[:map][p.to_sym] || p.to_sym }.join('-' + param[:id].to_s + '/')
+  				string << '-' + param[:id].to_s
+  			elsif param.respond_to? :each
   				group_string = ''
 	  			param_is_present = true
 	  			param.each do |k, p|
@@ -63,7 +69,14 @@ class SearchController < ApplicationController
 	  def parse_params_string(params_list, params_format)
 	  	obj = {}
 	  	params_format.each do |key, param|
-	  		if param.respond_to? :each
+	  		if param.respond_to? :each and param[:map].present? && value = params_list[Regexp.new '(\/\w+-' + param[:id].to_s + ')+']
+	  			params_list = params_list.sub(value, '')
+	  			length = param[:id].to_s.length+2
+	  			obj[key] = value.sub('/','').split('/').map do |n|
+	  				n = n[0..-length]
+	  				param[:map].key(n.to_sym) || n.to_sym
+	  			end
+	  		elsif param.respond_to? :each
 	  			group_obj = {}
 	  			param_is_present = true
 	  			param.each do |k, p|
