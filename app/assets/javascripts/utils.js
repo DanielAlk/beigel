@@ -25,7 +25,10 @@ Utils.radios = function() {
 
 Utils.radios.init = function() {
 	$(document).on('change', '.radio-inline>input[type=radio]', function(e) {
-		$('input[type=radio][name='+this.name+']').parent().removeClass('active');
+		var target = this;
+		$('input[type=radio]').filter(function() {
+			return target.name == this.name;
+		}).parent().removeClass('active');
 		$(this).parent().addClass('active');
 	});
 };
