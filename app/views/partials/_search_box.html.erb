@@ -35,7 +35,7 @@
 				<div class="clearfix-xs clearfix-sm"></div>
 				<div class="cols-sm-2 col-md-4">
 					<div class="form-group">
-						<%= select_tag 'search[neighborhood]', options_for_select([['Palermo',:palermo], ['Colegiales',:colegiales], ['Chacarita',:chacarita]], @search_params[:neighborhood]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
+						<%= select_tag 'search[neighborhood]', options_for_select([['Palermo',:palermo], ['Colegiales',:colegiales], ['Chacarita',:chacarita], ['3 de febrero','3-de-febrero']], @search_params[:neighborhood]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
 					</div>
 					<div class="form-group">
 						<%= select_tag 'search[surface]', options_for_select([['Menos de 100', 0], ['101 a 200', 1], ['201 a 300', 2], ['301 o más', 3]], @search_params[:surface]), class: 'form-control', multiple: true, title: 'Superficie', data: { mobile: browser.mobile? } %>

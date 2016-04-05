@@ -31,8 +31,8 @@ class SearchController < ApplicationController
 	  		neighborhood: 2,
 	  		price: {
 	  			currency: 3,
-	  			price_min: { id: 4, digit: true },
-	  			price_max: { id: 5, digit: true }
+	  			price_min: 4,
+	  			price_max: 5
   			},
   			surface: 6,
   			rooms: 7
@@ -50,11 +50,7 @@ class SearchController < ApplicationController
 	  			param_is_present = true
 	  			param.each do |k, p|
 	  				if param_is_present && param_is_present = params_list[k].present?
-	  					if p.respond_to? :each and p[:digit].present?
-	  						group_string << '/' + params_list[k].gsub(/[^\d]/,'') + '-' + p[:id].to_s
-	  					else
-	  						group_string << '/' + params_list[k] + '-' + p.to_s
-	  					end
+	  					group_string << '/' + params_list[k] + '-' + p.to_s
 	  				end
 	  			end
 	  			string << group_string if param_is_present
@@ -63,13 +59,13 @@ class SearchController < ApplicationController
 	  			string << '-' + param.to_s
 	  		end
 	  	end
-	  	return string.sub('/','')
+	  	return string.sub('/','').gsub(/[^\d\w\/-]/, '')
 	  end
 
 	  def parse_params_string(params_list, params_format)
 	  	obj = {}
 	  	params_format.each do |key, param|
-	  		if param.respond_to? :each and param[:id].present? && value = params_list[Regexp.new '(\/\w+-' + param[:id].to_s + ')+']
+	  		if param.respond_to? :each and param[:id].present? && value = params_list[Regexp.new '(\/[\w\d-]+-' + param[:id].to_s + ')+']
 	  			params_list = params_list.sub(value, '')
 	  			length = param[:id].to_s.length+2
 	  			obj[key] = value.sub('/','').split('/').map do |n|
@@ -81,14 +77,10 @@ class SearchController < ApplicationController
 	  			param_is_present = true
 	  			param.each do |k, p|
 	  				if param_is_present
-	  					if p.respond_to? :each and p[:digit].present? && value = params_list[Regexp.new '(\/\d+-' + p[:id].to_s + ')+']
-	  						params_list = params_list.sub(value, '')
-		  					length = p[:id].to_s.length+2
-		  					obj[k] = value.sub('/','').split('/').map { |n| n[0..-length].to_i }
-		  				elsif	value = params_list[Regexp.new '(\/\w+-' + p.to_s + ')']
+	  					if value = params_list[Regexp.new '(\/[\w\d-]+-' + p.to_s + ')']
 		  					params_list = params_list.sub(value, '')
 		  					length = p.to_s.length+2
-		  					obj[k] = value.sub('/','')[0..-length]
+		  					obj[k] = value.sub('/','').split('/').map { |n| n[0..-length] }[0]
 		  				else
 		  					param_is_present = false
 		  				end
@@ -99,7 +91,7 @@ class SearchController < ApplicationController
 		  				obj << o
 		  			end
 		  		end
-		  	elsif value = params_list[Regexp.new '(\/\w+-' + param.to_s + ')+']
+		  	elsif value = params_list[Regexp.new '(\/[\w\d-]+-' + param.to_s + ')+']
 		  		params_list = params_list.sub(value, '')
 	  			length = param.to_s.length+2
 	  			obj[key] = value.sub('/','').split('/').map { |n| n[0..-length] }
