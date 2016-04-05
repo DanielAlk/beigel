@@ -5,9 +5,11 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'pages#home'
+
+  post 'buscar', to: 'pages#search', as: :search
+  get '*search', to: 'pages#results', search: /comprar.*|alquilar.*/, as: :results
+
   get 'emprendimientos' => 'pages#developments', as: :developments
-  match 'comprar' => 'pages#buy', as: :buy, via: [:get, :post]
-  get 'alquilar' => 'pages#rent', as: :rent
   get 'empresas-amigas' => 'pages#friends', as: :friends
   get 'la-empresa' => 'pages#about', as: :about
   get 'contacto' => 'pages#contact', as: :contact

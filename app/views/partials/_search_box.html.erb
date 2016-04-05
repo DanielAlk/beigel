@@ -1,43 +1,44 @@
+<% @search_params = {price_min: nil,price_max: nil,currency: nil,property_type: nil,rooms: nil,neighborhood: nil,surface: nil} unless @search_params.present? %>
 <section class="search-box">
 	<div class="container bg-primary">
-		<%= form_tag buy_path, method: :post, role: 'form' do %>
+		<%= form_tag search_path, method: :post, role: 'form' do %>
 			<div class="row drawer-xs-285 closed" data-handle="#search-box-handle">
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
-						<%= select_tag :operation_type, options_for_select([['Comprar',:buy],['Alquilar',:rent]]), title: 'Tipo de operación', class: 'form-control', multiple: !browser.mobile?, data: { max_options: 1, mobile: browser.mobile? }, prompt: browser.mobile? ? 'Tipo de operación' : nil %>
+						<%= select_tag 'search[operation_type]', options_for_select([['Comprar',:buy],['Alquilar',:rent]], @operation_type), title: 'Tipo de operación', class: 'form-control', multiple: !browser.mobile?, data: { max_options: 1, mobile: browser.mobile? }, prompt: browser.mobile? ? 'Tipo de operación' : nil %>
 					</div>
 					<div class="form-group row">
 						<div class="col-xs-4">
-							<%= text_field_tag :price_min, nil, class: 'form-control autonumeric', placeholder: 'Desde' %>
+							<%= text_field_tag 'search[price_min]', @search_params[:price_min], class: 'form-control autonumeric', placeholder: 'Desde' %>
 						</div>
 						<div class="col-xs-4">
-							<%= text_field_tag :price_max, nil, class: 'form-control autonumeric', placeholder: 'Hasta' %>
+							<%= text_field_tag 'search[price_max]', @search_params[:price_max], class: 'form-control autonumeric', placeholder: 'Hasta' %>
 						</div>
 						<div class="col-xs-4">
 							<label class="radio-inline">
-								<%= radio_button_tag :currency, :ars, true %> $
+								<%= radio_button_tag 'search[currency]', :ars, @search_params[:currency].nil? || @search_params[:currency] == 'ars' %> $
 							</label>
 							<label class="radio-inline">
-								<%= radio_button_tag :currency, :usd %> u$s
+								<%= radio_button_tag 'search[currency]', :usd, @search_params[:currency] == 'usd' %> u$s
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
-						<%= select_tag :property_type, options_for_select([['PH',:ph],['Casa',:house],['Departamento',:apartment]]), class: 'form-control', multiple: true, title: 'Tipo de propiedad', data: { mobile: browser.mobile? } %>
+						<%= select_tag 'search[property_type]', options_for_select([['PH',:ph],['Casa',:casa],['Departamento',:departamento]], @search_params[:property_type]), class: 'form-control', multiple: true, title: 'Tipo de propiedad', data: { mobile: browser.mobile? } %>
 					</div>
 					<div class="form-group">
-						<%= select_tag :rooms, options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]]), class: 'form-control', multiple: true, title: 'Ambientes', data: { mobile: browser.mobile? } %>
+						<%= select_tag 'search[rooms]', options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]], @search_params[:rooms]), class: 'form-control', multiple: true, title: 'Ambientes', data: { mobile: browser.mobile? } %>
 					</div>
 				</div>
 				<div class="clearfix-xs clearfix-sm"></div>
 				<div class="cols-sm-2 col-md-4">
 					<div class="form-group">
-						<%= select_tag :neighborhood, options_for_select(['Palermo', 'Colegiales', 'Chacarita']), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile? } %>
+						<%= select_tag 'search[neighborhood]', options_for_select([['Palermo',:palermo], ['Colegiales',:colegiales], ['Chacarita',:chacarita]], @search_params[:neighborhood]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
 					</div>
 					<div class="form-group">
-						<%= select_tag :surface, options_for_select(['Menos de 100', '101 a 200', '201 a 300', '301 o más']), class: 'form-control', multiple: true, title: 'Superficie', data: { mobile: browser.mobile? } %>
+						<%= select_tag 'search[surface]', options_for_select([['Menos de 100', 0], ['101 a 200', 1], ['201 a 300', 2], ['301 o más', 3]], @search_params[:surface]), class: 'form-control', multiple: true, title: 'Superficie', data: { mobile: browser.mobile? } %>
 					</div>
 				</div>
 			</div>

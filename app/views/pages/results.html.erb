@@ -2,12 +2,13 @@
 	$('.card-gallery').gallery();
 <% end %>
 
-<%= render 'partials/main_slider' %>
+<section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
 <div class="page-content">
+	<%= render 'partials/search_box' %>
 	<section class="pad-xs-S-70">
 		<div class="container bg-white">
 			<div class="section-title">
-				<h2>Comprar</h2>
+				<h2><%= @operation_type == :buy ? 'Comprar' : 'Alquilar' %></h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
 			</div>
 			<div>

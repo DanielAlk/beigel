@@ -37,12 +37,4 @@ module ApplicationHelper
 	def head_og_image
 		''
 	end
-
-	def nav_class(action = nil)
-		if action.kind_of? Array
-			'active' if action.include? params['action'].to_sym
-		else
-			'active' if action.to_s == params['action']
-		end
-	end
 end

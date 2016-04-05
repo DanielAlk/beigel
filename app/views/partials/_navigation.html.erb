@@ -7,8 +7,8 @@
 		<% end %>
 		<li><%= link_to 'Servicios', services_path, class: nav_class([:services, :assessments, :investments]) %></li>
 		<li><%= link_to 'Emprendimientos', developments_path, class: nav_class(:developments) %></li>
-		<li><%= link_to 'Comprar', buy_path, class: nav_class(:buy) %></li>
-		<li><%= link_to 'Alquilar', rent_path, class: nav_class(:rent) %></li>
+		<li><%= link_to 'Comprar', results_path('comprar'), class: nav_class(:results, { operation_type: :buy }) %></li>
+		<li><%= link_to 'Alquilar', results_path('alquilar'), class: nav_class(:results, { operation_type: :rent }) %></li>
 		<%= '</ul><ul class="list-inline">'.html_safe if format == :header %>
 		<li><%= link_to 'Empresas amigas', friends_path, class: nav_class(:friends) %></li>
 		<li><%= link_to 'La Empresa', about_path, class: nav_class(:about) %></li>
