@@ -28,7 +28,7 @@
 }
 
 
-.fullscreen-gallery { @include gallery; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99; background-color: rgba(0,0,0,0.7); display: none;
+.fullscreen-gallery { @include gallery; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 99; background-color: rgba(0,0,0,0.9);
 	.gallery-items {
 		> div img { width: auto; height: auto; margin: 0;
 			&.tall { width: auto; height: 100%; }
