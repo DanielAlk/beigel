@@ -1,4 +1,4 @@
-@mixin gallery {
+@mixin gallery { font-size: 14px;
 	.gallery-caption { position: relative; height:100%; width:100%; overflow: hidden; }
 	.gallery-items>div {
 		@include transition(left, 250ms, ease-out);
