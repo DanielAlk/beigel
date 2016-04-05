@@ -69,7 +69,7 @@ class SearchController < ApplicationController
 	  def parse_params_string(params_list, params_format)
 	  	obj = {}
 	  	params_format.each do |key, param|
-	  		if param.respond_to? :each and param[:map].present? && value = params_list[Regexp.new '(\/\w+-' + param[:id].to_s + ')+']
+	  		if param.respond_to? :each and param[:id].present? && value = params_list[Regexp.new '(\/\w+-' + param[:id].to_s + ')+']
 	  			params_list = params_list.sub(value, '')
 	  			length = param[:id].to_s.length+2
 	  			obj[key] = value.sub('/','').split('/').map do |n|
