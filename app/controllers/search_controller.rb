@@ -42,7 +42,7 @@ class SearchController < ApplicationController
   	def build_params_string(params_list, params_format)
   		string = ''
   		params_format.each do |key, param|
-  			if param.respond_to? :each and param[:map].present? and params_list[key].present?
+  			if param.respond_to? :each and param[:id].present? and params_list[key].present?
   				string << '/' + params_list[key].map { |p| param[:map][p.to_sym] || p.to_sym }.join('-' + param[:id].to_s + '/')
   				string << '-' + param[:id].to_s
   			elsif param.respond_to? :each
