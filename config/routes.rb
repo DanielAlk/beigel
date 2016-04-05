@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'pages#home'
 
-  post 'buscar', to: 'pages#search', as: :search
-  get '*search', to: 'pages#results', search: /comprar.*|alquilar.*/, as: :results
+  post 'buscar', to: 'search#index', as: :search
+  get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
 
   get 'emprendimientos' => 'pages#developments', as: :developments
   get 'empresas-amigas' => 'pages#friends', as: :friends

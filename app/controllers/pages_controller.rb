@@ -11,47 +11,6 @@ class PagesController < ApplicationController
   def developments
   end
 
-  def search
-  	search_params = params.require(:search)
-  	search = search_params.has_key?(:operation_type) && search_params[:operation_type][0] == 'buy' ? 'comprar' : 'alquilar'
-  	search << '/' + build_params_string(search_params, {
-  		property_type: 1,
-  		neighborhood: 2,
-  		price: {
-  			currency: 3,
-  			price_min: { id: 4, digit: true },
-  			price_max: { id: 5, digit: true }
-  		},
-  		surface: 6,
-  		rooms: 'amb'
-  	})
-
-  	redirect_to results_path(search: search)
-  end
-
-  def results
-  	search_params = params.require(:search)
-  	if operation_type = search_params[/comprar/]
-  		@operation_type = :buy
-  		set_properties_for_buy
-  	elsif operation_type = search_params[/alquilar/]
-  		@operation_type = :rent
-  		set_properties_for_rent
-  	end
-		search_params = search_params.sub(operation_type, '')
-		@search_params = parse_params_string(search_params, {
-			property_type: 1,
-			neighborhood: 2,
-			price: {
-				currency: 3,
-				price_min: { id: 4, digit: true },
-				price_max: { id: 5, digit: true }
-			},
-			surface: 6,
-			rooms: 'amb'
-		})
-  end
-
   def friends
   end
 
