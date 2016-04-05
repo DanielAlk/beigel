@@ -1,19 +1,9 @@
 class SearchController < ApplicationController
+
   def index
   	search_params = params.require(:search)
   	search = search_params.has_key?(:operation_type) && search_params[:operation_type][0] == 'buy' ? 'comprar' : 'alquilar'
-  	search << '/' + build_params_string(search_params, {
-  		property_type: 1,
-  		neighborhood: 2,
-  		price: {
-  			currency: 3,
-  			price_min: { id: 4, digit: true },
-  			price_max: { id: 5, digit: true }
-  		},
-  		surface: 6,
-  		rooms: 'amb'
-  	})
-
+  	search << '/' + build_params_string(search_params, search_params_format)
   	redirect_to results_path(search: search)
   end
 
@@ -27,38 +17,42 @@ class SearchController < ApplicationController
   		set_properties_for_rent
   	end
 		search_params = search_params.sub(operation_type, '')
-		@search_params = parse_params_string(search_params, {
-			property_type: 1,
-			neighborhood: 2,
-			price: {
-				currency: 3,
-				price_min: { id: 4, digit: true },
-				price_max: { id: 5, digit: true }
-			},
-			surface: 6,
-			rooms: 'amb'
-		})
+		@search_params = parse_params_string(search_params, search_params_format)
   end
 
   private
 
-	  def build_params_string(params_list, params_format)
-	  	string = ''
-	  	params_format.each do |key, param|
-	  		if param.respond_to? :each
-	  			group_string = ''
+	  def search_params_format
+	  	{
+	  		property_type: 1,
+	  		neighborhood: 2,
+	  		price: {
+	  			currency: 3,
+	  			price_min: { id: 4, digit: true },
+	  			price_max: { id: 5, digit: true }
+  			},
+  			surface: 6,
+  			rooms: 7
+  		}
+  	end
+
+  	def build_params_string(params_list, params_format)
+  		string = ''
+  		params_format.each do |key, param|
+  			if param.respond_to? :each
+  				group_string = ''
 	  			param_is_present = true
 	  			param.each do |k, p|
 	  				if param_is_present && param_is_present = params_list[k].present?
-		  				if p.respond_to? :each and p[:digit].present?
-		  					group_string << '/' + params_list[k].gsub(/[^\d]/,'') + '-' + p[:id].to_s
-		  				else
-		  					group_string << '/' + params_list[k] + '-' + p.to_s
-		  				end
+	  					if p.respond_to? :each and p[:digit].present?
+	  						group_string << '/' + params_list[k].gsub(/[^\d]/,'') + '-' + p[:id].to_s
+	  					else
+	  						group_string << '/' + params_list[k] + '-' + p.to_s
+	  					end
 	  				end
 	  			end
-					string << group_string if param_is_present
-				elsif params_list[key].present?
+	  			string << group_string if param_is_present
+	  		elsif params_list[key].present?
 	  			string << '/' + params_list[key].join('-' + param.to_s + '/')
 	  			string << '-' + param.to_s
 	  		end
@@ -75,7 +69,7 @@ class SearchController < ApplicationController
 	  			param.each do |k, p|
 	  				if param_is_present
 	  					if p.respond_to? :each and p[:digit].present? && value = params_list[Regexp.new '(\/\d+-' + p[:id].to_s + ')+']
-		  					params_list = params_list.sub(value, '')
+	  						params_list = params_list.sub(value, '')
 		  					length = p[:id].to_s.length+2
 		  					obj[k] = value.sub('/','').split('/').map { |n| n[0..-length].to_i }
 		  				elsif	value = params_list[Regexp.new '(\/\w+-' + p.to_s + ')']
@@ -85,15 +79,15 @@ class SearchController < ApplicationController
 		  				else
 		  					param_is_present = false
 		  				end
-	  				end
-	  			end
-	  			if param_is_present
-	  				group_obj.each do |o|
-	  					obj << o
-	  				end
-	  			end
-				elsif value = params_list[Regexp.new '(\/\w+-' + param.to_s + ')+']
-	  			params_list = params_list.sub(value, '')
+		  			end
+		  		end
+		  		if param_is_present
+		  			group_obj.each do |o|
+		  				obj << o
+		  			end
+		  		end
+		  	elsif value = params_list[Regexp.new '(\/\w+-' + param.to_s + ')+']
+		  		params_list = params_list.sub(value, '')
 	  			length = param.to_s.length+2
 	  			obj[key] = value.sub('/','').split('/').map { |n| n[0..-length] }
 	  		end
@@ -101,7 +95,7 @@ class SearchController < ApplicationController
 	  	return obj
 	  end
 
-  	def set_properties_for_buy
+	  def set_properties_for_buy
   		@properties = [
   			{ cover: 'card-image-1.jpg', neighborhood: 'La Boca', price: '2552898' },
   			{ cover: 'card-image-2.jpg', neighborhood: 'Villa Urquiza', price: '1808694' },
@@ -118,4 +112,5 @@ class SearchController < ApplicationController
   			{ cover: 'card-image-4.jpg', neighborhood: 'Cañitas', price: '9000' }
   		].shuffle
   	end
+
 end
