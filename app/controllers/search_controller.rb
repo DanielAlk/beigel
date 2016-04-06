@@ -2,7 +2,11 @@ class SearchController < ApplicationController
 
   def index
   	search_params = params.require(:search)
-  	search = search_params.has_key?(:operation_type) && search_params[:operation_type][0] == 'buy' ? 'comprar' : 'alquilar'
+  	operation_type = 'rent'
+  	if search_params.has_key?(:operation_type)
+  		operation_type = search_params[:operation_type].respond_to?(:each)? search_params[:operation_type][0] : search_params[:operation_type]
+  	end
+  	search = operation_type == 'buy' ? 'comprar' : 'alquilar'
   	search << '/' + build_params_string(search_params, search_params_format)
   	redirect_to results_path(search: search)
   end
