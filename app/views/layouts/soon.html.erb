@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+	<%= render 'layouts/head' %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+	<div class="body">
+		<header>
+			<div class="container">
+				<div class="nav-toggler"></div>
+				<div class="brand">
+					<h1>
+						<%= link_to root_path do %>
+							<%= image_tag 'brand-logo.png', alt: 'Beigel Bienes Raices', class: 'brand-logo' %>
+						<% end %>
+					</h1>
+				</div>
+				<div class="navigation"></div>
+			</div>
+		</header>
+		<div class="page-container">
+			<div class="page">
+				<section class="pad-xs-S-30">
+					<div class="container pad-xs-NS-50 cover" style="background-image: url('<%= asset_path 'contact-bg.jpg' %>')">
+						<div class="section-title">
+							<h1 class="text-white">Proximamente beigel.com.ar</h1>
+							<h2 class="text-white">Contactese ahora</h2>
+							<p class="text-white">Un profesional responderá su consulta a la brevedad.</p>
+							<br>
+							<p><%= link_to '4553-1700', 'tel:+541145531700', class: 'brand-tel', style: 'background-color:transparent;' %></p>
+						</div>
+					</div>
+				</section>
+				<section class="pad-xs-S-70">
+					<div class="container">
+						<div class="section-title">
+							<h2>Ubicación</h2>
+						</div>
+						<div class="contact-map">
+							<div class="map-canvas" id="contact-map"></div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<footer>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-sm-push-6">
+							<div class="brand">
+								<%= link_to root_path do %>
+									<%= image_tag 'brand-logo.png', alt: 'Beigel Bienes Raices', class: 'brand-logo' %>
+								<% end %>
+								<%= link_to '4553-1700', 'tel:+541145531700', class: 'brand-tel' %>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-sm-pull-6">
+							<h4>Contacto</h4>
+							<ul class="list-unstyled footer-contact">
+								<li>
+									<%= link_to 'tel:+541145531700' do %>
+										<div class="icon">
+											<span class="fa-stack">
+												<i class="fa fa-circle fa-stack-2x"></i>
+												<i class="fa fa-mobile fa-stack-1x fa-inverse"></i>
+											</span>
+										</div>
+										<div><strong>Teléfono</strong></div>
+										<div><span>4553-1700</span></div>
+									<% end %>
+								</li>
+								<li>
+									<%= link_to 'mailto:info@beigel.com.ar' do %>
+										<div class="icon">
+											<span class="fa-stack">
+												<i class="fa fa-circle fa-stack-2x"></i>
+												<i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+											</span>
+										</div>
+										<div><strong>Email</strong></div>
+										<div><span>info@beigel.com.ar</span></div>
+									<% end %>
+								</li>
+								<li>
+									<%= link_to 'https://www.facebook.com/BEIGEL-Bienes-Raices-18748629592/?fref=ts', target: '_blank' do %>
+										<div class="icon">
+											<span class="fa-stack">
+												<i class="fa fa-circle fa-stack-2x"></i>
+												<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+											</span>
+										</div>
+										<div><strong>Facebook</strong></div>
+										<div><span>Beigel Bienes Raices</span></div>
+									<% end %>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="footer-legend">
+					<p>
+						<span>2016 - Beigel Bienes Raices. Todos los derechos reservados.</span>
+						Powered by <%= link_to 'http://vertigodesign.com.ar', target: '_blank' do %>
+							<%= image_tag 'logo-vertigo.png', class: 'inline' %>
+						<% end %>
+					</p>
+				</div>
+			</footer>
+		</div>
+		<%= render 'modals/generic' %>
+		<%= render 'modals/notice' %>
+	</div>
+	<script>
+		$(function() {
+			Utils.init();
+			<%= yield :extra_js if content_for? :extra_js %>
+		});
+	</script>
+	<script type="text/javascript">
+		var startMap = function() {
+			Maps.contact();
+		};
+	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?callback=startMap"></script>
+</body>
+</html>
