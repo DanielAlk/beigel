@@ -111,7 +111,7 @@ header { position: relative; background-color: #FFF; height: 95px; z-index: 1; }
 
 /* ADMIN NAVIGATION */
 body.admin { padding-top: 30px; }
-.admin-nav {
+.admin-navigation {
 	@include clear-both;
 	position: fixed;
 	background-color: rgba(0,0,0,0.8);
