@@ -110,7 +110,7 @@ header { position: relative; background-color: #FFF; height: 95px; z-index: 1; }
 }
 
 /* ADMIN NAVIGATION */
-body.admin-nav-present { padding-top: 30px; }
+body.admin { padding-top: 30px; }
 .admin-nav {
 	@include clear-both;
 	position: fixed;

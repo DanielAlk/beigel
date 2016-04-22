@@ -5,7 +5,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body class="<%= 'admin-nav-present' if admin_signed_in? %>">
+<body class="<%= 'admin' if admin_signed_in? %>">
 	<div class="body">
 		<%= render 'layouts/navigation' %>
 		<div class="page-container">
