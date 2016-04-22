@@ -9,7 +9,16 @@
 	<div class="body">
 		<%= render 'layouts/navigation' %>
 		<div class="page-container">
-			<%= yield %>
+			<section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
+			<div class="page-content form-format">
+				<div class="container bg-white pad-xs-NS-50">
+					<div class="row">
+						<div class="col-sm-8 col-sm-offset-2">
+							<%= yield %>
+						</div>
+					</div>
+				</div>
+			</div>
 			<%= render 'layouts/footer' %>
 		</div>
 		<%= render 'modals/generic' %>

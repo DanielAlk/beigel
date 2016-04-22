@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'pages#home'
 
+  devise_for :admins, controllers: { 
+    registrations: 'admins/registrations', 
+    sessions: 'admins/sessions', 
+    passwords: 'admins/passwords'
+  }
+
   post 'buscar', to: 'search#index', as: :search
   get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
 

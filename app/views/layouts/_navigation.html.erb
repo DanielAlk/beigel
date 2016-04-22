@@ -1,3 +1,17 @@
+<% if admin_signed_in? %>
+	<div class="admin-nav">
+		<div>
+			<span>
+				<i class="fa fa-user" aria-hidden="true"></i> &nbsp; <%= current_admin.email %>
+			</span>
+		</div>
+		<div>
+			<%= link_to destroy_admin_session_path, method: :delete do %>
+				<i class="fa fa-sign-out" aria-hidden="true"></i> Salir
+			<% end %>
+		</div>
+	</div>
+<% end %>
 <header>
 	<div class="container">
 		<div class="nav-toggler">

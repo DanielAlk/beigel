@@ -18,3 +18,23 @@ button.btn.dropdown-toggle.form-control.selectpicker { @extend .form-control }
 
 .bootstrap-select.btn-group .btn .filter-option { text-overflow: ellipsis; padding-right: 12px; }
 .bs-actionsbox .btn { border: 1px solid #ccc; }
+
+.form-format form {
+	.field { @extend .form-group;
+		input:not([type="checkbox"]):not([type="radio"]), textarea, select {
+			@extend .form-control;
+			color: #7F8999;
+			background-color: #efefef;
+			border: 1px solid #029351;
+			font-size: 1em;
+			&:focus { border: 1px solid #029351; }
+		}
+	}
+	.actions { margin-bottom: 20px;
+		input { @extend .btn; }
+		input { @extend .btn-sm; }
+		input[type="submit"] { @extend .btn-primary; }
+		input:not([type="submit"]) { @extend .btn-success; }
+	}
+	br { display:none; }
+}
