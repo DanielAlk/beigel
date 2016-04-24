@@ -42,11 +42,11 @@ Rails.application.configure do
   config.i18n.fallbacks = true
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV["WEBAPP_DOMAIN"], port: 3000 }
   config.action_mailer.smtp_settings = {
     address: ENV['NOTIFICATIONS_MAILER_ADDRESS'],
     port: ENV['NOTIFICATIONS_MAILER_PORT'],
-    domain: 'localhost',
+    domain: ENV["WEBAPP_DOMAIN"],
     ssl: true,
     authentication: :login,
     enable_starttls_auto: true,
