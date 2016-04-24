@@ -1,4 +1,8 @@
 module NavigationHelper
+	def path_to_home
+		request.subdomain[/panel/] ? home_path : root_path
+	end
+
 	def navigation_ul_class(format)
 		case format
 		when :header

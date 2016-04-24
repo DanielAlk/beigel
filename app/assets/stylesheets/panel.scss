@@ -6,16 +6,12 @@
 @import "font-awesome";
 @import "main";
 @import "admin_nav";
-@import "navigation";
-@import "footer";
-@import "gallery";
 @import "forms";
-@import "tile";
-@import "card";
-@import "wall";
-@import "display";
-@import "slider";
-@import "mainslider";
 @import "backgrounds";
-@import "searchbox";
 @import "custom";
+
+.container-fluid { @extend .form-format; padding-bottom: 100px;
+	&.sessions, &.registrations { max-width: 600px; padding-top: 15px;
+		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
+	}
+}

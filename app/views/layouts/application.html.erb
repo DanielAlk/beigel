@@ -2,19 +2,22 @@
 <html lang="<%= I18n.locale %>">
 <head>
 	<%= render 'layouts/head' %>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
-<body class="<%= 'admin' if admin_signed_in? %>">
+<body class="<%= 'admin' if request.subdomain[/panel/] %>">
 	<div class="body">
+		<%= render 'layouts/admin_nav' %>
 		<%= render 'layouts/navigation' %>
 		<div class="page-container">
 			<%= yield %>
 			<%= render 'layouts/footer' %>
 		</div>
-		<%= render 'modals/generic' %>
-		<%= render 'modals/notice' %>
 	</div>
+	<%= render 'modals/generic' %>
+	<%= render 'modals/notice' %>
 	<script>
 		$(function() {
 			Utils.init();

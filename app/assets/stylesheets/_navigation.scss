@@ -108,21 +108,3 @@ header { position: relative; background-color: #FFF; height: 95px; z-index: 1; }
 	.page-container { @include transition(left, $nav-duration, ease-in); position: relative; left: 0; margin: 0; }
 	.navigation-menu { left: auto!important; width: 100%; z-index: 0; margin:0; background-color: #f3f3f3;}
 }
-
-/* ADMIN NAVIGATION */
-body.admin { padding-top: 30px; }
-.admin-navigation {
-	@include clear-both;
-	position: fixed;
-	background-color: rgba(0,0,0,0.8);
-	color: #FFF;
-	padding: 5px 10px;
-	width: 100%;
-	z-index:9;
-	top: 0;
-	height: 30px;
-	&>div:first-child { float: left; }
-	&>div:last-child { float: right; }
-	span { color: #ff9c00; }
-	.fa { color: #FFF; }
-}

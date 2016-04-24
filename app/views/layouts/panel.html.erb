@@ -2,31 +2,27 @@
 <html lang="<%= I18n.locale %>">
 <head>
 	<%= render 'layouts/head' %>
+	<%= stylesheet_link_tag    'application_panel', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
-<body class="<%= 'admin' if admin_signed_in? %>">
+<body class="admin">
 	<div class="body">
-		<%= render 'layouts/navigation' %>
+		<%= render 'layouts/admin_nav' %>
 		<div class="page-container">
 			<section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
-			<div class="page-content form-format">
-				<div class="container bg-white pad-xs-NS-50">
-					<div class="row">
-						<div class="col-sm-8 col-sm-offset-2">
-							<%= yield %>
-						</div>
-					</div>
+			<div class="page-content">
+				<div class="container-fluid bg-white <%= controller_name[/sessions|registrations/].to_s %>">
+					<%= yield %>
 				</div>
 			</div>
-			<%= render 'layouts/footer' %>
 		</div>
-		<%= render 'modals/generic' %>
-		<%= render 'modals/notice' %>
 	</div>
+	<%= render 'modals/generic' %>
+	<%= render 'modals/notice' %>
 	<script>
 		$(function() {
-			Utils.init();
 			<%= yield :extra_js if content_for? :extra_js %>
 		});
 	</script>

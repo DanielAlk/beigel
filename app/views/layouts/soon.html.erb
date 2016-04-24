@@ -2,6 +2,8 @@
 <html lang="<%= I18n.locale %>">
 <head>
 	<%= render 'layouts/head' %>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -12,7 +14,7 @@
 				<div class="nav-toggler"></div>
 				<div class="brand">
 					<h1>
-						<%= link_to root_path do %>
+						<%= link_to path_to_home do %>
 							<%= image_tag 'brand-logo.png', alt: 'Beigel Bienes Raices', class: 'brand-logo' %>
 						<% end %>
 					</h1>
@@ -50,7 +52,7 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-sm-push-6">
 							<div class="brand">
-								<%= link_to root_path do %>
+								<%= link_to path_to_home do %>
 									<%= image_tag 'brand-logo.png', alt: 'Beigel Bienes Raices', class: 'brand-logo' %>
 								<% end %>
 								<%= link_to '4553-1700', 'tel:+541145531700', class: 'brand-tel' %>
@@ -109,9 +111,9 @@
 				</div>
 			</footer>
 		</div>
-		<%= render 'modals/generic' %>
-		<%= render 'modals/notice' %>
 	</div>
+	<%= render 'modals/generic' %>
+	<%= render 'modals/notice' %>
 	<script>
 		$(function() {
 			Utils.init();

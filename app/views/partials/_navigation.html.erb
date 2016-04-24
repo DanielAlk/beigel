@@ -3,7 +3,7 @@
 <nav role="navigation">
 	<ul class="<%= navigation_ul_class format %>">
 		<% if format == :footer %>
-			<li><%= link_to 'Home', root_path, class: nav_class(:home) %></li>
+			<li><%= link_to 'Home', path_to_home, class: nav_class(:home) %></li>
 		<% end %>
 		<li><%= link_to 'Servicios', services_path, class: nav_class([:services, :assessments, :investments]) %></li>
 		<li><%= link_to 'Emprendimientos', developments_path, class: nav_class(:developments) %></li>
