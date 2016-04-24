@@ -6,8 +6,13 @@ Rails.application.routes.draw do
       get '/', to: 'pages#soon'
     end
 
-
     constraints subdomain: /stage/ do
+      devise_for :admins, controllers: { 
+        registrations: 'admins/registrations', 
+        sessions: 'admins/sessions', 
+        passwords: 'admins/passwords'
+      }
+
       root 'pages#home'
 
       post 'buscar', to: 'search#index', as: :search
@@ -25,6 +30,14 @@ Rails.application.routes.draw do
 
   else
 
+    constraints subdomain: /panel/ do
+      devise_for :admins, controllers: { 
+        registrations: 'admins/registrations', 
+        sessions: 'admins/sessions', 
+        passwords: 'admins/passwords'
+      }
+    end
+
     root 'pages#home'
 
     post 'buscar', to: 'search#index', as: :search
@@ -38,14 +51,6 @@ Rails.application.routes.draw do
     get 'ficha-tecnica' => 'pages#file', as: :file
     get 'servicios/tasaciones' => 'pages#assessments', as: :assessments
     get 'servicios/inversiones' => 'pages#investments', as: :investments
-
-    constraints subdomain: /panel/ do
-      devise_for :admins, controllers: { 
-        registrations: 'admins/registrations', 
-        sessions: 'admins/sessions', 
-        passwords: 'admins/passwords'
-      }
-    end
 
   end
 
