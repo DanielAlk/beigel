@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 	before_action :set_developments, only: :developments
 	before_action :set_properties_for_buy, only: :file
 	before_action :set_units, only: :file
-	before_action :render_soon
+	layout 'soon', only: :soon
 
   def home
   end
@@ -37,10 +37,6 @@ class PagesController < ApplicationController
   end
 
   private
-
-  	def render_soon
-  		render action: :soon, layout: 'soon' unless request.host[/stage\./]
-  	end
 
 	  def set_slider_items
 	  	@slider_items = [
