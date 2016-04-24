@@ -1,17 +1,31 @@
 Rails.application.routes.draw do
 
-  constraints subdomain: lambda { |sd| !sd[/stage/] } do
-    get '/', to: 'pages#soon'
-  end
+  if Rails.env.production?
 
-  constraints subdomain: /stage/ do
+    constraints subdomain: lambda { |sd| !sd[/stage/] } do
+      get '/', to: 'pages#soon'
+    end
+
+
+    constraints subdomain: /stage/ do
+      root 'pages#home'
+
+      post 'buscar', to: 'search#index', as: :search
+      get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
+
+      get 'emprendimientos' => 'pages#developments', as: :developments
+      get 'empresas-amigas' => 'pages#friends', as: :friends
+      get 'la-empresa' => 'pages#about', as: :about
+      get 'contacto' => 'pages#contact', as: :contact
+      get 'servicios' => 'pages#services', as: :services
+      get 'ficha-tecnica' => 'pages#file', as: :file
+      get 'servicios/tasaciones' => 'pages#assessments', as: :assessments
+      get 'servicios/inversiones' => 'pages#investments', as: :investments
+    end
+
+  else
+
     root 'pages#home'
-
-    devise_for :admins, controllers: { 
-      registrations: 'admins/registrations', 
-      sessions: 'admins/sessions', 
-      passwords: 'admins/passwords'
-    }
 
     post 'buscar', to: 'search#index', as: :search
     get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
@@ -24,6 +38,15 @@ Rails.application.routes.draw do
     get 'ficha-tecnica' => 'pages#file', as: :file
     get 'servicios/tasaciones' => 'pages#assessments', as: :assessments
     get 'servicios/inversiones' => 'pages#investments', as: :investments
+
+    constraints subdomain: /panel/ do
+      devise_for :admins, controllers: { 
+        registrations: 'admins/registrations', 
+        sessions: 'admins/sessions', 
+        passwords: 'admins/passwords'
+      }
+    end
+
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
