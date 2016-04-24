@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  
-  constraints subdomain: lambda { |sd| sd != 'stage' } do
+
+  constraints subdomain: lambda { |sd| !sd[/stage/] } do
     get '/', to: 'pages#soon'
   end
 
-  constraints subdomain: 'stage' do
+  constraints subdomain: /stage/ do
     root 'pages#home'
 
     devise_for :admins, controllers: { 
