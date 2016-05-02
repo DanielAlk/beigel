@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  property_type_id: 
+  age: 1
+  environments: 1
+  garages: 1
+  bathrooms: 1
+  toilettes: 1
+  sale_price: 1
+  sale_currency: 1
+  rent_price: 1
+  rent_currency: 1
+  area_unit: 1
+  constructed_area: 1
+  unconstructed_area: 1
+  zone_id: 
+  address: MyString
+  zip_code: MyString
+  lat: 9.99
+  lng: 9.99
+  slug: MyString
+
+two:
+  title: MyString
+  description: MyText
+  property_type_id: 
+  age: 1
+  environments: 1
+  garages: 1
+  bathrooms: 1
+  toilettes: 1
+  sale_price: 1
+  sale_currency: 1
+  rent_price: 1
+  rent_currency: 1
+  area_unit: 1
+  constructed_area: 1
+  unconstructed_area: 1
+  zone_id: 
+  address: MyString
+  zip_code: MyString
+  lat: 9.99
+  lng: 9.99
+  slug: MyString

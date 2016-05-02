@@ -14,4 +14,7 @@
 	&.sessions, &.registrations, &.passwords { max-width: 600px; padding-top: 15px;
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 	}
+	&.properties { max-width: 900px; padding-top: 15px;
+		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
+	}
 }

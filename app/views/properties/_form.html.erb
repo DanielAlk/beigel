@@ -1,0 +1,116 @@
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title, 'Titulo' %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description, 'Descripción' %><br>
+    <%= f.text_area :description, rows: 4 %>
+  </div>
+  <div class="field">
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.label :property_type_id, 'Tipo de propiedad' %><br>
+        <%= f.select :property_type_id, options_from_collection_for_select(PropertyType.all, :id, :name, @property.property_type_id), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :age, 'Antigüedad' %><br>
+        <%= f.number_field :age %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :environments, 'Ambientes' %><br>
+        <%= f.number_field :environments %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.label :bathrooms, 'Baños' %><br>
+        <%= f.number_field :bathrooms %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :toilettes, 'Toilettes' %><br>
+        <%= f.number_field :toilettes %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :garages, 'Cocheras' %><br>
+        <%= f.number_field :garages %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Precio</h3>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= f.label :sale_currency, '&nbsp'.html_safe %><br>
+        <%= f.select :sale_currency, options_for_select([['u$s', 0], ['$', 1]], @property.sale_currency), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :sale_price, 'Precio de venta' %><br>
+        <%= f.number_field :sale_price %>
+      </div>
+      <div class="col-xs-2">
+        <%= f.label :rent_currency, '&nbsp'.html_safe %><br>
+        <%= f.select :rent_currency, options_for_select([['u$s', 0], ['$', 1]], @property.rent_currency || 1), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :rent_price, 'Precio de alquiler' %><br>
+        <%= f.number_field :rent_price %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Dimensiones</h3>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= f.label :area_unit, '&nbsp'.html_safe %><br>
+        <%= f.select :area_unit, options_for_select([['mt<sup>2</sup>'.html_safe, 0], ['ha', 1]], @property.area_unit), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-5">
+        <%= f.label :constructed_area, 'Sup. cubierta' %><br>
+        <%= f.number_field :constructed_area %>
+      </div>
+      <div class="col-xs-5">
+        <%= f.label :unconstructed_area, 'Sup. descubierta' %><br>
+        <%= f.number_field :unconstructed_area %>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Ubicación</h3>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.label :zone_id, 'Barrio' %><br>
+        <%= f.select :zone_id, options_from_collection_for_select(Zone.all, :id, :name, @property.zone_id), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :address, 'Dirección' %><br>
+        <%= f.text_field :address %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :zip_code, 'Código Postal' %><br>
+        <%= f.text_field :zip_code %>
+      </div>
+    </div>
+  </div>
+  <div class="hidden">
+    <%= f.hidden_field :lat %>
+    <%= f.hidden_field :lng %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

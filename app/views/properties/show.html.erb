@@ -1,0 +1,109 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @property.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @property.description %>
+</p>
+
+<p>
+  <strong>Property type:</strong>
+  <%= @property.type %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @property.age %>
+</p>
+
+<p>
+  <strong>Environments:</strong>
+  <%= @property.environments %>
+</p>
+
+<p>
+  <strong>Garages:</strong>
+  <%= @property.garages %>
+</p>
+
+<p>
+  <strong>Bathrooms:</strong>
+  <%= @property.bathrooms %>
+</p>
+
+<p>
+  <strong>Toilettes:</strong>
+  <%= @property.toilettes %>
+</p>
+
+<p>
+  <strong>Sale price:</strong>
+  <%= @property.sale_price %>
+</p>
+
+<p>
+  <strong>Sale currency:</strong>
+  <%= @property.sale_currency %>
+</p>
+
+<p>
+  <strong>Rent price:</strong>
+  <%= @property.rent_price %>
+</p>
+
+<p>
+  <strong>Rent currency:</strong>
+  <%= @property.rent_currency %>
+</p>
+
+<p>
+  <strong>Area unit:</strong>
+  <%= @property.area_unit %>
+</p>
+
+<p>
+  <strong>Constructed area:</strong>
+  <%= @property.constructed_area %>
+</p>
+
+<p>
+  <strong>Unconstructed area:</strong>
+  <%= @property.unconstructed_area %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @property.zone.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @property.address %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @property.zip_code %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @property.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @property.lng %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @property.slug %>
+</p>
+
+<%= link_to 'Edit', edit_property_path(@property) %> |
+<%= link_to 'Back', properties_path %>

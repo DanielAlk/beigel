@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions', 
       passwords: 'admins/passwords'
     }
+    resources :properties
   end
 
   root 'pages#home'

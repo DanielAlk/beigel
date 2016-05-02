@@ -45,6 +45,8 @@ gem 'bootstrap-select-rails'
 gem 'autonumeric-rails'
 
 group :development, :test do
+	gem 'seed_dump'
+	
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 

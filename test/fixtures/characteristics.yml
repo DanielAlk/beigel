@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  characterizable_id: 
+  classifiable_id: 
   available_characteristic_id: 
   option_value: MyString
 
 two:
-  characterizable_id: 
+  classifiable_id: 
   available_characteristic_id: 
   option_value: MyString

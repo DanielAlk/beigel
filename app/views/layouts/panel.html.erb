@@ -13,7 +13,7 @@
 		<div class="page-container">
 			<section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
 			<div class="page-content">
-				<div class="container-fluid bg-white <%= controller_name[/sessions|registrations|passwords/].to_s %>">
+				<div class="container-fluid bg-white <%= controller_name[/sessions|registrations|passwords|properties/].to_s %>">
 					<%= yield %>
 				</div>
 			</div>
@@ -23,6 +23,7 @@
 	<%= render 'modals/notice' %>
 	<script>
 		$(function() {
+			Utils.selectpicker();
 			<%= yield :extra_js if content_for? :extra_js %>
 		});
 	</script>
