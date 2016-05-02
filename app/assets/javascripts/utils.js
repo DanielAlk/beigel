@@ -34,7 +34,7 @@ Utils.radios.init = function() {
 };
 
 Utils.selectpicker = function() {
-	$('select.form-control, .field select').selectpicker();
+	$('select.form-control, .field select').selectpicker({size:10});
 };
 
 Utils.autonumeric = function() {

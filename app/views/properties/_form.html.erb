@@ -1,3 +1,7 @@
+<% content_for :extra_js do %>
+  Forms.newProperty();
+<% end %>
+
 <%= form_for(@property) do |f| %>
   <% if @property.errors.any? %>
     <div id="error_explanation">
@@ -13,25 +17,25 @@
 
   <div class="field">
     <%= f.label :title, 'Titulo' %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, minlength: 10, required: true %>
   </div>
   <div class="field">
     <%= f.label :description, 'Descripción' %><br>
-    <%= f.text_area :description, rows: 4 %>
+    <%= f.text_area :description, rows: 4, minlength: 30, required: true %>
   </div>
   <div class="field">
     <div class="row">
       <div class="col-xs-4">
         <%= f.label :property_type_id, 'Tipo de propiedad' %><br>
-        <%= f.select :property_type_id, options_from_collection_for_select(PropertyType.all, :id, :name, @property.property_type_id), {}, { data: { mobile: browser.mobile? } } %>
+        <%= f.select :property_type_id, options_from_collection_for_select(PropertyType.all, :id, :name, @property.property_type_id), { data: { mobile: browser.mobile? } } %>
       </div>
       <div class="col-xs-4">
         <%= f.label :age, 'Antigüedad' %><br>
-        <%= f.number_field :age %>
+        <%= f.select :age, options_for_select([ ['En construcción', -1], ['A estrenar', 0], ['1 año', 1], ['2 años', 2], ['3 años', 3], ['4 años', 4], ['de 5 a 10 años', 5], ['de 10 a 20 años', 10], ['de 20 a 50 años', 20], ['Mas de 50 años', 50] ], @property.age || 0) %>
       </div>
       <div class="col-xs-4">
         <%= f.label :environments, 'Ambientes' %><br>
-        <%= f.number_field :environments %>
+        <%= f.select :environments, options_for_select([1,2,3,4,5,6,7,8,9,['10 o más', 10]], @property.environments || 1) %>
       </div>
     </div>
   </div>
@@ -39,15 +43,15 @@
     <div class="row">
       <div class="col-xs-4">
         <%= f.label :bathrooms, 'Baños' %><br>
-        <%= f.number_field :bathrooms %>
+        <%= f.select :bathrooms, options_for_select([0,1,2,3,4,5,6,7,8,9,['10 o más', 10]], @property.bathrooms || 0) %>
       </div>
       <div class="col-xs-4">
         <%= f.label :toilettes, 'Toilettes' %><br>
-        <%= f.number_field :toilettes %>
+        <%= f.select :toilettes, options_for_select([0,1,2,3,4,5,6,7,8,9,['10 o más', 10]], @property.toilettes || 0) %>
       </div>
       <div class="col-xs-4">
         <%= f.label :garages, 'Cocheras' %><br>
-        <%= f.number_field :garages %>
+        <%= f.select :garages, options_for_select([0,1,2,3,4,5,6,7,8,9,['10 o más', 10]], @property.garages || 0) %>
       </div>
     </div>
   </div>
@@ -56,19 +60,19 @@
     <div class="row">
       <div class="col-xs-2">
         <%= f.label :sale_currency, '&nbsp'.html_safe %><br>
-        <%= f.select :sale_currency, options_for_select([['u$s', 0], ['$', 1]], @property.sale_currency), {}, { data: { mobile: browser.mobile? } } %>
+        <%= f.select :sale_currency, options_for_select(Property.currencies, @property.sale_currency), {}, { data: { mobile: browser.mobile? } } %>
       </div>
       <div class="col-xs-4">
         <%= f.label :sale_price, 'Precio de venta' %><br>
-        <%= f.number_field :sale_price %>
+        <%= f.text_field :sale_price, class: 'autonumeric' %>
       </div>
       <div class="col-xs-2">
         <%= f.label :rent_currency, '&nbsp'.html_safe %><br>
-        <%= f.select :rent_currency, options_for_select([['u$s', 0], ['$', 1]], @property.rent_currency || 1), {}, { data: { mobile: browser.mobile? } } %>
+        <%= f.select :rent_currency, options_for_select(Property.currencies, @property.rent_currency || 1), {}, { data: { mobile: browser.mobile? } } %>
       </div>
       <div class="col-xs-4">
         <%= f.label :rent_price, 'Precio de alquiler' %><br>
-        <%= f.number_field :rent_price %>
+        <%= f.text_field :rent_price, class: 'autonumeric' %>
       </div>
     </div>
   </div>
@@ -77,15 +81,15 @@
     <div class="row">
       <div class="col-xs-2">
         <%= f.label :area_unit, '&nbsp'.html_safe %><br>
-        <%= f.select :area_unit, options_for_select([['mt<sup>2</sup>'.html_safe, 0], ['ha', 1]], @property.area_unit), {}, { data: { mobile: browser.mobile? } } %>
+        <%= f.select :area_unit, options_for_select(Property.area_units.keys, @property.area_unit), {}, { data: { mobile: browser.mobile? } } %>
       </div>
       <div class="col-xs-5">
         <%= f.label :constructed_area, 'Sup. cubierta' %><br>
-        <%= f.number_field :constructed_area %>
+        <%= f.text_field :constructed_area, required: true, class: 'autonumeric' %>
       </div>
       <div class="col-xs-5">
         <%= f.label :unconstructed_area, 'Sup. descubierta' %><br>
-        <%= f.number_field :unconstructed_area %>
+        <%= f.text_field :unconstructed_area, required: true, class: 'autonumeric' %>
       </div>
     </div>
   </div>
@@ -98,7 +102,7 @@
       </div>
       <div class="col-xs-4">
         <%= f.label :address, 'Dirección' %><br>
-        <%= f.text_field :address %>
+        <%= f.text_field :address, required: true %>
       </div>
       <div class="col-xs-4">
         <%= f.label :zip_code, 'Código Postal' %><br>

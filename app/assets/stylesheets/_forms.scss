@@ -19,6 +19,8 @@ button.btn.dropdown-toggle.form-control.selectpicker { @extend .form-control }
 .bootstrap-select.btn-group .btn .filter-option { text-overflow: ellipsis; padding-right: 12px; }
 .bs-actionsbox .btn { border: 1px solid #ccc; }
 
+label.error { color: #FF9C00; }
+
 .form-format form {
 	.field { @extend .form-group;
 		input:not([type="checkbox"]):not([type="radio"]), textarea, select {
