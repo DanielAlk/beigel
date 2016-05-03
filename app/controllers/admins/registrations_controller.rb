@@ -10,7 +10,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     if current_admin.administrator?
       super
     else
-      redirect_to admin_path, notice: "You are not allowed to access that page"
+      redirect_to panel_path, notice: "You are not allowed to access that page"
     end
   end
 
@@ -36,7 +36,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
         respond_with resource
       end
     else
-      redirect_to admin_path, notice: "You are not allowed to access that page"
+      redirect_to panel_path, notice: "You are not allowed to access that page"
     end
   end
 
@@ -55,7 +55,7 @@ class Admins::RegistrationsController < Devise::RegistrationsController
     unless current_admin.administrator?
       super
     else
-      redirect_to admin_path, notice: "Administrator account can not be deleted"
+      redirect_to panel_path, notice: "Administrator account can not be deleted"
     end
   end
 
@@ -82,11 +82,11 @@ class Admins::RegistrationsController < Devise::RegistrationsController
 
     # The path used after sign up.
     def after_sign_up_path_for(resource)
-      admin_path
+      panel_path
     end
 
     def after_update_path_for(resource)
-      admin_path
+      panel_path
     end
 
     # The path used after sign up for inactive accounts.
