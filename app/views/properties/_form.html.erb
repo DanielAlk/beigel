@@ -1,6 +1,17 @@
 <% content_for :extra_js do %>
   Forms.newProperty();
 <% end %>
+<% content_for :extra_script do %>
+  <script type="text/javascript">
+    var startMap = function() {
+      Maps.newProperty();
+    };
+    (function() {
+      if (!Maps.centered.map) $('body').append($('<script>', { async: true, defer: true, src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDsrnIHj474TA_EAZ4XIw8LToEt8-V23uM&callback=startMap' }));
+      else startMap();
+    })();
+  </script>
+<% end %>
 
 <%= form_for(@property) do |f| %>
   <% if @property.errors.any? %>
@@ -110,9 +121,13 @@
       </div>
     </div>
   </div>
-  <div class="hidden">
-    <%= f.hidden_field :lat %>
-    <%= f.hidden_field :lng %>
+  <div class="map-container">
+    <div class="hidden">
+      <%= f.hidden_field :lat, required: true %>
+      <%= f.hidden_field :lng, required: true %>
+    </div>
+    <a href="#" class="btn btn-block btn-warning btn-sm" id="geocode_btn">Buscar en mapa</a>
+    <div id="new_property_map"></div>
   </div>
   <div class="actions">
     <%= f.submit %>
