@@ -21,10 +21,8 @@ class CreateProperties < ActiveRecord::Migration
       t.string :zip_code
       t.decimal :lat, :precision=>10, :scale=>6
       t.decimal :lng, :precision=>10, :scale=>6
-      t.string :slug
 
       t.timestamps null: false
     end
-    add_index :properties, :slug, unique: true
   end
 end
