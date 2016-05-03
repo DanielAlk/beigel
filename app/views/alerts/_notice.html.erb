@@ -1,0 +1,12 @@
+<% if notice.present? or alert.present? %>
+	<% alert_class = alert.present? ? 'alert-danger' : 'alert-success' %>
+	<% content_for :extra_js do %>
+		Alerts.notice();
+	<% end %>
+
+	<div class="alert <%= alert_class %> alert-dismissible" role="alert" id="alertNotice" style="display:none;">
+	  <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <%= notice if notice.present? %>
+	  <%= alert if alert.present? %>
+	</div>
+<% end %>
