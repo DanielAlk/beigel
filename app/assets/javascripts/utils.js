@@ -9,6 +9,7 @@ Utils.init = function() {
 
 Utils.load = function() {
 	Utils.radios.init();
+	Utils.checkboxes.init();
 	Utils.nav();
 };
 
@@ -30,6 +31,19 @@ Utils.radios.init = function() {
 			return target.name == this.name;
 		}).parent().removeClass('active');
 		$(this).parent().addClass('active');
+	});
+};
+
+Utils.checkboxes = function() {
+	$('.checkbox-inline>input[type=checkbox]').each(function() {
+		if (this.checked) $(this).parent().addClass('active');
+	});
+};
+
+Utils.checkboxes.init = function() {
+	$(document).on('change', '.checkbox-inline>input[type=checkbox]', function(e) {
+		var target = this;
+		$(this).parent().toggleClass('active');
 	});
 };
 

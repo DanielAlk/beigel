@@ -12,7 +12,11 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions', 
       passwords: 'admins/passwords'
     }
-    resources :properties
+    resources :properties do
+      member do
+        get '/edit/(*step)', to: :edit, step: /principal|caracteristicas|multimedia/, as: :edit
+      end
+    end
   end
 
   root 'pages#home'

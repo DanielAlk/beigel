@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160429050256) do
   create_table "properties", force: :cascade do |t|
     t.string   "title",              limit: 255
     t.text     "description",        limit: 65535
+    t.integer  "status",             limit: 4,                              default: 0
     t.integer  "property_type_id",   limit: 4
     t.integer  "age",                limit: 4
     t.integer  "environments",       limit: 4
@@ -86,8 +87,8 @@ ActiveRecord::Schema.define(version: 20160429050256) do
     t.string   "zip_code",           limit: 255
     t.decimal  "lat",                              precision: 10, scale: 6
     t.decimal  "lng",                              precision: 10, scale: 6
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
   end
 
   add_index "properties", ["property_type_id"], name: "index_properties_on_property_type_id", using: :btree

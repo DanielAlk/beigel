@@ -1,6 +1,13 @@
 <h1>Editing Property</h1>
 
-<%= render 'form' %>
+<% if property_step :property %>
+	<%= render 'form' %>
+<% elsif property_step :characteristics %>
+	<%= render 'form_characteristics' %>
+<% elsif property_step :multimedia %>
+<% else %>
+	<%= render 'form' %>
+<% end %>
 
 <%= link_to 'Show', @property %> |
 <%= link_to 'Back', properties_path %>

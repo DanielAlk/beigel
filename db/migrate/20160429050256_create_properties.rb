@@ -3,6 +3,7 @@ class CreateProperties < ActiveRecord::Migration
     create_table :properties do |t|
       t.string :title
       t.text :description
+      t.integer :status, :default=>0
       t.references :property_type, index: true, foreign_key: true
       t.integer :age
       t.integer :environments

@@ -28,3 +28,9 @@ Forms.newProperty = function() {
 		}
 	});
 };
+
+Forms.propertyCharacteristics = function() {
+	Utils.checkboxes();
+	Utils.autonumeric();
+	Utils.selectpicker();
+};

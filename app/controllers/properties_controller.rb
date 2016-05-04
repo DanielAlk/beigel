@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_property, only: [:show, :edit, :update, :destroy]
+  before_action :related_objects, only: :update
   layout 'panel'
 
   # GET /properties
@@ -30,7 +31,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
-        format.html { redirect_to @property, notice: 'Property was successfully created.' }
+        format.html { redirect_to property_status_path, notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -44,7 +45,7 @@ class PropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @property.update(property_params)
-        format.html { redirect_to @property, notice: 'Property was successfully updated.' }
+        format.html { redirect_to property_status_path, notice: 'Property was successfully updated.' }
         format.json { render :show, status: :ok, location: @property }
       else
         format.html { render :edit }
@@ -64,6 +65,42 @@ class PropertiesController < ApplicationController
   end
 
   private
+    def property_status_path
+      if @property.draft?
+        edit_property_path @property, Property.steps.key(Property.statuses[@property.status])
+      else
+        @property
+      end
+    end
+
+    def related_objects
+      if params[:edit_characteristics].present?
+        characteristics = params.require(:property)[:characteristics]
+        options = params.require(:property)[:options]
+        @property.characteristics.each do |char|
+          if characteristics.present?
+            unless characteristics.include? char.available_characteristic_id.to_s
+              char.destroy
+            end
+          else
+            char.destroy
+          end
+        end
+        if characteristics.present?
+          characteristics.each do |ac_id|
+            characteristic = @property.characteristics.find_by(available_characteristic_id: ac_id)
+            if characteristic.blank?
+              characteristic = @property.characteristics.new(available_characteristic_id: ac_id)
+            end
+            if options[ac_id].present?
+              characteristic.option_value = options[ac_id]
+            end
+            characteristic.save
+          end
+        end
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_property
       @property = Property.find(params[:id])
@@ -72,10 +109,10 @@ class PropertiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
       pp = params.require(:property).permit(:title, :description, :property_type_id, :age, :environments, :garages, :bathrooms, :toilettes, :sale_price, :sale_currency, :rent_price, :rent_currency, :area_unit, :constructed_area, :unconstructed_area, :zone_id, :address, :zip_code, :lat, :lng)
-      pp[:sale_price].tr!('.', '')
-      pp[:rent_price].tr!('.', '')
-      pp[:constructed_area].tr!('.', '')
-      pp[:unconstructed_area].tr!('.', '')
+      pp[:sale_price].tr!('.', '') if pp[:sale_price].present?
+      pp[:rent_price].tr!('.', '') if pp[:rent_price].present?
+      pp[:constructed_area].tr!('.', '') if pp[:constructed_area].present?
+      pp[:unconstructed_area].tr!('.', '') if pp[:unconstructed_area].present?
       return pp
     end
 end

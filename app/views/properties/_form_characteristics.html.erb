@@ -1,0 +1,88 @@
+<% instanciate_characteristics @property %>
+<% content_for :extra_js do %>
+  Forms.propertyCharacteristics();
+<% end %>
+
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="hidden">
+    <%= f.hidden_field :property_type_id %>
+    <%= hidden_field_tag :edit_characteristics, true %>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Servicios</h3>
+    <div class="row">
+      <% @services.each do |char| %>
+        <div class="col-xs-4">
+          <label class="checkbox-inline">
+            <%= check_box_tag 'property[characteristics][]', char.id, @property.characteristics.where(:available_characteristic => char.id).present?, id: 'property_characteristics_' + char.id.to_s %>
+            <%= char.title %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Principales</h3>
+    <div class="row">
+      <% @extended.each do |char| %>
+        <% @property_char = @property.characteristics.find_by :available_characteristic => char.id %>
+        <div class="col-xs-4">
+          <label class="checkbox-inline">
+            <%= check_box_tag 'property[characteristics][]', char.id, @property_char.present?, id: 'property_characteristics_' + char.id.to_s %>
+            <%= char.title %>
+          </label>
+          <% if char.options.present? && options = JSON.parse(char.options) %>
+            <span class="characteristic-option">
+              <% if options.include?('type') && options['type'].present? && options['type'].to_sym == :integer %>
+                <%= text_field_tag 'property[options][' + char.id.to_s + ']', (@property_char.option_value rescue nil), class: 'autonumeric' %>
+              <% else %>
+                <%= select_tag 'property[options][' + char.id.to_s + ']', options_for_select(options, (@property_char.option_value rescue nil)) %>
+              <% end %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Ambientes</h3>
+    <div class="row">
+      <% @environments.each do |char| %>
+        <div class="col-xs-4">
+          <label class="checkbox-inline">
+            <%= check_box_tag 'property[characteristics][]', char.id, @property.characteristics.where(:available_characteristic => char.id).present?, id: 'property_characteristics_' + char.id.to_s %>
+            <%= char.title %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Generales</h3>
+    <div class="row">
+      <% @general.each do |char| %>
+        <div class="col-xs-4">
+          <label class="checkbox-inline">
+            <%= check_box_tag 'property[characteristics][]', char.id, @property.characteristics.where(:available_characteristic => char.id).present?, id: 'property_characteristics_' + char.id.to_s %>
+            <%= char.title %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
