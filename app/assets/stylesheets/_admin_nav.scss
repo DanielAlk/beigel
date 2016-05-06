@@ -1,4 +1,7 @@
 body.admin { padding-top: 30px; }
+.admin-brand { width: 24px; position: absolute; top: 0; left: 50%; margin: 3px -12px;
+	img { width: 100%; height: auto; }
+}
 .admin-navigation {
 	@include clear-both;
 	position: fixed;

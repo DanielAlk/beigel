@@ -1,5 +1,8 @@
 <% if request.subdomain[/panel/] %>
 	<div class="admin-navigation">
+		<div class="admin-brand">
+			<%= image_tag 'android-icon-192x192.png' %>
+		</div>
 		<div class="btn-group">
 			<% if admin_signed_in? %>
 				<%= link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, aria_haspopup: 'true', aria_expanded: false do -%>
