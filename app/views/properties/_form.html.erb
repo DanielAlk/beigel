@@ -1,5 +1,5 @@
 <% content_for :extra_js do %>
-  Forms.newProperty();
+  Forms.Property.new();
 <% end %>
 <% content_for :extra_script do %>
   <script type="text/javascript">
@@ -26,6 +26,9 @@
     </div>
   <% end %>
 
+  <div class="hidden">
+    <%= f.hidden_field :status, value: :draft_characteristics %>
+  </div>
   <div class="field">
     <%= f.label :title, 'Titulo' %><br>
     <%= f.text_field :title, minlength: 10, required: true %>
@@ -126,10 +129,10 @@
       <%= f.hidden_field :lat, required: true %>
       <%= f.hidden_field :lng, required: true %>
     </div>
-    <a href="#" class="btn btn-block btn-warning btn-sm" id="geocode_btn">Buscar en mapa</a>
+    <a href="#" class="btn btn-block btn-warning btn-sm" id="geocode_btn">Ubicar en mapa</a>
     <div id="new_property_map"></div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Siguiente' %>
   </div>
 <% end %>

@@ -1,4 +1,16 @@
-<h1>Crear Aviso</h1>
+<h1><b>Inmueble</b> <small><%= @property.title %></small></h1>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active">
+  	<%= link_to 'Principal', 'javascript:void(0)' %>
+  </li>
+  <li role="presentation">
+  	<%= link_to 'Caracteristicas', 'javascript:void(0)', id: 'submitNewPropertyForm'  %>
+  </li>
+  <li role="presentation" class="disabled">
+  	<%= link_to 'Multimedia', 'javascript:void(0)' %>
+  </li>
+</ul>
 
 <%= render 'form' %>
 

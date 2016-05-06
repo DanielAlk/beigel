@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160429050256) do
     t.integer  "classifiable_id",             limit: 4
     t.string   "classifiable_type",           limit: 255
     t.integer  "available_characteristic_id", limit: 4
+    t.integer  "group",                       limit: 4
     t.string   "option_value",                limit: 255
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false

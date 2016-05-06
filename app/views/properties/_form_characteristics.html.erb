@@ -1,6 +1,5 @@
-<% instanciate_characteristics @property %>
 <% content_for :extra_js do %>
-  Forms.propertyCharacteristics();
+  Forms.Property.characteristics();
 <% end %>
 
 <%= form_for(@property) do |f| %>
@@ -17,71 +16,78 @@
   <% end %>
 
   <div class="hidden">
-    <%= f.hidden_field :property_type_id %>
-    <%= hidden_field_tag :edit_characteristics, true %>
+    <%= f.hidden_field :status, value: :draft_multimedia %>
   </div>
-  <div class="field">
-    <h3 class="field-title">Servicios</h3>
-    <div class="row">
-      <% @services.each do |char| %>
-        <div class="col-xs-4">
-          <label class="checkbox-inline">
-            <%= check_box_tag 'property[characteristics][]', char.id, @property.characteristics.where(:available_characteristic => char.id).present?, id: 'property_characteristics_' + char.id.to_s %>
-            <%= char.title %>
-          </label>
-        </div>
-      <% end %>
+  <% if @property.property_type.characteristics.services.present? %>
+    <div class="field">
+      <h3 class="field-title">Servicios</h3>
+      <div class="row">
+        <% @property.property_type.characteristics.services.each do |char| %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'property[characteristics][]', char.acid, @property.characteristics.where(:available_characteristic => char.acid).present?, id: 'property_characteristics_' + char.acid.to_s, class: 'property_services' %>
+              <%= char.title %>
+            </label>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="field">
-    <h3 class="field-title">Principales</h3>
-    <div class="row">
-      <% @extended.each do |char| %>
-        <% @property_char = @property.characteristics.find_by :available_characteristic => char.id %>
-        <div class="col-xs-4">
-          <label class="checkbox-inline">
-            <%= check_box_tag 'property[characteristics][]', char.id, @property_char.present?, id: 'property_characteristics_' + char.id.to_s %>
-            <%= char.title %>
-          </label>
-          <% if char.options.present? && options = JSON.parse(char.options) %>
-            <span class="characteristic-option">
-              <% if options.include?('type') && options['type'].present? && options['type'].to_sym == :integer %>
-                <%= text_field_tag 'property[options][' + char.id.to_s + ']', (@property_char.option_value rescue nil), class: 'autonumeric' %>
-              <% else %>
-                <%= select_tag 'property[options][' + char.id.to_s + ']', options_for_select(options, (@property_char.option_value rescue nil)) %>
-              <% end %>
-            </span>
-          <% end %>
-        </div>
-      <% end %>
+  <% end %>
+  <% if @property.property_type.characteristics.extended.present? %>
+    <div class="field">
+      <h3 class="field-title">Principales</h3>
+      <div class="row">
+        <% @property.property_type.characteristics.extended.each do |char| %>
+          <% @property_char = @property.characteristics.find_by :available_characteristic => char.acid %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'property[characteristics][]', char.acid, @property_char.present?, id: 'property_characteristics_' + char.acid.to_s %>
+              <%= char.title %>
+            </label>
+            <% if char.options.present? && options = JSON.parse(char.options) %>
+              <span class="characteristic-option">
+                <% if options.include?('type') && options['type'].present? && options['type'].to_sym == :integer %>
+                  <%= text_field_tag 'property[options][' + char.acid.to_s + ']', (@property_char.option_value rescue nil), class: 'autonumeric' %>
+                <% else %>
+                  <%= select_tag 'property[options][' + char.acid.to_s + ']', options_for_select(options, (@property_char.option_value rescue nil)) %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="field">
-    <h3 class="field-title">Ambientes</h3>
-    <div class="row">
-      <% @environments.each do |char| %>
-        <div class="col-xs-4">
-          <label class="checkbox-inline">
-            <%= check_box_tag 'property[characteristics][]', char.id, @property.characteristics.where(:available_characteristic => char.id).present?, id: 'property_characteristics_' + char.id.to_s %>
-            <%= char.title %>
-          </label>
-        </div>
-      <% end %>
+  <% end %>
+  <% if @property.property_type.characteristics.environments.present? %>
+    <div class="field">
+      <h3 class="field-title">Ambientes</h3>
+      <div class="row">
+        <% @property.property_type.characteristics.environments.each do |char| %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'property[characteristics][]', char.acid, @property.characteristics.where(:available_characteristic => char.acid).present?, id: 'property_characteristics_' + char.acid.to_s %>
+              <%= char.title %>
+            </label>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="field">
-    <h3 class="field-title">Generales</h3>
-    <div class="row">
-      <% @general.each do |char| %>
-        <div class="col-xs-4">
-          <label class="checkbox-inline">
-            <%= check_box_tag 'property[characteristics][]', char.id, @property.characteristics.where(:available_characteristic => char.id).present?, id: 'property_characteristics_' + char.id.to_s %>
-            <%= char.title %>
-          </label>
-        </div>
-      <% end %>
+  <% end %>
+  <% if @property.property_type.characteristics.general.present? %>
+    <div class="field">
+      <h3 class="field-title">Generales</h3>
+      <div class="row">
+        <% @property.property_type.characteristics.general.each do |char| %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'property[characteristics][]', char.acid, @property.characteristics.where(:available_characteristic => char.acid).present?, id: 'property_characteristics_' + char.acid.to_s %>
+              <%= char.title %>
+            </label>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

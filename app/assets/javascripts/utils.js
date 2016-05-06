@@ -42,7 +42,6 @@ Utils.checkboxes = function() {
 
 Utils.checkboxes.init = function() {
 	$(document).on('change', '.checkbox-inline>input[type=checkbox]', function(e) {
-		var target = this;
 		$(this).parent().toggleClass('active');
 	});
 };

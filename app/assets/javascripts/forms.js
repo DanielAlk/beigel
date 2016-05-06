@@ -1,9 +1,21 @@
 var Forms = {}
 
-Forms.newProperty = function() {
+Forms.Property = {};
+
+Forms.Property.nav = function() {
+	var $nav = $('#edit_property_nav a');
+	$nav.click(function(e) {
+		e.preventDefault();
+		$('#property_status').val($(this).data('property-status'));
+		$('form.edit_property').submit();
+	});
+};
+
+Forms.Property.new = function() {
 	Utils.autonumeric();
 	Utils.selectpicker();
-	$('#new_property').validate({
+	var $form = $('#new_property');
+	$form.validate({
 		rules: {
 			'property[sale_price]': {
 				required: {
@@ -27,9 +39,12 @@ Forms.newProperty = function() {
 			'property[lng]': 'Ajustá el mapa',
 		}
 	});
+	$('#submitNewPropertyForm').click(function(e) {
+		$form.submit();
+	});
 };
 
-Forms.propertyCharacteristics = function() {
+Forms.Property.characteristics = function() {
 	Utils.checkboxes();
 	Utils.autonumeric();
 	Utils.selectpicker();

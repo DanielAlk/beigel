@@ -50,7 +50,9 @@ label.error { color: #FF9C00; }
 			&:focus { border: 1px solid #029351!important; }
 		}
 		textarea { height: auto; }
-		.field-title { border-bottom: 1px solid #7F8999; margin: 30px 0 15px; padding-bottom: 5px; }
+		.field-title { border-bottom: 1px solid #7F8999; margin: 30px 0 15px; padding-bottom: 5px; 
+			label.checkbox-inline { font-size: 12px; margin-left: 40px; }
+		}
 	}
 	.actions { margin-bottom: 20px; margin-top: 40px;
 		input { @extend .btn; }

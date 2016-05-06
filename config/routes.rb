@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     }
     resources :properties do
       member do
-        get '/edit/(*step)', to: :edit, step: /principal|caracteristicas|multimedia/, as: :edit
+        get '/edit/(*step)', to: :edit, step: /main|characteristics|multimedia/, as: :edit
       end
     end
   end
