@@ -88,11 +88,13 @@ ActiveRecord::Schema.define(version: 20160429050256) do
     t.string   "zip_code",           limit: 255
     t.decimal  "lat",                              precision: 10, scale: 6
     t.decimal  "lng",                              precision: 10, scale: 6
+    t.string   "slug",               limit: 255
     t.datetime "created_at",                                                            null: false
     t.datetime "updated_at",                                                            null: false
   end
 
   add_index "properties", ["property_type_id"], name: "index_properties_on_property_type_id", using: :btree
+  add_index "properties", ["slug"], name: "index_properties_on_slug", unique: true, using: :btree
   add_index "properties", ["zone_id"], name: "index_properties_on_zone_id", using: :btree
 
   create_table "property_types", force: :cascade do |t|

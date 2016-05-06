@@ -8,21 +8,12 @@
       <th>Property type</th>
       <th>Age</th>
       <th>Environments</th>
-      <th>Garages</th>
-      <th>Bathrooms</th>
-      <th>Toilettes</th>
-      <th>Sale price</th>
       <th>Sale currency</th>
-      <th>Rent price</th>
+      <th>Sale price</th>
       <th>Rent currency</th>
-      <th>Area unit</th>
-      <th>Constructed area</th>
-      <th>Unconstructed area</th>
+      <th>Rent price</th>
       <th>Zone</th>
       <th>Address</th>
-      <th>Zip code</th>
-      <th>Lat</th>
-      <th>Lng</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -35,21 +26,12 @@
         <td><%= property.type %></td>
         <td><%= property.age %></td>
         <td><%= property.environments %></td>
-        <td><%= property.garages %></td>
-        <td><%= property.bathrooms %></td>
-        <td><%= property.toilettes %></td>
-        <td><%= property.sale_price %></td>
         <td><%= property.sale_currency %></td>
-        <td><%= property.rent_price %></td>
+        <td><%= property.sale_price %></td>
         <td><%= property.rent_currency %></td>
-        <td><%= property.area_unit %></td>
-        <td><%= property.constructed_area %></td>
-        <td><%= property.unconstructed_area %></td>
-        <td><%= property.zone %></td>
+        <td><%= property.rent_price %></td>
+        <td><%= property.zone.name %></td>
         <td><%= property.address %></td>
-        <td><%= property.zip_code %></td>
-        <td><%= property.lat %></td>
-        <td><%= property.lng %></td>
         <td><%= link_to 'Show', property %></td>
         <td><%= link_to 'Edit', edit_property_path(property) %></td>
         <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>

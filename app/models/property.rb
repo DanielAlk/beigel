@@ -1,7 +1,10 @@
 class Property < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title, use: :slugged
   belongs_to :property_type
   belongs_to :zone
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
+  before_save :reslug
   after_update :update_characteristics
 
   enum status: [ :draft_property, :draft_characteristics, :draft_multimedia, :active, :inactive, :copy ]
@@ -18,6 +21,10 @@ class Property < ActiveRecord::Base
   end
 
   private
+    def reslug
+      self.slug = nil if self.title_changed?
+    end
+
   	def update_characteristics
   		if self.property_type_id_changed?
   			self.characteristics.destroy_all
