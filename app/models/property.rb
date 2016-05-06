@@ -4,6 +4,7 @@ class Property < ActiveRecord::Base
   belongs_to :property_type
   belongs_to :zone
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
+  has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy
   before_save :reslug
   after_update :update_characteristics
 

@@ -7,7 +7,7 @@ Forms.Property.nav = function() {
 	$nav.click(function(e) {
 		e.preventDefault();
 		$('#property_status').val($(this).data('property-status'));
-		$('form.edit_property').submit();
+		$('form.new_property, form.edit_property').submit();
 	});
 };
 
@@ -38,9 +38,6 @@ Forms.Property.new = function() {
 			'property[lat]': 'Ajustá el mapa',
 			'property[lng]': 'Ajustá el mapa',
 		}
-	});
-	$('#submitNewPropertyForm').click(function(e) {
-		$form.submit();
 	});
 };
 

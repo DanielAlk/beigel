@@ -93,6 +93,13 @@ class PropertiesController < ApplicationController
           characteristic.save unless characteristic.blank?
         end
       end
+      property_images = params.require(:property)[:images]
+      if property_images.present? && property_images.count > 0
+        @property.images.destroy_all
+        property_images.each do |image|
+          @property.images.create item: image
+        end
+      end
     end
 
     # Use callbacks to share common setup or constraints between actions.

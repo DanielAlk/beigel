@@ -1,0 +1,25 @@
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="hidden">
+    <%= f.hidden_field :status, value: :active %>
+  </div>
+  <div class="field">
+    <h3 class="field-title">Fotos</h3>
+    <%= f.label :images, 'Fotos' %><br>
+    <%= f.file_field :images, multiple: true, required: true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

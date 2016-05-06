@@ -1,7 +1,9 @@
 <% if request.subdomain[/panel/] %>
 	<div class="admin-navigation">
 		<div class="admin-brand">
-			<%= image_tag 'android-icon-192x192.png' %>
+			<%= link_to home_path do %>
+				<%= image_tag 'android-icon-192x192.png' %>
+			<% end %>
 		</div>
 		<div class="btn-group">
 			<% if admin_signed_in? %>

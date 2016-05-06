@@ -1,0 +1,15 @@
+<% content_for :extra_js do %>
+  Forms.Property.nav();
+<% end %>
+
+<ul class="nav nav-tabs" id="edit_property_nav">
+  <li role="presentation" class="<%= 'active' if property_step :property %>">
+  	<%= link_to 'Principal', '#', data: { property_status: :draft_property } %>
+  </li>
+  <li role="presentation" class="<%= 'active' if property_step :characteristics %>">
+  	<%= link_to 'Caracteristicas', '#', data: { property_status: :draft_characteristics } %>
+  </li>
+  <li role="presentation" class="<%= 'active' if property_step :multimedia %>">
+  	<%= link_to 'Multimedia', '#', data: { property_status: :draft_multimedia } %>
+  </li>
+</ul>

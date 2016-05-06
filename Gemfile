@@ -43,6 +43,7 @@ gem 'devise', '3.4.1'
 gem 'browser'
 gem 'bootstrap-select-rails'
 gem 'autonumeric-rails'
+gem 'acts_as_list'
 
 group :development, :test do
 	gem 'seed_dump'
