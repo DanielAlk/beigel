@@ -1,3 +1,7 @@
+<% content_for :extra_js do %>
+  Forms.Property.multimedia(<%= @property.id %>);
+<% end %>
+
 <%= form_for(@property) do |f| %>
   <% if @property.errors.any? %>
     <div id="error_explanation">
@@ -13,13 +17,35 @@
 
   <div class="hidden">
     <%= f.hidden_field :status, value: :active %>
+    <%= file_field_tag 'file_picker', multiple: true, required: true, accept: 'image/*', data: { :images => '.file-picker-images', :template => '#file_picker_template' } %>
   </div>
-  <div class="field">
+  <div class="field file-picker">
     <h3 class="field-title">Fotos</h3>
-    <%= f.label :images, 'Fotos' %><br>
-    <%= f.file_field :images, multiple: true, required: true %>
+    <%= label_tag 'file_picker', nil, class: 'file-picker-label' do %>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span>Agregar imágenes</span>
+    <% end %>
+    <div class="file-picker-images">
+      <% @property.images.each_with_index do |image, index| %>
+        <div class="file-picker-image" id="file_picker_<%= index %>" data-id="<%= image.id %>" data-position="<%= image.position %>">
+          <a href="#" class="delete" data-id="<%= index %>"><i class="fa fa-times" aria-hidden="true"></i></a>
+          <div class="image" style="background-image:url(<%= asset_path image.item.url(:thumb) %>)"></div>
+          <div class="input">
+            <input type="text" name="property[image_texts][<%= index %>]" id="property_image_texts_<%= index %>" placeholder="Pie de foto">
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<div class="file-picker-image" id="file_picker_template">
+  <a href="#" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
+  <div class="image"></div>
+  <div class="input">
+    <input type="text" name="property[image_texts][]" id="property_image_texts_" placeholder="Pie de foto">
+  </div>
+</div>

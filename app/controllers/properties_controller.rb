@@ -96,8 +96,8 @@ class PropertiesController < ApplicationController
       property_images = params.require(:property)[:images]
       if property_images.present? && property_images.count > 0
         @property.images.destroy_all
-        property_images.each do |image|
-          @property.images.create item: image
+        property_images.each_with_index do |image, index|
+          @property.images.create item: image, title: params[:property][:image_texts][index]
         end
       end
     end

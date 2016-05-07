@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160506063251) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "images", force: :cascade do |t|
+    t.string   "title",             limit: 255
     t.integer  "imageable_id",      limit: 4
     t.string   "imageable_type",    limit: 255
     t.string   "item_file_name",    limit: 255

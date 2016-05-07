@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions', 
       passwords: 'admins/passwords'
     }
+
+    resources :images, :defaults => { :format => :json }
     resources :properties do
       member do
         get '/edit/(*step)', to: :edit, step: /main|characteristics|multimedia/, as: :edit
