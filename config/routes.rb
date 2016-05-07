@@ -13,7 +13,11 @@ Rails.application.routes.draw do
       passwords: 'admins/passwords'
     }
 
-    resources :images, :defaults => { :format => :json }
+    resources :images, :defaults => { :format => :json } do
+      collection do
+        put '/', to: :update_all, as: :update_all
+      end
+    end
     resources :properties do
       member do
         get '/edit/(*step)', to: :edit, step: /main|characteristics|multimedia/, as: :edit

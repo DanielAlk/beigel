@@ -2,13 +2,11 @@ class ImagesController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
-  # GET /images
   # GET /images.json
   def index
     @images = Image.all
   end
 
-  # GET /images/1
   # GET /images/1.json
   def show
   end
@@ -22,7 +20,6 @@ class ImagesController < ApplicationController
   def edit
   end
 
-  # POST /images
   # POST /images.json
   def create
     @image = Image.new(image_params)
@@ -38,7 +35,6 @@ class ImagesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /images/1
   # PATCH/PUT /images/1.json
   def update
     respond_to do |format|
@@ -52,7 +48,25 @@ class ImagesController < ApplicationController
     end
   end
 
-  # DELETE /images/1
+  # PUT /images/1.json
+  def update_all
+    image_ids = params.require(:image)[:ids]
+    image_positions = params.require(:image)[:positions]
+    image_ids.each_with_index do |id, index|
+      image = Image.find(id)
+      unless image.update(id: id, position: image_positions[index])
+        @image_errors << image.errors
+      end
+    end
+    respond_to do |format|
+      unless @image_errors.present? && @image_errors.count > 0
+        format.json { render :index, status: :ok, location: images_path }
+      else
+        format.json { render json: @image_errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /images/1.json
   def destroy
     @image.destroy

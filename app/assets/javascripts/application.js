@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/effect-slide
+//= require jquery-ui/sortable
 //= require jquery.cookie
 //= require jquery.validate
 //= require jquery.validate.additional-methods

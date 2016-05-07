@@ -74,6 +74,7 @@ class PropertiesController < ApplicationController
     end
 
     def related_objects
+      # Characteristics
       available_characteristic_ids = params.require(:property)[:characteristics]
       if available_characteristic_ids.present? && available_characteristic_ids.count > 0
         options = params.require(:property)[:options]
@@ -93,11 +94,15 @@ class PropertiesController < ApplicationController
           characteristic.save unless characteristic.blank?
         end
       end
-      property_images = params.require(:property)[:images]
-      if property_images.present? && property_images.count > 0
-        @property.images.destroy_all
-        property_images.each_with_index do |image, index|
-          @property.images.create item: image, title: params[:property][:image_texts][index]
+      # Image Titles
+      image_titles = params.require(:property)[:image_titles]
+      if image_titles.present? && image_titles.count > 0
+        image_titles.each do |image_title|
+          image_id = image_title[0]
+          title = image_titles[image_id]
+          if title.present?
+            Image.find(image_id).update(title: title)
+          end
         end
       end
     end
