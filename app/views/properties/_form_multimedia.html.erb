@@ -27,7 +27,7 @@
     <% end %>
     <div class="file-picker-images">
       <% @property.images.each_with_index do |image, index| %>
-        <%= render 'file_picker_image', image: image, index: index %>
+        <%= render 'partials/file_picker_image', image: image, index: index %>
       <% end %>
     </div>
   </div>
@@ -36,4 +36,4 @@
   </div>
 <% end %>
 
-<%= render 'file_picker_image' %>
+<%= render 'partials/file_picker_image' %>
