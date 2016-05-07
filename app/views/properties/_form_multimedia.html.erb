@@ -27,13 +27,7 @@
     <% end %>
     <div class="file-picker-images">
       <% @property.images.each_with_index do |image, index| %>
-        <div class="file-picker-image" id="file_picker_<%= index %>" data-id="<%= image.id %>" data-position="<%= image.position %>">
-          <a href="#" class="delete" data-id="<%= index %>"><i class="fa fa-times" aria-hidden="true"></i></a>
-          <div class="image" style="background-image:url(<%= asset_path image.item.url(:thumb) %>)"></div>
-          <div class="input">
-            <input type="text" name="property[image_titles][<%= image.id %>]" id="property_image_titles_<%= image.id %>" value="<%= image.title %>">
-          </div>
-        </div>
+        <%= render 'file_picker_image', image: image, index: index %>
       <% end %>
     </div>
   </div>
@@ -42,10 +36,4 @@
   </div>
 <% end %>
 
-<div class="file-picker-image" id="file_picker_template">
-  <a href="#" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-  <div class="image"></div>
-  <div class="input">
-    <input type="text" name="property[image_titles][]" id="property_image_titles_">
-  </div>
-</div>
+<%= render 'file_picker_image' %>

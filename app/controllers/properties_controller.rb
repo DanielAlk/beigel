@@ -100,8 +100,9 @@ class PropertiesController < ApplicationController
         image_titles.each do |image_title|
           image_id = image_title[0]
           title = image_titles[image_id]
-          if title.present?
-            Image.find(image_id).update(title: title)
+          image = Image.find(image_id)
+          if image.present?
+            image.update(title: title)
           end
         end
       end
