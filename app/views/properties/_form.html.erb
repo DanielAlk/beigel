@@ -27,7 +27,7 @@
   <% end %>
 
   <div class="hidden">
-    <%= f.hidden_field :status, value: :draft_characteristics %>
+    <%= f.hidden_field :status, value: (@property.active? ? :active : :draft_characteristics) %>
   </div>
   <div class="field">
     <%= f.label :title, 'Titulo' %><br>
@@ -133,6 +133,6 @@
     <div id="new_property_map"></div>
   </div>
   <div class="actions">
-    <%= f.submit 'Siguiente' %>
+    <%= f.submit (@property.active? ? 'Actualizar' : 'Siguiente') %>
   </div>
 <% end %>

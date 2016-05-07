@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="hidden">
-    <%= f.hidden_field :status, value: :draft_multimedia %>
+    <%= f.hidden_field :status, value: (@property.active? ? :active : :draft_multimedia) %>
   </div>
   <% if @property.property_type.characteristics.services.present? %>
     <div class="field">
@@ -113,6 +113,6 @@
     </div>
   <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit (@property.active? ? 'Actualizar' : 'Siguiente') %>
   </div>
 <% end %>
