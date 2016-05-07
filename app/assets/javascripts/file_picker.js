@@ -19,21 +19,23 @@ FilePicker.plugin = function() {
 	var is_loading = false;
 	items.allDoneCallback = function() {
 		is_loading = false;
-		console.log('load end')
+		console.log('load end');
+		$images_container.children('.loading').removeClass('loading');
 		$images_container.sortable('enable');
 	};
 	var now_is_loading = function(sortable) {
 		is_loading = true;
-		console.log('load start')
+		console.log('load start');
 		if (!sortable) $images_container.sortable('disable');
 	};
 	var deleteFile = function(e) {
 		if (is_loading) return false;
 		now_is_loading();
 		e.preventDefault();
+		var $item = $(this).closest('.file-picker-image').addClass('loading');
 		var id = $(this).data('id');
 		items.delete(id);
-		$(this).closest('.file-picker-image').remove();
+		$item.remove();
 	};
 	var user_selection = function(e) {
 		if (is_loading) return false;
@@ -51,11 +53,13 @@ FilePicker.plugin = function() {
 			$item.attr('id', 'file_picker_' + item_id);
 			$delete.data('id', item_id);
 			$images_container.append($item);
+			$item.addClass('loading');
 			FilePicker.readFileAndShow(item, $image);
 			items.create(item, function(response) {
 				var input_new_id = input_old_id + response.id;
 				var input_new_name = $input.attr('name').replace('[]', '[' + response.id + ']');
 				$input.attr({ id: input_new_id, name: input_new_name });
+				$item.removeClass('loading');
 			});
 		})();
 	};
@@ -65,8 +69,9 @@ FilePicker.plugin = function() {
 			items.append(new FilePicker.File(image.id, image.position, image.item));
 		});
 	};
-	$images_container.sortable({ update: function() {
+	$images_container.sortable({ update: function(e, ui) {
 		now_is_loading(true);
+		$(ui.item).addClass('loading');
 		var sortable = $images_container.sortable('toArray');
 		var data = new FormData;
 		sortable.forEach(function(s, i) {
