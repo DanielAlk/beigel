@@ -91,7 +91,6 @@ class PropertiesController < ApplicationController
           if options[ac_id].present?
             characteristic.option_value = options[ac_id]
           end
-          characteristic.save unless characteristic.blank?
         end
       end
       # Image Titles
@@ -104,6 +103,13 @@ class PropertiesController < ApplicationController
           if image.present?
             image.update(title: title)
           end
+        end
+      end
+      # Videos
+      video_urls = params.require(:property)[:video_urls]
+      if video_urls.present? && video_urls.count > 0
+        video_urls.each do |video_url|
+          @property.videos.new url: video_url
         end
       end
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506063251) do
+ActiveRecord::Schema.define(version: 20160508095416) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",        null: false
@@ -118,6 +118,17 @@ ActiveRecord::Schema.define(version: 20160506063251) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "videos", force: :cascade do |t|
+    t.integer  "format",        limit: 4,   default: 0
+    t.string   "url",           limit: 255
+    t.integer  "mediable_id",   limit: 4
+    t.string   "mediable_type", limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "videos", ["mediable_type", "mediable_id"], name: "index_videos_on_mediable_type_and_mediable_id", using: :btree
 
   create_table "zones", force: :cascade do |t|
     t.string   "name",       limit: 255

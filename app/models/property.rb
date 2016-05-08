@@ -5,8 +5,9 @@ class Property < ActiveRecord::Base
   belongs_to :zone
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
   has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy
-  before_save :reslug
-  after_update :update_characteristics
+  has_many :videos, :as => :mediable, :dependent => :destroy
+  before_save :re_slug
+  after_update :re_classify
 
   enum status: [ :draft_property, :draft_characteristics, :draft_multimedia, :active, :inactive, :copy ]
   enum step: [ :main, :characteristics, :multimedia ]
@@ -22,11 +23,11 @@ class Property < ActiveRecord::Base
   end
 
   private
-    def reslug
+    def re_slug
       self.slug = nil if self.title_changed?
     end
 
-  	def update_characteristics
+  	def re_classify
   		if self.property_type_id_changed?
   			self.characteristics.destroy_all
         self.status = :draft_characteristics
