@@ -1,5 +1,5 @@
 <% content_for :extra_js do %>
-  Forms.Property.multimedia({
+  Property.multimedia({
     imageable_id: <%= @property.id %>,
     imageable_type: 'property'
   });
@@ -23,6 +23,8 @@
     <%= file_field_tag 'file_picker', multiple: true, required: true, accept: 'image/*', data: { :images => '.file-picker-images', :template => '#file_picker_template' } %>
   </div>
   <div class="field file-picker">
+    <% #template %>
+    <%= render 'partials/file_picker_image' %>
     <h3 class="field-title">Fotos</h3>
     <%= label_tag 'file_picker', nil, class: 'file-picker-label' do %>
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -36,11 +38,25 @@
   </div>
   <div class="field videos">
     <h3 class="field-title">Videos</h3>
-    
+    <div class="property-videos" id="video-adder">
+      <% if @property.videos.count > 0 %>
+        <% @property.videos.each do |video| %>
+          <div class="video-input">
+            <%= text_field_tag 'property[video_urls][]', video.url, placeholder: 'URL del video' %>
+            <div class="video-holder">
+              <iframe src='<%= video.url %>' frameborder='0' allowfullscreen></iframe>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="video-input">
+          <%= text_field_tag 'property[video_urls][]', nil, placeholder: 'URL del video' %>
+          <div class="video-holder"></div>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div class="actions">
     <%= f.submit 'Actualizar' %>
   </div>
 <% end %>
-
-<%= render 'partials/file_picker_image' %>
