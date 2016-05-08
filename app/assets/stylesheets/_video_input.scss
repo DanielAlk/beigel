@@ -1,0 +1,6 @@
+.property-videos { @include clear-both; margin-top: 35px; }
+.video-input { float: left; width: 300px; margin-bottom: 20px; margin-right: 20px; 
+	.video-holder { width: 100%; height: 200px; background-color: #EFEFEF; border: 1px dotted; border-top: none;
+		iframe { width: 100%; height: 100%; }
+	}
+}
