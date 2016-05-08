@@ -47,7 +47,7 @@ Forms.Property.characteristics = function() {
 	Utils.selectpicker();
 };
 
-Forms.Property.multimedia = function(property_id) {
-	$('#file_picker').filePicker(property_id, 'property');
+Forms.Property.multimedia = function(file_picker_obj) {
+	$('#file_picker').filePicker(file_picker_obj);
 	$('form.edit_property').validate();
 };

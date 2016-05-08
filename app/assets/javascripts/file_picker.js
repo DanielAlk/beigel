@@ -4,9 +4,8 @@ FilePicker.load = function() {
 	$.fn.filePicker = FilePicker.extension;
 };
 
-FilePicker.extension = function(imageable_id, imageable_type) {
-	FilePicker.imageable_id = imageable_id;
-	FilePicker.imageable_type = imageable_type;
+FilePicker.extension = function(data_appends) {
+	FilePicker.data_appends = data_appends;
 	this.each(FilePicker.plugin);
 };
 
@@ -19,14 +18,12 @@ FilePicker.plugin = function() {
 	var is_loading = false;
 	items.allDoneCallback = function() {
 		is_loading = false;
-		console.log('load end');
-		$images_container.children('.loading').removeClass('loading');
+		$images_container.children().removeClass('loading');
 		$images_container.sortable('enable');
 	};
-	var now_is_loading = function(sortable) {
+	var now_is_loading = function(keep_sortable_enabled) {
 		is_loading = true;
-		console.log('load start');
-		if (!sortable) $images_container.sortable('disable');
+		if (!keep_sortable_enabled) $images_container.sortable('disable');
 	};
 	var deleteFile = function(e) {
 		if (is_loading) return false;
@@ -95,6 +92,15 @@ FilePicker.plugin = function() {
   $images_container.disableSelection();
 };
 
+FilePicker.FormData = function() {
+	var obj = new FormData;
+	var data = FilePicker.data_appends;
+	for (var key in data) {
+		obj.append('image['+key+']', data[key]);
+	};
+	return obj;
+};
+
 FilePicker.File = function(id, position, item) {
 	var obj = this;
 	obj.id = id;
@@ -102,9 +108,7 @@ FilePicker.File = function(id, position, item) {
 	obj.item = item;
 	obj.save = function(callback) {
 		callback = typeof callback != 'function' ? function(){} : callback;
-		var data = new FormData;
-		data.append('image[imageable_id]', FilePicker.imageable_id);
-		data.append('image[imageable_type]', FilePicker.imageable_type);
+		var data = new FilePicker.FormData;
 		data.append('image[item]', obj.item);
 		FilePicker.upload(data, function(response, status, location) {
 			obj.id = response.id;

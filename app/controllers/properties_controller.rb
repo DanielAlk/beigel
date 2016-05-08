@@ -90,6 +90,7 @@ class PropertiesController < ApplicationController
           end
           if options[ac_id].present?
             characteristic.option_value = options[ac_id]
+            characteristic.save
           end
         end
       end
