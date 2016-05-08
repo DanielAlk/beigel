@@ -109,8 +109,17 @@ class PropertiesController < ApplicationController
       # Videos
       video_urls = params.require(:property)[:video_urls]
       if video_urls.present? && video_urls.count > 0
+        @property.videos.each do |video|
+          if video.url.blank? || !video_urls.include?(video.url)
+            video.destroy
+          end
+        end
         video_urls.each do |video_url|
-          @property.videos.new url: video_url
+          unless @property.videos.find_by(url: video_url).present?
+            if video_url.present?
+              @property.videos.new url: video_url
+            end
+          end
         end
       end
     end

@@ -67,7 +67,7 @@ Property.videoAdder = function() {
 		if (!video_url.match(/(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/)) return markAsInvalid($item);
 		if ($item.hasClass('valid')) wipeItem($item);
 		var $holder = $item.find('.video-holder');
-		var $iframe = $('<iframe>', { src: video_url, frameborder: 0, 'allowfullscreen': true });
+		var $iframe = $('<iframe>', { src: video_url.replace('watch?v=', 'embed/'), frameborder: 0, 'allowfullscreen': true });
 		$holder.append($iframe);
 		$item.addClass('valid');
 	};
