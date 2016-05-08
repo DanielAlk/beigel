@@ -66,7 +66,7 @@ FilePicker.plugin = function() {
 			items.append(new FilePicker.File(image.id, image.position, image.item));
 		});
 	};
-	$images_container.sortable({ update: function(e, ui) {
+	var updatePositions = function(e, ui) {
 		now_is_loading(true);
 		$(ui.item).addClass('loading');
 		var sortable = $images_container.sortable('toArray');
@@ -86,7 +86,8 @@ FilePicker.plugin = function() {
 			};
 		});
 		items.update(data);
-	}});
+	};
+	$images_container.sortable({ update: updatePositions, placeholder: 'file-picker-image' });
 	$(picker).change(user_selection).ready(loadPicker);
 	$(document).on('click', images_container_selctor + ' a.delete', deleteFile)
   $images_container.disableSelection();
