@@ -6,6 +6,7 @@ class Property < ActiveRecord::Base
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
   has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy
   has_many :videos, :as => :mediable, :dependent => :destroy
+  validates_length_of :images, minimum: 1, message: "debe contener al menos una", if: Proc.new { |property| property.active? }
   validate :activation
   before_save :re_slug
   after_update :re_classify
