@@ -53,23 +53,53 @@ Property.multimedia = function(file_picker_obj) {
 
 Property.videoAdder = function() {
 	var $videos = $('#video-adder');
-	var $items = $videos.children('.video-input');
+	var $form = $videos.closest('form');
 	var markAsInvalid = function($item) {
-		$item.addClass('invalid');
+		$item.removeClass('repeated valid').addClass('invalid').find('.video-holder').html(null);
 	};
-	var wipeItem = function($item) {
-		$item.removeClass('valid').find('.video-holder').html(null);
+	var markAsRepeated = function($item) {
+		$item.removeClass('valid invalid').addClass('repeated').find('input').val(null).siblings('.video-holder').html(null);
+	};
+	var isRepeated = function($item) {
+		var video_url = $item.find('input').val();
+		var rtn = false;
+		$item.siblings().each(function() {
+			if (rtn) return;
+			var url = $(this).find('input').val();
+			if (url == video_url) rtn = true;
+		});
+		return rtn;
 	};
 	var insertEmbed = function(e) {
 		var $input = $(this);
 		var $item = $input.closest('.video-input');
 		var video_url = $input.val();
 		if (!video_url.match(/(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+/)) return markAsInvalid($item);
-		if ($item.hasClass('valid')) wipeItem($item);
+		if (isRepeated($item)) return markAsRepeated($item);
 		var $holder = $item.find('.video-holder');
 		var $iframe = $('<iframe>', { src: video_url.replace('watch?v=', 'embed/'), frameborder: 0, 'allowfullscreen': true });
-		$holder.append($iframe);
-		$item.addClass('valid');
+		$holder.html(null).append($iframe);
+		$item.removeClass('repeated invalid').addClass('valid');
 	};
-	$videos.on('focusout', '.video-input input', insertEmbed);
+	var addVideoInput = function(e) {
+		e.preventDefault();
+		var $item = $videos.find('.video-input').last().clone();
+		$item.removeClass('repeated valid invalid').find('.video-holder').html(null);
+		var $input = $item.find('input');
+		var input_id_parts = $input.attr('id').split('_');
+		var id = '';
+		input_id_parts.forEach(function(part, i){
+			if (i < input_id_parts.length - 1) id += part + '_';
+			else id += String(Number(part) +1);
+		});
+		$input.attr('id', id).val(null);
+		$item.find('.video-holder').html(null);
+		$item.appendTo($videos);
+	};
+	var beforeSubmit = function() {
+		$videos.find('.video-input').filter(function(){ return !$(this).hasClass('valid') }).remove();
+	};
+	$videos.on('change', '.video-input input', insertEmbed);
+	$('#video-adder-btn').click(addVideoInput);
+	$form.submit(beforeSubmit);
 };

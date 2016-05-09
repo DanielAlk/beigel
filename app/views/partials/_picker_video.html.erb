@@ -1,0 +1,17 @@
+<% video = nil unless local_assigns.has_key? :video %>
+<% id = nil unless local_assigns.has_key? :id %>
+
+<div class="video-input valid">
+  <%= text_field_tag 'property[video_urls][]', (video.url rescue nil), id: 'property_video_urls_' + id.to_s, placeholder: 'URL del video' %>
+  <div class="video-icons">
+  	<i class="fa fa-youtube-play waiting" aria-hidden="true"></i>
+  	<i class="fa fa-exclamation-triangle repeated invalid" aria-hidden="true"></i>
+  	<p class="repeated">Ese video ya esta agregado</p>
+  	<p class="invalid">Url inválida</p>
+  </div>
+  <div class="video-holder">
+  	<% if video.present? %>
+	  	<iframe src='<%= video.embed_url %>' frameborder='0' allowfullscreen></iframe>
+  	<% end %>
+  </div>
+</div>

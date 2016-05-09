@@ -1,12 +1,12 @@
-<h1><b>Inmueble</b> <small><%= @property.title %></small></h1>
+<h1><b>Inmueble</b> <small><%= @property.title %> <em>> :<%= @property.status %></em></small></h1>
 
 <%= render 'property_nav' %>
 
-<% if property_step :property %>
+<% if property_step_for? :property %>
 	<%= render 'form' %>
-<% elsif property_step :characteristics %>
+<% elsif property_step_for? :characteristics %>
   <%= render 'form_characteristics' %>
-<% elsif property_step :multimedia %>
+<% elsif property_step_for? :multimedia %>
 	<%= render 'form_multimedia' %>
 <% end %>
 

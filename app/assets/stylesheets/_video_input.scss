@@ -1,6 +1,13 @@
 .property-videos { @include clear-both; margin-top: 35px; }
-.video-input { float: left; width: 300px; margin-bottom: 20px; margin-right: 20px; 
+.video-input { position: relative; float: left; width: 300px; margin-bottom: 20px; margin-right: 20px; 
 	.video-holder { width: 100%; height: 200px; background-color: #EFEFEF; border: 1px dotted; border-top: none;
 		iframe { width: 100%; height: 100%; }
 	}
+	.video-icons { position: absolute; left: 0; top: 32; width: 100%; height: calc(100% - 32px); text-align: center;
+		.repeated, .invalid { display: none; }
+		.fa { font-size: 60px; margin-top: calc(50% - 80px); }
+	}
 }
+.video-input.valid .video-icons { display: none; }
+.video-input.repeated .video-icons { .invalid, .waiting { display: none; } .repeated { display: block; } }
+.video-input.invalid .video-icons { .repeated, .waiting { display: none; } .invalid { display: block; } }

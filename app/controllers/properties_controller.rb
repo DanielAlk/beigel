@@ -67,7 +67,7 @@ class PropertiesController < ApplicationController
   private
     def property_status_path
       if @property.draft?
-        edit_property_path @property, Property.steps.key(Property.statuses[@property.status])
+        edit_property_path @property, @property.step
       else
         @property
       end
@@ -121,6 +121,8 @@ class PropertiesController < ApplicationController
             end
           end
         end
+      else
+        @property.videos.destroy_all
       end
     end
 

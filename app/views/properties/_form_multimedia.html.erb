@@ -6,18 +6,7 @@
 <% end %>
 
 <%= form_for(@property) do |f| %>
-  <% if @property.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
-
-      <ul>
-      <% @property.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render 'form_errors' %>
   <div class="hidden">
     <%= f.hidden_field :status, value: :active %>
     <%= file_field_tag 'file_picker', multiple: true, required: true, accept: 'image/*', data: { :images => '.file-picker-images', :template => '#file_picker_template' } %>
@@ -38,21 +27,14 @@
     <h3 class="field-title">Videos</h3>
     <div class="property-videos" id="video-adder">
       <% if @property.videos.count > 0 %>
-        <% @property.videos.each do |video| %>
-          <div class="video-input">
-            <%= text_field_tag 'property[video_urls][]', video.url, placeholder: 'URL del video' %>
-            <div class="video-holder">
-              <iframe src='<%= video.embed_url %>' frameborder='0' allowfullscreen></iframe>
-            </div>
-          </div>
+        <% @property.videos.each_with_index do |video, index| %>
+          <%= render 'partials/picker_video', video: video, id: index %>
         <% end %>
       <% else %>
-        <div class="video-input">
-          <%= text_field_tag 'property[video_urls][]', nil, placeholder: 'URL del video' %>
-          <div class="video-holder"></div>
-        </div>
+        <%= render 'partials/picker_video', id: @property.videos.count %>
       <% end %>
     </div>
+    <%= link_to 'Agregar otro video', '#', class: 'btn btn-sm btn-warning', id: 'video-adder-btn' %>
   </div>
   <div class="actions">
     <%= f.submit 'Actualizar' %>

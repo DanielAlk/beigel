@@ -3,20 +3,9 @@
 <% end %>
 
 <%= form_for(@property) do |f| %>
-  <% if @property.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
-
-      <ul>
-      <% @property.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render 'form_errors' %>
   <div class="hidden">
-    <%= f.hidden_field :status, value: (@property.active? ? :active : :draft_multimedia) %>
+    <%= f.hidden_field :status, value: (@property.active? ? :active : :multimedia) %>
   </div>
   <% if @property.property_type.characteristics.services.present? %>
     <div class="field">

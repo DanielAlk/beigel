@@ -6,11 +6,12 @@ class Property < ActiveRecord::Base
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
   has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy
   has_many :videos, :as => :mediable, :dependent => :destroy
+  validate :activation
   before_save :re_slug
   after_update :re_classify
 
-  enum status: [ :draft_property, :draft_characteristics, :draft_multimedia, :active, :inactive, :copy ]
-  enum step: [ :main, :characteristics, :multimedia ]
+  enum status: [ :property, :characteristics, :multimedia, :active, :inactive, :copy ]
+  enum step: [ :principal, :caracteristicas, :media ]
   enum currency: [ 'u$s', '$' ]
   enum area_unit: [ :mt2, :ha ]
 
@@ -19,10 +20,20 @@ class Property < ActiveRecord::Base
   end
 
   def draft?
-  	self.draft_property? || self.draft_characteristics? || self.draft_multimedia?
+  	self.property? || self.characteristics? || self.multimedia?
+  end
+
+  def step
+    Property.steps.key(Property.statuses[self.status])
   end
 
   private
+    def activation
+      if self.errors.any?
+        self.reload
+      end
+    end
+
     def re_slug
       self.slug = nil if self.title_changed?
     end
@@ -30,7 +41,7 @@ class Property < ActiveRecord::Base
   	def re_classify
   		if self.property_type_id_changed?
   			self.characteristics.destroy_all
-        self.status = :draft_characteristics
+        self.status = :characteristics
   		end
   	end
 end
