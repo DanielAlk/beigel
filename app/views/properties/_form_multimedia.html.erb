@@ -8,6 +8,7 @@
 <%= form_for(@property) do |f| %>
   <%= render 'form_errors' %>
   <div class="hidden">
+    <%= f.hidden_field :step, value: :multimedia %>
     <%= f.hidden_field :status, value: :active %>
     <%= file_field_tag 'file_picker', multiple: true, required: true, accept: 'image/*', data: { :images => '.file-picker-images', :template => '#file_picker_template' } %>
   </div>

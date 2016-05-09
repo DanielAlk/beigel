@@ -115,13 +115,11 @@ class PropertiesController < ApplicationController
           end
         end
         video_urls.each do |video_url|
-          unless @property.videos.find_by(url: video_url).present?
-            if video_url.present?
-              @property.videos.new url: video_url
-            end
+          if video_url.present? && @property.videos.find_by(url: video_url).blank?
+            @property.videos.new url: video_url
           end
         end
-      else
+      elsif params.require(:property)[:step] == 'multimedia'
         @property.videos.destroy_all
       end
     end

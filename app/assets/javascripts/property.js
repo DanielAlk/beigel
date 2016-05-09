@@ -94,7 +94,7 @@ Property.videoAdder = function() {
 		});
 		$input.attr('id', id).val(null);
 		$item.find('.video-holder').html(null);
-		$item.appendTo($videos);
+		$item.appendTo($videos).find('input').focus();
 	};
 	var beforeSubmit = function() {
 		$videos.find('.video-input').filter(function(){ return !$(this).hasClass('valid') }).remove();
