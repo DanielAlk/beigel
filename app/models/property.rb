@@ -1,6 +1,6 @@
 class Property < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
   belongs_to :property_type
   belongs_to :zone
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
@@ -29,6 +29,13 @@ class Property < ActiveRecord::Base
   end
 
   private
+    def slug_candidates
+      [
+        :title,
+        [ :title, :id ]
+      ]
+    end
+
     def activation
       if self.errors.any?
         self.reload
