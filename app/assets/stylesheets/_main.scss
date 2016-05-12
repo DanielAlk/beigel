@@ -18,6 +18,15 @@
 	transition: $property $duration $ease-function;
 }
 
+@mixin column-gap($cols, $gap) {
+	-moz-column-count: $cols;
+	-moz-column-gap: $gap;
+	-webkit-column-count: $cols;
+	-webkit-column-gap: $gap;
+	column-count: $cols;
+	column-gap: $gap;
+}
+
 a:hover, a:focus { text-decoration: none; }
 
 .bootstrap-select .btn:focus, a:focus, .btn:focus, .btn:active:focus, .btn.active:focus { outline: none!important; }
@@ -107,6 +116,12 @@ section.cover, div.cover { background-size: cover; background-position: center c
 }
 @media(min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
 	.cols-sm-2 { @include cols(50%); }
+}
+
+/* COLUMN-GAP */
+.column-gap-xs-2-10 { @include column-gap(2, 10px); }
+@media(min-width: $screen-sm-min) {
+	.column-gap-sm-2-10 { @include column-gap(2, 10px); }
 }
 
 /* PADDINGS */

@@ -79,51 +79,42 @@ Maps.centered.init = function(element) {
 };
 
 Maps.contact = function() {
-	Maps.start('contact-map', { address: 'Av. Álvarez Thomas 1199 Ciudad Autónoma de Buenos Aires', title: 'Beigel Bienes Raices' });
+	Maps.start('contact-map', { latLng: new google.maps.LatLng(-34.57825, -58.458306), title: 'Beigel Bienes Raices' });
 };
 
-Maps.file = function() {
-	Maps.start('file-map', { address: 'Av. Álvarez Thomas 1199 Ciudad Autónoma de Buenos Aires', title: 'Beigel Bienes Raices' }, 'file-street');
+Maps.file = function(lat, lng) {
+	Maps.start('file-map', { latLng: new google.maps.LatLng(lat, lng) }, 'file-street');
 };
 
-Maps.start = function(elementId, locations, panoramaId) {
-	locations = locations.forEach ? locations : locations.address ? [ locations ] : [ { address: locations } ];
+Maps.start = function(elementId, location, panoramaId) {
 	var map_canvas = document.getElementById(elementId);
-	var geocoder = new google.maps.Geocoder();
 	var map = new google.maps.Map(map_canvas, {
 		disableDoubleClickZoom: true,
 		scrollwheel: false,
 		zoom: 15,
+		center: location.latLng,
 		disableDefaultUI: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 	});
-	locations.forEach(function(location, index) {
-		geocoder.geocode({ 'address' : location.address }, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				$(map_canvas).trigger('map.geocoded', results[0].geometry.location)
-				if (!index) map.setCenter(results[0].geometry.location);
-				if (!panoramaId) {
-					var marker = new google.maps.Marker({
-						map: map,
-						position: results[0].geometry.location,
-						animation: google.maps.Animation.DROP,
-						title: location.title || null,
-						//icon: 'img/marker.png'
-					});
-				} else {
-					var panorama = new google.maps.StreetViewPanorama(document.getElementById(panoramaId), {
-						position: results[0].geometry.location,
-						disableDoubleClickZoom: true,
-						scrollwheel: false,
-						pov: {
-							heading: 90,
-							pitch: 0
-						}
-					});
-					map.setStreetView(panorama);
-				};
-			};
+	if (!panoramaId) {
+		var marker = new google.maps.Marker({
+			map: map,
+			position: location.latLng,
+			animation: google.maps.Animation.DROP,
+			title: location.title || null,
+			//icon: 'img/marker.png'
 		});
-	});
+	} else {
+		var panorama = new google.maps.StreetViewPanorama(document.getElementById(panoramaId), {
+			position: location.latLng,
+			disableDoubleClickZoom: true,
+			scrollwheel: false,
+			pov: {
+				heading: 90,
+				pitch: 0
+			}
+		});
+		map.setStreetView(panorama);
+	};
 	return map;
 };

@@ -1,5 +1,6 @@
 <% toggle = false unless local_assigns.has_key? :toggle %>
 <% fullscreen = false unless local_assigns.has_key? :fullscreen %>
+<% size = fullscreen ? :original : :medium %>
 
 <div class="<%= gallery_class %>">
 	<div class="gallery-caption">
@@ -7,10 +8,10 @@
 			<% images.each_with_index do |image, i| %>
 				<%  if i == 0 %>
 					<div class="active">
-						<%= image_tag image[:cover] %>
+						<%= image_tag image.item.url(size) %>
 					</div>
 				<% else %>
-					<div><%= image_tag '', data: { src: asset_path(image[:cover]) } %></div>
+					<div><%= image_tag '', data: { src: asset_path(image.item.url(size)) } %></div>
 				<% end %>
 			<% end %>
 		</div>

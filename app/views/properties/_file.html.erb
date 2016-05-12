@@ -1,0 +1,125 @@
+<% content_for :extra_js do %>
+  $('.card-gallery').gallery({ toggle: '.fullscreen-gallery' });
+  $('.fullscreen-gallery').gallery({ fullscreen: true });
+<% end %>
+
+<% content_for :extra_script do %>
+  <script type="text/javascript">
+    var startMap = function() {
+      Maps.file(<%= property.lat %>, <%= property.lng %>);
+    };
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?callback=startMap"></script>
+<% end %>
+
+<% if admin_signed_in? %>
+  <div class="admin-options btn-group btn-group-justified">
+    <%= link_to 'Principal', edit_property_path(property), class: 'btn btn-warning' %>
+    <%= link_to 'Caracteristicas', edit_property_path(property, property_step_from_status(:characteristics)), class: 'btn btn-info' %>
+    <%= link_to 'Multimedia', edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-danger' %>
+    <%= link_to 'Volver al listado', properties_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+<div class="card card-compress property">
+  <%= render 'partials/gallery', gallery_class: 'card-gallery', images: property.images, toggle: true %>
+  <div class="card-body">
+    <h2 class="card-title"><%= property.title %></h2>
+    <p class="card-text">
+      <%= property.address %> | <%= property.zone.name %> | <%= property.description %><br>
+      <br>
+      SUPERFICIE: &nbsp; <%= property.area %> m<sup>2</sup>
+    </p>
+    <h3 class="card-price">
+      <% if property.for_rent? %>
+        <strong style="<%= 'display:inline-block; margin-bottom:5px;' if property.for_sale_and_rent? %>"><big><%= currency property.rent_price, property.currency_for(:rent) + ' ' %></big></strong>
+        <%= '<small>> Alquiler</small>'.html_safe if property.for_sale_and_rent? %>
+      <% end %>
+      <% if property.for_sale_and_rent? %>
+        <br>
+      <% end %>
+      <% if property.for_sale? %>
+        <strong><big><%= currency property.sale_price, property.currency_for(:sale) + ' ' %></big></strong>
+        <%= '<small>> Venta</small>'.html_safe if property.for_sale_and_rent? %>
+      <% end %>
+    </h3>
+    <span class="card-text">
+      Ver publicación en &nbsp;
+      <%= link_to '#', class: 'partner-logo sm' do %>
+        <%= image_tag 'logo-zonaprop-grey-bg.jpg' %>
+      <% end %>
+    </span>
+  </div>
+</div>
+<div class="content-wall">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="title">Descripción</h3>
+      <p class="mar-xs-S-50">
+        <%= property.description %>
+        <br><br>
+        <strong>
+          BEIGEL BIENES RAÍCES | <%= link_to '4553-1700', 'tel:+541145531700', class: 'text-link' %>
+        </strong>
+      </p>
+    </div>
+    <% if property.characteristics.services.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Srevicios</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% property.characteristics.services.each do |characteristic| %>
+            <li>- <%= characteristic.title %>.</li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if property.characteristics.environments.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Ambientes</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% property.characteristics.environments.each do |characteristic| %>
+            <li>- <%= characteristic.title %>.</li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if property.characteristics.extended.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Detalles</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% property.characteristics.extended.each do |characteristic| %>
+            <% if characteristic.has_options && characteristic.option_value.present? %>
+              <li>- <strong><%= characteristic.title %>:</strong><br>&nbsp; &nbsp; &nbsp;<%= characteristic.option_value %>.</li>
+            <% elsif !characteristic.has_options %>
+              <li>- <strong><%= characteristic.title %>.</strong></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if property.characteristics.general.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Adicionales</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% property.characteristics.general.each do |characteristic| %>
+            <li>- <%= characteristic.title %>.</li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to 'Otros inmuebles similares', '#', class: 'btn btn-primary btn-fix' %>
+</div>
+<div class="content-wall-20">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="map-xs-300">
+        <div class="map-canvas" id="file-map"></div>
+      </div>
+    </div>
+    <div class="col-sm-6 hidden-xs">
+      <div class="map-xs-300">
+        <div class="map-canvas" id="file-street"></div>
+      </div>
+    </div>
+  </div>
+</div>

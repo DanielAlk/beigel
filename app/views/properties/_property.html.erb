@@ -1,0 +1,18 @@
+<%= link_to property, class: 'card property' do %>
+	<%= render 'partials/gallery', gallery_class: 'card-gallery', images: property.images %>
+	<div class="card-body">
+		<h2 class="card-title"><%= property.title %></h2>
+		<p class="card-text"><%= property.address %>| <%= property.zone.name %> | <%= property.description %></p>
+		<% if property.for_rent? %>
+			<h3 class="card-price">
+				<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
+			</h3>
+		<% end %>
+		<% if property.for_sale? %>
+			<h3 class="card-price">
+				<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
+			</h3>
+		<% end %>
+		<span class="btn btn-primary btn-fix">Ver Ficha</span>
+	</div>
+<% end %>

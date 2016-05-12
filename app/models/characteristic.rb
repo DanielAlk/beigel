@@ -20,6 +20,10 @@ class Characteristic < ActiveRecord::Base
     self.available_characteristic_id
   end
 
+  def has_options
+    self.available_characteristic.options.present?
+  end
+
   private
   	def get_group
   		self.group = self.available_characteristic.group rescue nil

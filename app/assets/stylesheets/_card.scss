@@ -1,11 +1,22 @@
-.card { position: relative; margin-bottom: 30px; color: #333333; padding-left: 53%; background-color: #f3f3f3; }
+.card { position: relative; margin-bottom: 30px; color: #333333; padding-left: 53%; background-color: #f3f3f3; 
+	@media(min-width: $screen-md-min) {
+		&.property { height: 288px;
+			&.card-compress { height: 272px; }
+			.card-text { min-height: 80px; }
+		}
+	}
+}
 .card-image { position: absolute; width: 53%; overflow: hidden; height: 100%; left: 0; top: 0; 
 	img { height: 100%; width: auto; }
 }
-.card-body { padding: 40px; }
+.card-body { padding: 40px; position: relative; height: 100%;
+	@media(min-width: $screen-md-min) {
+		span.btn-fix { position: absolute; bottom: 0; margin-bottom: 30px; }
+	}
+}
 .card-title { @extend .title; font-size: 22px; margin-bottom: 10px; }
 .card-text { color: #97a6b7; }
-.card-price { margin: 0 0 40px; font-size: 20px; }
+.card-price { margin: 0 0 10px; font-size: 20px; }
 
 a.card { @include block-link; }
 

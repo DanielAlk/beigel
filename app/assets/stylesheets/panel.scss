@@ -6,8 +6,13 @@
 @import "font-awesome";
 @import "main";
 @import "admin_nav";
+@import "navigation";
+@import "footer";
 @import "forms";
 @import "backgrounds";
+@import "wall";
+@import "gallery";
+@import "card";
 @import "file_picker";
 @import "video_input";
 @import "custom";
@@ -19,6 +24,11 @@
 	&.properties { max-width: 900px; padding-top: 15px;
 		&.index { max-width: 1200px; }
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
+		&.show { width: 1160px; padding: 30px; max-width: none;
+			@media(max-width: 1199px) { width: 960px; }
+			@media(max-width: 991px) { width: 740px; }
+			@media(max-width: 767px) { width: 100%; padding: 10px; }
+		}
 	}
 }
 
