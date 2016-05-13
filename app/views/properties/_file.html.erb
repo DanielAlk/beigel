@@ -15,10 +15,27 @@
 <%= render 'partials/gallery', gallery_class: 'fullscreen-gallery', images: @property.images, fullscreen: true %>
 <% if admin_signed_in? %>
   <div class="admin-options btn-group btn-group-justified">
-    <%= link_to 'Volver al listado', properties_path, class: 'btn btn-warning' %>
-    <%= link_to 'Principal', edit_property_path(property), class: 'btn btn-primary' %>
-    <%= link_to 'Caracteristicas', edit_property_path(property, property_step_from_status(:characteristics)), class: 'btn btn-info' %>
-    <%= link_to 'Multimedia', edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-danger' %>
+    <%= link_to properties_path, class: 'btn btn-warning' do %>
+      <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Volver al listado
+    <% end %>
+    <%= link_to edit_property_path(property), class: 'btn btn-primary' do %>
+      <i class="fa fa-file-text-o" aria-hidden="true"></i> Principal
+    <% end %>
+    <%= link_to edit_property_path(property, property_step_from_status(:characteristics)), class: 'btn btn-info' do %>
+      <i class="fa fa-list-alt" aria-hidden="true"></i> Caracteristicas
+    <% end %>
+    <%= link_to edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-danger' do %>
+      <i class="fa fa-camera-retro" aria-hidden="true"></i> Multimedia
+    <% end %>
+    <%= link_to clone_property_path(property), method: :put, class: 'btn btn-warning' do %>
+      <i class="fa fa-clone fa-fh" aria-hidden="true"></i> Duplicar
+    <% end %>
+    <%= link_to '#', class: 'btn btn-info' do %>
+      <i class="fa fa-ban fa-fh" aria-hidden="true"></i> Pausar
+    <% end %>
+    <%= link_to property, method: :delete, data: { confirm: '¿Seguro querés eliminar esta propiedad?' }, class: 'btn btn-danger' do %>
+      <i class="fa fa-trash-o fa-fh" aria-hidden="true"></i> Eliminar
+    <% end %>
   </div>
 <% end %>
 <div class="card card-compress property">

@@ -27,6 +27,9 @@ es:
         restrict_dependent_destroy:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
+  will_paginate:
+    next_label: '>>'
+    previous_label: '<<'
   date:
     abbr_day_names:
     - dom

@@ -44,6 +44,7 @@ gem 'browser'
 gem 'bootstrap-select-rails'
 gem 'autonumeric-rails'
 gem 'acts_as_list'
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
 	gem 'seed_dump'

@@ -7,7 +7,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.all
+    @properties = Property.order(id: :desc).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /properties/1
@@ -58,8 +58,9 @@ class PropertiesController < ApplicationController
   def clone
     property = @property.dup
     @property.characteristics.each do |ch|
-      char = ch.dup
-      char.classifiable = property
+      char = property.characteristics.new
+      char.available_characteristic = ch.available_characteristic
+      char.option_value = ch.option_value
       char.save
     end
     @property.images.each do |img|
@@ -71,7 +72,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if property.save
-        format.html { redirect_to edit_property_path(property), notice: 'Property was successfully created.' }
+        format.html { redirect_to property, notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: property }
       else
         format.html { render :new }
