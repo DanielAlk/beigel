@@ -42,3 +42,10 @@
 @media(max-width: $screen-md-max) {
 	.content-table { font-size: 1em; }
 }
+
+.price-box { display: inline-block; margin-bottom: 5px; margin-right: 10px; width: 160px; text-align: center; border: 1px solid #029351; padding-bottom: 2px;
+	@media(max-width: 399px) { width: 100%; margin: 0;
+		&+.price-box { margin-top: 10px; }
+	}
+}
+.price-box h4 { font-size: 14px; color: #fff; background-color: #029351; margin: 0 0 2px; padding: 5px; }

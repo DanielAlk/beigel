@@ -7,7 +7,7 @@ class Property < ActiveRecord::Base
   has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy
   has_many :videos, :as => :mediable, :dependent => :destroy
   validates_length_of :images, minimum: 1, message: "debe contener al menos una", if: Proc.new { |property| property.active? }
-  validate :activation
+  #validate :activation
   before_save :re_slug
   after_update :re_classify
 
@@ -18,6 +18,16 @@ class Property < ActiveRecord::Base
 
   def type
   	self.property_type.title
+  end
+
+  def short
+    if self.info.present?
+      self.info
+    else
+      short_description = self.description[0...140].split(' ')
+      short_description.pop()
+      (short_description.join(' ') + '...')
+    end
   end
 
   def draft?
@@ -61,8 +71,10 @@ class Property < ActiveRecord::Base
     end
 
     def activation
-      if self.errors.any?
-        self.reload
+      unless self.copy?
+        if self.errors.any?
+          self.reload
+        end
       end
     end
 

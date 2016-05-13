@@ -2,6 +2,7 @@ class CreateProperties < ActiveRecord::Migration
   def change
     create_table :properties do |t|
       t.string :title
+      t.string :info
       t.text :description
       t.integer :status, :default=>0
       t.references :property_type, index: true, foreign_key: true
@@ -10,6 +11,7 @@ class CreateProperties < ActiveRecord::Migration
       t.integer :garages
       t.integer :bathrooms
       t.integer :toilettes
+      t.integer :expenses
       t.integer :sale_price
       t.integer :sale_currency
       t.integer :rent_price

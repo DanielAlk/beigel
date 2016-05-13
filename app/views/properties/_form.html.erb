@@ -1,3 +1,5 @@
+<%= tinymce_init %>
+
 <% content_for :extra_js do %>
   Property.new();
 <% end %>
@@ -24,8 +26,12 @@
     <%= f.text_field :title, minlength: 10, required: true %>
   </div>
   <div class="field">
+    <%= f.label :info, 'Descripción corta <small>(opcional)</small>'.html_safe %><br>
+    <%= f.text_field :info, minlength: 10, maxlength: 120 %>
+  </div>
+  <div class="field">
     <%= f.label :description, 'Descripción' %><br>
-    <%= f.text_area :description, rows: 4, minlength: 30, required: true %>
+    <%= f.text_area :description, rows: 4, minlength: 30, required: true, class: 'tinymce' %>
   </div>
   <div class="field">
     <div class="row">
@@ -62,11 +68,15 @@
   <div class="field">
     <h3 class="field-title">Precio</h3>
     <div class="row">
+      <div class="col-xs-2 currency-ars">
+        <%= f.label :expenses, 'Expensas' %><br>
+        <%= f.text_field :expenses, class: 'autonumeric' %>
+      </div>
       <div class="col-xs-2">
         <%= f.label :sale_currency, '&nbsp'.html_safe %><br>
         <%= f.select :sale_currency, options_for_select(Property.currencies, @property.sale_currency), {}, { data: { mobile: browser.mobile? } } %>
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <%= f.label :sale_price, 'Precio de venta' %><br>
         <%= f.text_field :sale_price, class: 'autonumeric' %>
       </div>
@@ -74,7 +84,7 @@
         <%= f.label :rent_currency, '&nbsp'.html_safe %><br>
         <%= f.select :rent_currency, options_for_select(Property.currencies, @property.rent_currency || 1), {}, { data: { mobile: browser.mobile? } } %>
       </div>
-      <div class="col-xs-4">
+      <div class="col-xs-3">
         <%= f.label :rent_price, 'Precio de alquiler' %><br>
         <%= f.text_field :rent_price, class: 'autonumeric' %>
       </div>

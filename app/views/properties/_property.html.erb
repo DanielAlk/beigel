@@ -2,7 +2,7 @@
 	<%= render 'partials/gallery', gallery_class: 'card-gallery', images: property.images %>
 	<div class="card-body">
 		<h2 class="card-title"><%= property.title %></h2>
-		<p class="card-text"><%= property.address %>| <%= property.zone.name %> | <%= property.description %></p>
+		<p class="card-text"><%= property.address %>| <%= property.zone.name %> | <%= strip_tags property.short %></p>
 		<% if property.for_rent? %>
 			<h3 class="card-price">
 				<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>

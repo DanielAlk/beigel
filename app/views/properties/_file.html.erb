@@ -12,55 +12,64 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?callback=startMap"></script>
 <% end %>
 
+<%= render 'partials/gallery', gallery_class: 'fullscreen-gallery', images: @property.images, fullscreen: true %>
 <% if admin_signed_in? %>
   <div class="admin-options btn-group btn-group-justified">
-    <%= link_to 'Principal', edit_property_path(property), class: 'btn btn-warning' %>
+    <%= link_to 'Volver al listado', properties_path, class: 'btn btn-warning' %>
+    <%= link_to 'Principal', edit_property_path(property), class: 'btn btn-primary' %>
     <%= link_to 'Caracteristicas', edit_property_path(property, property_step_from_status(:characteristics)), class: 'btn btn-info' %>
     <%= link_to 'Multimedia', edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-danger' %>
-    <%= link_to 'Volver al listado', properties_path, class: 'btn btn-primary' %>
   </div>
 <% end %>
 <div class="card card-compress property">
   <%= render 'partials/gallery', gallery_class: 'card-gallery', images: property.images, toggle: true %>
   <div class="card-body">
     <h2 class="card-title"><%= property.title %></h2>
-    <p class="card-text">
-      <%= property.address %> | <%= property.zone.name %> | <%= property.description %><br>
-      <br>
-      SUPERFICIE: &nbsp; <%= property.area %> m<sup>2</sup>
-    </p>
-    <h3 class="card-price">
-      <% if property.for_rent? %>
-        <strong style="<%= 'display:inline-block; margin-bottom:5px;' if property.for_sale_and_rent? %>"><big><%= currency property.rent_price, property.currency_for(:rent) + ' ' %></big></strong>
-        <%= '<small>> Alquiler</small>'.html_safe if property.for_sale_and_rent? %>
+    <div class="card-text">
+      <%= property.address %> | <%= property.zone.name %> | <%= strip_tags property.short %>
+    </div>
+    <div class="card-text">
+      EXPENSAS: &nbsp; <%= currency property.expenses, '$ ' %><br>
+      SUPERFICIE: &nbsp; <%= property.area %>
+      <% if Property.area_units[property.area_unit] == 0 %>
+        m<sup>2</sup>
+      <% else %>
+        ha
       <% end %>
-      <% if property.for_sale_and_rent? %>
-        <br>
-      <% end %>
+    </div>
+    <div class="card-price">
       <% if property.for_sale? %>
-        <strong><big><%= currency property.sale_price, property.currency_for(:sale) + ' ' %></big></strong>
-        <%= '<small>> Venta</small>'.html_safe if property.for_sale_and_rent? %>
+        <div class="price-box <%= 'pull-left' if property.for_rent? %>">
+          <h4>Venta</h4>
+          <strong><big><%= currency property.sale_price, property.currency_for(:sale) + ' ' %></big></strong>
+        </div>
       <% end %>
-    </h3>
-    <span class="card-text">
+      <% if property.for_rent? %>
+        <div class="price-box <%= 'pull-right' if property.for_sale? %>">
+          <h4>Alquiler</h4>
+          <strong><big><%= currency property.rent_price, property.currency_for(:rent) + ' ' %></big></strong>
+        </div>
+      <% end %>
+    </div>
+    <!--span class="card-text">
       Ver publicación en &nbsp;
       <%= link_to '#', class: 'partner-logo sm' do %>
         <%= image_tag 'logo-zonaprop-grey-bg.jpg' %>
       <% end %>
-    </span>
+    </span-->
   </div>
 </div>
 <div class="content-wall">
   <div class="row">
     <div class="col-xs-12">
       <h3 class="title">Descripción</h3>
-      <p class="mar-xs-S-50">
-        <%= property.description %>
+      <div class="tinymce-content mar-xs-S-50">
+        <%= property.description.html_safe %>
         <br><br>
         <strong>
           BEIGEL BIENES RAÍCES | <%= link_to '4553-1700', 'tel:+541145531700', class: 'text-link' %>
         </strong>
-      </p>
+      </div>
     </div>
     <% if property.characteristics.services.present? %>
       <div class="col-xs-12 col-sm-6">
@@ -82,6 +91,9 @@
         </ul>
       </div>
     <% end %>
+    <% if property.characteristics.services.present? && property.characteristics.environments.present? %>
+      <div class="clearfix"></div>
+    <% end %>
     <% if property.characteristics.extended.present? %>
       <div class="col-xs-12 col-sm-6">
         <h3 class="title">Detalles</h3>
@@ -95,6 +107,9 @@
           <% end %>
         </ul>
       </div>
+    <% end %>
+    <% if property.characteristics.services.present? && !property.characteristics.environments.present? || !property.characteristics.services.present? && property.characteristics.environments.present? %>
+      <div class="clearfix"></div>
     <% end %>
     <% if property.characteristics.general.present? %>
       <div class="col-xs-12 col-sm-6">

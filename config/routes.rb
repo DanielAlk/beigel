@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :properties do
       member do
         get '/edit/(*step)', to: :edit, step: /principal|caracteristicas|media/, as: :edit
+        put '/clone', to: :clone, as: :clone
       end
     end
   end

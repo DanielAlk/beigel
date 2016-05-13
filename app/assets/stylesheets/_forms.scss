@@ -29,6 +29,11 @@ button.btn.dropdown-toggle.form-control.selectpicker { @extend .form-control }
 
 label.error { color: #FF9C00; }
 
+.currency-ars { 
+	input { padding-left: 25px !important; }
+	&:before { content: '$'; position: absolute; bottom: 0; margin: 5px 12px; color: #7F8999; }
+}
+
 .form-format form {
 	.field { @extend .form-group;
 		input:not([type="checkbox"]):not([type="radio"]), textarea, select {

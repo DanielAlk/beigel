@@ -1,6 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_property, only: [:show, :edit, :update, :destroy]
+  before_action :set_property, only: [:show, :edit, :update, :clone, :destroy]
   before_action :related_objects, only: :update
   layout 'panel'
 
@@ -50,6 +50,33 @@ class PropertiesController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @property.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  
+  def clone
+    property = @property.dup
+    @property.characteristics.each do |ch|
+      char = ch.dup
+      char.classifiable = property
+      char.save
+    end
+    @property.images.each do |img|
+      image = Image.new
+      image.imageable = property
+      image.item = img.item
+      image.save
+    end
+    property.status = :copy
+
+    respond_to do |format|
+      if property.save
+        format.html { redirect_to edit_property_path(property), notice: 'Property was successfully created.' }
+        format.json { render :show, status: :created, location: property }
+      else
+        format.html { render :new }
+        format.json { render json: property.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -131,7 +158,8 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      pp = params.require(:property).permit(:title, :description, :status, :property_type_id, :age, :environments, :garages, :bathrooms, :toilettes, :sale_price, :sale_currency, :rent_price, :rent_currency, :area_unit, :constructed_area, :unconstructed_area, :zone_id, :address, :zip_code, :lat, :lng)
+      pp = params.require(:property).permit(:title, :info, :description, :status, :property_type_id, :age, :environments, :garages, :bathrooms, :toilettes, :expenses, :sale_price, :sale_currency, :rent_price, :rent_currency, :area_unit, :constructed_area, :unconstructed_area, :zone_id, :address, :zip_code, :lat, :lng)
+      pp[:expenses].tr!('.', '') if pp[:expenses].present?
       pp[:sale_price].tr!('.', '') if pp[:sale_price].present?
       pp[:rent_price].tr!('.', '') if pp[:rent_price].present?
       pp[:constructed_area].tr!('.', '') if pp[:constructed_area].present?

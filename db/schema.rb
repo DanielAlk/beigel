@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160508095416) do
 
   create_table "properties", force: :cascade do |t|
     t.string   "title",              limit: 255
+    t.string   "info",               limit: 255
     t.text     "description",        limit: 65535
     t.integer  "status",             limit: 4,                              default: 0
     t.integer  "property_type_id",   limit: 4
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 20160508095416) do
     t.integer  "garages",            limit: 4
     t.integer  "bathrooms",          limit: 4
     t.integer  "toilettes",          limit: 4
+    t.integer  "expenses",           limit: 4
     t.integer  "sale_price",         limit: 4
     t.integer  "sale_currency",      limit: 4
     t.integer  "rent_price",         limit: 4
