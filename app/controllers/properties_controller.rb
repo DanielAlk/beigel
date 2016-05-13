@@ -63,8 +63,7 @@ class PropertiesController < ApplicationController
       char.save
     end
     @property.images.each do |img|
-      image = Image.new
-      image.imageable = property
+      image = property.images.new
       image.item = img.item
       image.save
     end
