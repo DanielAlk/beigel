@@ -1,0 +1,51 @@
+<% @search_params = {price_min: nil,price_max: nil,currency: nil,property_type: nil,rooms: nil,zone: nil,area: nil} unless @search_params.present? %>
+<section class="search-box">
+	<div class="container bg-primary">
+		<%= form_tag search_properties_path, method: :get, role: 'form' do %>
+			<div class="row drawer-xs-285 closed" data-handle="#search-box-handle">
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<%= select_tag 'search[operation_type]', options_for_select([['Comprar',:buy],['Alquilar',:rent]], @operation_type), title: 'Tipo de operación', class: 'form-control', multiple: !browser.mobile?, data: { max_options: 1, mobile: browser.mobile? }, prompt: browser.mobile? ? 'Tipo de operación' : nil %>
+					</div>
+					<div class="form-group row">
+						<div class="col-xs-4">
+							<%= text_field_tag 'search[price_min]', @search_params[:price_min], class: 'form-control autonumeric', placeholder: 'Desde' %>
+						</div>
+						<div class="col-xs-4">
+							<%= text_field_tag 'search[price_max]', @search_params[:price_max], class: 'form-control autonumeric', placeholder: 'Hasta' %>
+						</div>
+						<div class="col-xs-4">
+							<label class="radio-inline">
+								<%= radio_button_tag 'search[currency]', :ars, @search_params[:currency].nil? || @search_params[:currency] == 'ars' %> $
+							</label>
+							<label class="radio-inline">
+								<%= radio_button_tag 'search[currency]', :usd, @search_params[:currency] == 'usd' %> u$s
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<%= select_tag 'search[property_type]', options_from_collection_for_select(PropertyType.all, :id, :name, @search_params[:property_type]), class: 'form-control', multiple: true, title: 'Tipo de propiedad', data: { mobile: browser.mobile? } %>
+					</div>
+					<div class="form-group">
+						<%= select_tag 'search[rooms]', options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]], @search_params[:rooms]), class: 'form-control', multiple: true, title: 'Ambientes', data: { mobile: browser.mobile? } %>
+					</div>
+				</div>
+				<div class="clearfix-xs clearfix-sm"></div>
+				<div class="cols-sm-2 col-md-4">
+					<div class="form-group">
+						<% @zones = Property.select('zone_id').distinct.map { |property| [Zone.find(property.zone_id).name, property.zone_id] } %>
+						<%= select_tag 'search[zone]', options_for_select(@zones, @search_params[:zone]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
+					</div>
+					<div class="form-group">
+						<%= select_tag 'search[surface]', options_for_select([['Menos de 100', 0], ['101 a 200', 1], ['201 a 300', 2], ['301 o más', 3]], @search_params[:surface]), class: 'form-control', multiple: true, title: 'Superficie', data: { mobile: browser.mobile? } %>
+					</div>
+				</div>
+			</div>
+			<div class="search-box-submit">
+				<%= submit_tag 'Buscar', class: 'btn btn-default btn-fix', id: 'search-box-handle' %>
+			</div>
+		<% end %>
+	</div>
+</section>

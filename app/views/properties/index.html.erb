@@ -1,6 +1,9 @@
 <% content_for :extra_js do %>
+	Utils.init();
   $('.card-gallery').gallery();
 <% end %>
+
+<%= render 'partials/search_filters' %>
 
 <h1 style="margin-bottom:30px;">Propiedades <%= link_to 'Crear nueva', new_property_path, class: 'pull-right btn btn-warning' %></h1>
 

@@ -15,14 +15,20 @@
 @import "card";
 @import "file_picker";
 @import "video_input";
+@import "searchbox";
 @import "custom";
+
+.search-box {
+	margin: -15px -50px 0;
+	background-color: $brand-primary;
+}
 
 .container-fluid { @extend .form-format; padding-bottom: 100px;
 	&.sessions, &.registrations, &.passwords { max-width: 600px; padding-top: 15px;
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 	}
 	&.properties { max-width: 900px; padding-top: 15px;
-		&.index { max-width: 1200px; }
+		&.index, &.search { max-width: 1200px; }
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 		&.show { width: 1160px; padding: 30px; max-width: none;
 			@media(max-width: 1199px) { width: 960px; }

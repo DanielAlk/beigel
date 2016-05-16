@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       end
     end
     resources :properties do
+      collection do
+        get '/search', to: :search, as: :search
+      end
       member do
         get '/edit/(*step)', to: :edit, step: /principal|caracteristicas|media/, as: :edit
         put '/clone', to: :clone, as: :clone

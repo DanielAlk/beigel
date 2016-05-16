@@ -4,6 +4,12 @@ class PropertiesController < ApplicationController
   before_action :related_objects, only: :update
   layout 'panel'
 
+  def search
+    @properties = Property.order(id: :desc).paginate(:page => params[:page], :per_page => 5)
+    @search_params = params.require(:search)
+    render :index
+  end
+
   # GET /properties
   # GET /properties.json
   def index
