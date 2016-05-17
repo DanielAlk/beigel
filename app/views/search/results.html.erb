@@ -12,9 +12,7 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
 			</div>
 			<div>
-				<% @properties.each do |property| %>
-					<%= render 'partials/property', property: property %>
-				<% end %>
+				<%= render @properties %>
 			</div>
 			<div class="text-center mar-xs-N-70">
 				<%= link_to '#' do %>

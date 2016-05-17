@@ -1,4 +1,4 @@
-<% @search_params = {price_min: nil,price_max: nil,currency: nil,property_type: nil,rooms: nil,neighborhood: nil,surface: nil} unless @search_params.present? %>
+<% @search_params = {} unless @search_params.present? %>
 <section class="search-box">
 	<div class="container bg-primary">
 		<%= form_tag search_path, method: :post, role: 'form' do %>
@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
-						<%= select_tag 'search[property_type]', options_for_select([['PH',:ph],['Casa',:house],['Departamento',:apartment]], @search_params[:property_type]), class: 'form-control', multiple: true, title: 'Tipo de propiedad', data: { mobile: browser.mobile? } %>
+						<%= select_tag 'search[property_type]', options_from_collection_for_select(PropertyType.all, :id, :name, @search_params[:property_type]), class: 'form-control', multiple: true, title: 'Tipo de propiedad', data: { mobile: browser.mobile? } %>
 					</div>
 					<div class="form-group">
 						<%= select_tag 'search[rooms]', options_for_select([['Monoambiente', 1], ['2 Ambientes', 2], ['3 Ambientes', 3], ['4 o más', 4]], @search_params[:rooms]), class: 'form-control', multiple: true, title: 'Ambientes', data: { mobile: browser.mobile? } %>
@@ -35,10 +35,11 @@
 				<div class="clearfix-xs clearfix-sm"></div>
 				<div class="cols-sm-2 col-md-4">
 					<div class="form-group">
-						<%= select_tag 'search[neighborhood]', options_for_select([['Palermo',:palermo], ['Colegiales',:colegiales], ['Chacarita',:chacarita], ['3 de febrero','3-de-febrero']], @search_params[:neighborhood]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
+						<% @zones = Property.select('zone_id').distinct.map { |property| [Zone.find(property.zone_id).name, property.zone_id] } %>
+						<%= select_tag 'search[zone]', options_for_select(@zones, @search_params[:zone]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
 					</div>
 					<div class="form-group">
-						<%= select_tag 'search[surface]', options_for_select([['Menos de 100', 0], ['101 a 200', 1], ['201 a 300', 2], ['301 o más', 3]], @search_params[:surface]), class: 'form-control', multiple: true, title: 'Superficie', data: { mobile: browser.mobile? } %>
+						<%= select_tag 'search[area]', options_for_select([['Menos de 100', 0], ['101 a 200', 1], ['201 a 300', 2], ['301 o más', 3]], @search_params[:area]), class: 'form-control', multiple: true, title: 'Superficie', data: { mobile: browser.mobile? } %>
 					</div>
 				</div>
 			</div>

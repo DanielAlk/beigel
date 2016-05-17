@@ -2,8 +2,12 @@ module FilteringForProperties
 	extend ActiveSupport::Concern
 
 	def build_search_params
+		build_search(params)
+	end
+
+	def build_search(search)
 		@search_filters = {}
-		@search_params = params.slice(:operation_type, :price_min, :price_max, :currency, :property_type, :rooms, :zone, :area)
+		@search_params = search.slice(:operation_type, :price_min, :price_max, :currency, :property_type, :rooms, :zone, :area)
 		if @search_params[:price_min].present? && @search_params[:price_max].present?
 		  @search_params[:price_min] = @search_params[:price_min].remove '.'
 		  @search_params[:price_max] = @search_params[:price_max].remove '.'
@@ -20,7 +24,7 @@ module FilteringForProperties
 					@search_filters[:price] = { multiple: [ @operation_type, value, @search_params[:price_max] ] }
 				end
 			when :currency
-				if @operation_type.present? && value.present?
+				if @operation_type.present? && value.present? && @search_params[:price_min].present? && @search_params[:price_max].present?
 					@search_filters[:currency] = { multiple: [ @operation_type, value == 'usd' ? 0 : 1 ] }
 				end
 			when :rooms
@@ -38,4 +42,65 @@ module FilteringForProperties
 			end
 		end
 	end
+
+	def build_params_string(params_list, params_format)
+		string = ''
+		params_format.each do |key, param|
+			if param.respond_to? :each and param[:id].present? and params_list[key].present?
+				string << '/' + params_list[key].map { |p| param[:map][p.to_sym] || p.to_sym }.join('-' + param[:id].to_s + '/')
+				string << '-' + param[:id].to_s
+			elsif param.respond_to? :each
+				group_string = ''
+  			param_is_present = true
+  			param.each do |k, p|
+  				if param_is_present && param_is_present = params_list[k].present?
+  					group_string << '/' + params_list[k] + '-' + p.to_s
+  				end
+  			end
+  			string << group_string if param_is_present
+  		elsif params_list[key].present?
+  			string << '/' + params_list[key].join('-' + param.to_s + '/')
+  			string << '-' + param.to_s
+  		end
+  	end
+  	return string.sub('/','').gsub(/[^\d\w\/-]/, '')
+  end
+
+  def parse_params_string(params_list, params_format)
+  	obj = {}
+  	params_format.each do |key, param|
+  		if param.respond_to? :each and param[:id].present? && value = params_list[Regexp.new '(\/[\w\d-]+-' + param[:id].to_s + ')+']
+  			params_list = params_list.sub(value, '')
+  			length = param[:id].to_s.length+2
+  			obj[key] = value.sub('/','').split('/').map do |n|
+  				n = n[0..-length]
+  				param[:map].key(n.to_sym) || n
+  			end
+  		elsif param.respond_to? :each
+  			group_obj = {}
+  			param_is_present = true
+  			param.each do |k, p|
+  				if param_is_present
+  					if value = params_list[Regexp.new '(\/[\w\d-]+-' + p.to_s + ')']
+	  					params_list = params_list.sub(value, '')
+	  					length = p.to_s.length+2
+	  					obj[k] = value.sub('/','').split('/').map { |n| n[0..-length] }[0]
+	  				else
+	  					param_is_present = false
+	  				end
+	  			end
+	  		end
+	  		if param_is_present
+	  			group_obj.each do |o|
+	  				obj << o
+	  			end
+	  		end
+	  	elsif value = params_list[Regexp.new '(\/[\w\d-]+-' + param.to_s + ')+']
+	  		params_list = params_list.sub(value, '')
+  			length = param.to_s.length+2
+  			obj[key] = value.sub('/','').split('/').map { |n| n[0..-length] }
+  		end
+  	end
+  	return obj
+  end
 end

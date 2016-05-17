@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get 'la-empresa' => 'pages#about', as: :about
   get 'contacto' => 'pages#contact', as: :contact
   get 'servicios' => 'pages#services', as: :services
-  get 'ficha-tecnica' => 'pages#file', as: :file
+  get 'ficha-tecnica/(:property_id)' => 'pages#file', as: :file
   get 'servicios/tasaciones' => 'pages#assessments', as: :assessments
   get 'servicios/inversiones' => 'pages#investments', as: :investments
 

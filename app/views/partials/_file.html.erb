@@ -53,6 +53,8 @@
       <% else %>
         ha
       <% end %>
+      <br>
+      AMBIENTES: &nbsp; <%= property.environments %>
     </div>
     <div class="card-price">
       <% if property.for_sale? %>
@@ -140,6 +142,36 @@
     <% end %>
   </div>
   <%= link_to 'Otros inmuebles similares', '#', class: 'btn btn-primary btn-fix' %>
+</div>
+<div class="scroll-900">
+  <div class="scroll-window">
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Direccion</th>
+          <th>Ambientes</th>
+          <th>Sup. Cubierta</th>
+          <th>Sup. Total</th>
+          <th>Cochera</th>
+          <th>Venta</th>
+          <th>Alquiler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% [ { address: 'Caboto 420', rooms: 3, covered_area: 92.00, area: 95.70, garage: 'No', sale_price: 2522898, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 94.16, area: 98.02, garage: 'No', sale_price: 2332313, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 89.41, area: 94.00, garage: 'No', sale_price: 2324889, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 75.41, area: 78.00, garage: 'No', sale_price: 2029176, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 58.59, area: 93.68, garage: 'No', sale_price: 1955504, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 84.68, area: 87.21, garage: 'No', sale_price: 1945850, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 92.00, area: 95.70, garage: 'No', sale_price: 2522898, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 94.16, area: 98.02, garage: 'No', sale_price: 2332313, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 89.41, area: 94.00, garage: 'No', sale_price: 2324889, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 75.41, area: 78.00, garage: 'No', sale_price: 2029176, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 58.59, area: 93.68, garage: 'No', sale_price: 1955504, rent_price: nil }, { address: 'Caboto 420', rooms: 3, covered_area: 84.68, area: 87.21, garage: 'No', sale_price: 1945850, rent_price: nil } ].each do |unit| %>
+          <tr>
+            <td><%= unit[:address] %></td>
+            <td><%= unit[:rooms] %></td>
+            <td><%= unit[:covered_area] %></td>
+            <td><%= unit[:area] %></td>
+            <td><%= unit[:garage] %></td>
+            <td><%= currency unit[:sale_price], '$' %></td>
+            <td><%= currency unit[:rent_price], '$' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 <div class="content-wall-20">
   <div class="row">
