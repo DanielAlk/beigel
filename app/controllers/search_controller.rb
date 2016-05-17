@@ -35,11 +35,11 @@ class SearchController < ApplicationController
 	  		property_type_map[pt.title] = pt.name
 	  	end
 	  	{
-	  		property_type_title: {
+	  		property_type_slug: {
 	  			id: 1,
 	  			map: property_type_map,
   			},
-	  		zone_name: 2,
+	  		zone_slug: 2,
 	  		price: {
 	  			currency: 3,
 	  			price_min: 4,

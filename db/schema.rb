@@ -118,9 +118,12 @@ ActiveRecord::Schema.define(version: 20160508095416) do
   create_table "property_types", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "title",      limit: 255
+    t.string   "slug",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "property_types", ["slug"], name: "index_property_types_on_slug", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.integer  "format",        limit: 4,   default: 0
@@ -135,9 +138,12 @@ ActiveRecord::Schema.define(version: 20160508095416) do
 
   create_table "zones", force: :cascade do |t|
     t.string   "name",       limit: 255
+    t.string   "slug",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "zones", ["slug"], name: "index_zones_on_slug", unique: true, using: :btree
 
   add_foreign_key "characteristics", "available_characteristics"
   add_foreign_key "properties", "property_types"
