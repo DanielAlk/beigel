@@ -35,7 +35,8 @@ class Property < ActiveRecord::Base
     if self.info.present?
       self.info
     else
-      short_description = self.description[0..140].split(' ')
+      sanitizer = Rails::Html::WhiteListSanitizer.new
+      short_description = sanitizer.sanitize(self.description)[0..140].split(' ')
       short_description.pop()
       (short_description.join(' ') + '...')
     end
@@ -82,7 +83,8 @@ class Property < ActiveRecord::Base
     end
 
     def clean_description
-      self.description = self.description.remove(/style="[^"]+"|rel="[^"]+"|class="[^"]+"/)
+      sanitizer = Rails::Html::WhiteListSanitizer.new
+      self.description = sanitizer.sanitize(self.description, tags: %w(strong em br a), attributes: %w(href))
     end
 
     def activation
