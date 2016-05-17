@@ -106,12 +106,14 @@ Gallery.extension = function(options) {
 			$gallery.click(fullscreenGalleryClick);
 		};
 		var init = function() {
-			$images.load(setTimeoutToShow);
-			$right.click(next);
-			$left.click(prev);
-			$gallery.swipeleft(next);
-			$gallery.swiperight(prev);
-			$items.on('transitionend', onTransitionEnd);
+			if ($items.length > 1) {
+				$images.load(setTimeoutToShow);
+				$right.click(next);
+				$left.click(prev);
+				$gallery.swipeleft(next);
+				$gallery.swiperight(prev);
+				$items.on('transitionend', onTransitionEnd);
+			} else $right.add($left).remove();
 			if (options.toggle || options.fullscreen) $toggle.click(toggle);
 			if (options.fullscreen) fullscreenGalleryInit();
 		};
