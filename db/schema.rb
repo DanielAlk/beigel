@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160508095416) do
     t.integer  "area_unit",          limit: 4
     t.integer  "constructed_area",   limit: 4
     t.integer  "unconstructed_area", limit: 4
+    t.integer  "area",               limit: 4
     t.integer  "zone_id",            limit: 4
     t.string   "address",            limit: 255
     t.string   "zip_code",           limit: 255

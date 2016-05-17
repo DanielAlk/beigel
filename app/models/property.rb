@@ -1,5 +1,6 @@
 class Property < ActiveRecord::Base
   extend FriendlyId
+  include Filterable
   friendly_id :slug_candidates, use: :slugged
   belongs_to :property_type
   belongs_to :zone
@@ -9,7 +10,17 @@ class Property < ActiveRecord::Base
   validates_length_of :images, minimum: 1, message: "debe contener al menos una", if: Proc.new { |property| property.active? }
   validate :activation
   before_save :re_slug
+  before_save :calculate_area
+  before_save :clean_description
   after_update :re_classify
+
+  scope :operation_type, -> (operation_type) { operation_type == :buy ? where.not(sale_price: nil) : where.not(rent_price: nil) }
+  scope :price, -> (operation_type, price_min, price_max) { operation_type == :buy ? where(sale_price: price_min..price_max) : where(rent_price: price_min..price_max) }
+  scope :currency, -> (operation_type, currency) { operation_type == :buy ? where(sale_currency: currency) : where(rent_currency: currency) }
+  scope :property_type, -> (property_type_id) { where(property_type_id: property_type_id) }
+  scope :environments, -> (environments) { where(environments: environments) }
+  scope :zone, -> (zone_ids) { where(zone_id: zone_ids) }
+  scope :area, -> (area) { where(area: area) }
 
   enum status: [ :property, :characteristics, :multimedia, :active, :inactive, :copy ]
   enum step: [ :principal, :caracteristicas, :media ]
@@ -24,7 +35,7 @@ class Property < ActiveRecord::Base
     if self.info.present?
       self.info
     else
-      short_description = self.description[0...140].split(' ')
+      short_description = self.description[0..140].split(' ')
       short_description.pop()
       (short_description.join(' ') + '...')
     end
@@ -54,10 +65,6 @@ class Property < ActiveRecord::Base
     end
   end
 
-  def area
-    self.constructed_area + self.unconstructed_area
-  end
-
   def step
     Property.steps.key(Property.statuses[self.status])
   end
@@ -68,6 +75,14 @@ class Property < ActiveRecord::Base
         :title,
         [ :title, :id ]
       ]
+    end
+
+    def calculate_area
+      self.area = self.constructed_area + self.unconstructed_area
+    end
+
+    def clean_description
+      self.description = self.description.remove(/style="[^"]+"|rel="[^"]+"|class="[^"]+"/)
     end
 
     def activation
@@ -84,7 +99,12 @@ class Property < ActiveRecord::Base
 
   	def re_classify
   		if self.property_type_id_changed?
-  			self.characteristics.destroy_all
+        available_characteristic_ids = self.property_type.characteristics.select(:available_characteristic_id).map {|c|c.available_characteristic_id}
+  			self.characteristics.each do |characteristic|
+          unless available_characteristic_ids.include? characteristic.available_characteristic_id
+            characteristic.destroy
+          end
+        end
         self.status = :characteristics
   		end
   	end

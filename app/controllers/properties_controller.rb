@@ -1,19 +1,21 @@
 class PropertiesController < ApplicationController
+  include FilteringForProperties
   before_action :authenticate_admin!
   before_action :set_property, only: [:show, :edit, :update, :clone, :destroy]
   before_action :related_objects, only: :update
+  before_action :build_search_params, only: :search
   layout 'panel'
 
   def search
-    @properties = Property.order(id: :desc).paginate(:page => params[:page], :per_page => 5)
-    @search_params = params.require(:search)
+    @properties = Property.filter(@search_filters)
+    @properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
     render :index
   end
 
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.order(id: :desc).paginate(:page => params[:page], :per_page => 5)
+    @properties = Property.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /properties/1

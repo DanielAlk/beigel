@@ -19,6 +19,7 @@ class CreateProperties < ActiveRecord::Migration
       t.integer :area_unit
       t.integer :constructed_area
       t.integer :unconstructed_area
+      t.integer :area
       t.references :zone, index: true, foreign_key: true
       t.string :address
       t.string :zip_code
