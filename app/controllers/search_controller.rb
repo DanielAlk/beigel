@@ -24,7 +24,7 @@ class SearchController < ApplicationController
 		search_params[:operation_type] = operation_type
 		build_search(search_params)
 		@properties = Property.filter(@search_filters)
-		@properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
+		@properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 2)
   end
 
   private
@@ -32,14 +32,14 @@ class SearchController < ApplicationController
 	  def search_params_format
 	  	property_type_map = {}
 	  	PropertyType.all.each do |pt|
-	  		property_type_map[pt.id] = pt.name
+	  		property_type_map[pt.title] = pt.name
 	  	end
 	  	{
-	  		property_type: {
+	  		property_type_title: {
 	  			id: 1,
 	  			map: property_type_map,
   			},
-	  		zone: 2,
+	  		zone_name: 2,
 	  		price: {
 	  			currency: 3,
 	  			price_min: 4,

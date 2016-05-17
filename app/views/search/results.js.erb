@@ -1,0 +1,4 @@
+$('#properties').append("<%= escape_javascript(render(@properties)) %>");
+<% if @properties.total_pages == @properties.current_page %>
+	$('#pagination_next').remove();
+<% end %>

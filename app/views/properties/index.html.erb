@@ -9,7 +9,7 @@
 
 <% @properties.each do |property| %>
 	<div class="panel-card">
-		<%= link_to '#', class: 'panel-card-link' do %>
+		<%= link_to property, class: 'panel-card-link' do %>
 			<div class="panel-card-image">
 				<%= image_tag property.images.first.item.url(:thumb) rescue nil %>
 			</div>

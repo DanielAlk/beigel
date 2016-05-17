@@ -3,12 +3,11 @@
 	<div class="card-body">
 		<h2 class="card-title"><%= property.title %></h2>
 		<p class="card-text"><%= property.address %>| <%= property.zone.name %> | <%= property.short %></p>
-		<% if property.for_rent? %>
+		<% if @operation_type == :rent %>
 			<h3 class="card-price">
 				<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
 			</h3>
-		<% end %>
-		<% if property.for_sale? %>
+		<% else %>
 			<h3 class="card-price">
 				<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
 			</h3>

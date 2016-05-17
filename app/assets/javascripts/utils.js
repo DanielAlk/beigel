@@ -13,6 +13,15 @@ Utils.load = function() {
 	Utils.nav();
 };
 
+Utils.paginationNext = function() {
+	$('#pagination_next').click(function(e) {
+		e.preventDefault();
+		var next_page = $(this).data('page');
+		$(this).data('page', Number(next_page)+1);
+		$.getScript(this.href + next_page);
+	});
+};
+
 Utils.message = function(text) {
 	var $modal = $('#modalGeneric');
 	$modal.modal('show').find('p').text(text);

@@ -1,5 +1,6 @@
 <% content_for :extra_js do %>
 	$('.card-gallery').gallery();
+	Utils.paginationNext();
 <% end %>
 
 <section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
@@ -9,14 +10,17 @@
 		<div class="container bg-white">
 			<div class="section-title">
 				<h2><%= @operation_type == :buy ? 'Comprar' : 'Alquilar' %></h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+				<p><%= page_entries_info @properties %></p>
 			</div>
-			<div>
+			<div id="properties">
 				<%= render @properties %>
 			</div>
 			<div class="text-center mar-xs-N-70">
-				<%= link_to '#' do %>
-					Ver Más &nbsp;<i class="fa fa-arrow-circle-down"></i>
+				<% unless @properties.total_pages == @properties.current_page %>
+					<% next_page = params[:page].present? ? params[:page].to_i + 1 : 2 %>
+					<%= link_to '?page=', id: 'pagination_next', data: { page: next_page } do %>
+						Ver Más &nbsp;<i class="fa fa-arrow-circle-down"></i>
+					<% end %>
 				<% end %>
 			</div>
 		</div>

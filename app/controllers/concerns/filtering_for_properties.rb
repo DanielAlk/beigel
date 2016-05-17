@@ -7,7 +7,7 @@ module FilteringForProperties
 
 	def build_search(search)
 		@search_filters = {}
-		@search_params = search.slice(:operation_type, :price_min, :price_max, :currency, :property_type, :rooms, :zone, :area)
+		@search_params = search.slice(:operation_type, :price_min, :price_max, :currency, :property_type, :property_type_title, :rooms, :zone, :zone_name, :area)
 		if @search_params[:price_min].present? && @search_params[:price_max].present?
 		  @search_params[:price_min] = @search_params[:price_min].remove '.'
 		  @search_params[:price_max] = @search_params[:price_max].remove '.'
@@ -35,7 +35,7 @@ module FilteringForProperties
 				if value.present?
 					@search_filters[:area] = value.map { |a| a.to_i < 4 ? (a.to_i * 100 + 1)..(a.to_i+1)*100 : 301..Float::INFINITY }
 				end
-			when :property_type, :zone
+			when :property_type, :property_type_title, :zone, :zone_name
 				if value.present?
 					@search_filters[key.to_sym] = value
 				end

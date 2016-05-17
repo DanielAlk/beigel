@@ -18,8 +18,10 @@ class Property < ActiveRecord::Base
   scope :price, -> (operation_type, price_min, price_max) { operation_type == :buy ? where(sale_price: price_min..price_max) : where(rent_price: price_min..price_max) }
   scope :currency, -> (operation_type, currency) { operation_type == :buy ? where(sale_currency: currency) : where(rent_currency: currency) }
   scope :property_type, -> (property_type_id) { where(property_type_id: property_type_id) }
+  scope :property_type_title, -> (property_type_titles) { where(property_type_id: PropertyType.where(title: property_type_titles).map {|pt|pt.id}) }
   scope :environments, -> (environments) { where(environments: environments) }
   scope :zone, -> (zone_ids) { where(zone_id: zone_ids) }
+  scope :zone_name, -> (zone_names) { where(zone_id: Zone.where(name: zone_names).map {|z|z.id}) }
   scope :area, -> (area) { where(area: area) }
 
   enum status: [ :property, :characteristics, :multimedia, :active, :inactive, :copy ]
