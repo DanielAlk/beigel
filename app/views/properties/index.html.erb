@@ -58,9 +58,18 @@
 				<i class="fa fa-clone fa-fh" aria-hidden="true"></i>
 				<span>Duplicar</span>
 			<% end %>
-			<%= link_to '#' do %>
-				<i class="fa fa-ban fa-fh" aria-hidden="true"></i>
-				<span>Pausar</span>
+			<%= form_for property do |f| %>
+				<%= f.hidden_field :status, value: (property.active? ? :inactive : :active) %>
+				<%= hidden_field_tag :after_update_url, properties_path %>
+				<%= f.button :submit do %>
+					<% if property.active? %>
+						<i class="fa fa-pause" aria-hidden="true"></i>
+						<span>Pausar</span>
+					<% else %>
+						<i class="fa fa-play" aria-hidden="true"></i>
+						<span>Activar</span>
+					<% end %>
+				<% end %>
 			<% end %>
 			<%= link_to property do %>
 				<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>

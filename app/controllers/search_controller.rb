@@ -23,7 +23,7 @@ class SearchController < ApplicationController
 		search_params = parse_params_string(search_params, search_params_format)
 		search_params[:operation_type] = operation_type
 		build_search(search_params)
-		@properties = Property.filter(@search_filters)
+		@properties = Property.active.filter(@search_filters)
 		@properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 2)
   end
 

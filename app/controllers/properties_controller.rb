@@ -101,7 +101,9 @@ class PropertiesController < ApplicationController
 
   private
     def property_status_path
-      if @property.draft?
+      if params[:after_update_url].present?
+        params[:after_update_url]
+      elsif @property.draft?
         edit_property_path @property, @property.step
       else
         @property

@@ -12,7 +12,7 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?callback=startMap"></script>
 <% end %>
 
-<%= render 'partials/gallery', gallery_class: 'fullscreen-gallery', images: @property.images, fullscreen: true %>
+<%= render 'partials/gallery', gallery_class: 'fullscreen-gallery', images: property.images, fullscreen: true %>
 <% if admin_signed_in? %>
   <div class="admin-options btn-group btn-group-justified">
     <%= link_to properties_path, class: 'btn btn-warning' do %>
@@ -30,18 +30,36 @@
     <%= link_to clone_property_path(property), method: :put, class: 'btn btn-warning' do %>
       <i class="fa fa-clone fa-fh" aria-hidden="true"></i> Duplicar
     <% end %>
-    <%= link_to '#', class: 'btn btn-info' do %>
-      <i class="fa fa-ban fa-fh" aria-hidden="true"></i> Pausar
+    <%= link_to '#', class: 'btn btn-info', data: { submit: 'form.edit_property' } do %>
+      <% if property.active? %>
+        <i class="fa fa-pause fa-fh" aria-hidden="true"></i> Pausar
+      <% else %>
+        <i class="fa fa-play fa-fh" aria-hidden="true"></i> Activar
+      <% end %>
     <% end %>
     <%= link_to property, method: :delete, data: { confirm: '¿Seguro querés eliminar esta propiedad?' }, class: 'btn btn-danger' do %>
       <i class="fa fa-trash-o fa-fh" aria-hidden="true"></i> Eliminar
     <% end %>
   </div>
+  <%= form_for property do |f| %>
+    <%= f.hidden_field :status, value: (property.active? ? :inactive : :active) %>
+  <% end %>
 <% end %>
 <div class="card card-compress property">
   <%= render 'partials/gallery', gallery_class: 'card-gallery', images: property.images, toggle: true %>
   <div class="card-body">
-    <h2 class="card-title"><%= property.title %></h2>
+    <h2 class="card-title">
+      <%= property.title %>
+      <% if admin_signed_in? %>
+        <% if property.draft? %>
+          <small> > Editando</small>
+        <% elsif property.active? %>
+          <small> > Activa</small>
+        <% else %>
+          <small> > Pausada</small>
+        <% end %>
+      <% end %>
+    </h2>
     <div class="card-text">
       <%= property.address %> | <%= property.zone.name %> | <%= property.short %>
     </div>

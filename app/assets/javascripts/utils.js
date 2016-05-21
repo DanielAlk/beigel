@@ -10,6 +10,7 @@ Utils.init = function() {
 Utils.load = function() {
 	Utils.radios.init();
 	Utils.checkboxes.init();
+	Utils.submitTriggers();
 	Utils.nav();
 };
 
@@ -76,6 +77,13 @@ Utils.checkboxes.init = function() {
 		$targets.filter(function() {
 			return $(element).is(':checked') != $(this).is(':checked');
 		}).click();
+	});
+};
+
+Utils.submitTriggers = function() {
+	$(document).on('click', '[data-submit]', function(e) {
+		e.preventDefault();
+		$($(this).data('submit')).submit();
 	});
 };
 
