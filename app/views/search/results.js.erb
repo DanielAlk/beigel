@@ -1,4 +1,7 @@
-$('#properties').append("<%= escape_javascript(render(@properties)) %>");
+$properties = $("<%= escape_javascript(render(@properties)) %>");
+$properties.find('.card-gallery').gallery();
+$('#properties').append($properties);
+$('#page_entries_info').html('<%= page_entries_info @properties %>');
 <% if @properties.total_pages == @properties.current_page %>
 	$('#pagination_next').remove();
 <% end %>

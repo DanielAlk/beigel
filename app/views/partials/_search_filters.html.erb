@@ -2,7 +2,18 @@
 <section class="search-box">
 	<div class="container bg-primary">
 		<%= form_tag search_properties_path, method: :get, role: 'form' do %>
-			<div class="row drawer-xs-285 closed" data-handle="#search-box-handle">
+			<div class="row drawer-xs-380 closed" data-handle="#search-box-handle">
+				<div class="col-xs-12 col-sm-6 col-md-8">
+					<div class="form-group">
+						<%= text_field_tag :title, @search_params[:title], class: 'form-control', placeholder: 'Título' %>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<%= select_tag :status_filter, options_for_select([['Ver Todas'], ['Activas', :active], ['Pausadas', :inactive], ['Editando', :draft]], @search_params[:status_filter]), class: 'form-control', data: { mobile: browser.mobile? } %>
+					</div>
+				</div>
+				<div class="clearfix"></div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
 						<%= select_tag :operation_type, options_for_select([['Comprar',:buy],['Alquilar',:rent]], @operation_type), title: 'Tipo de operación', class: 'form-control', multiple: !browser.mobile?, data: { max_options: 1, mobile: browser.mobile? }, prompt: browser.mobile? ? 'Tipo de operación' : nil %>

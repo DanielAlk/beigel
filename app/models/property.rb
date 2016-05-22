@@ -23,6 +23,8 @@ class Property < ActiveRecord::Base
   scope :zone, -> (zone_ids) { where(zone_id: zone_ids) }
   scope :zone_slug, -> (zone_slugs) { where(zone_id: Zone.where(slug: zone_slugs).map {|z|z.id}) }
   scope :area, -> (area) { where(area: area) }
+  scope :title, -> (title) { where('title LIKE ?', ['%' + title + '%']) }
+  scope :status_filter, -> (status) { where(status: status) }
 
   enum status: [ :property, :characteristics, :multimedia, :active, :inactive, :copy ]
   enum step: [ :principal, :caracteristicas, :media ]

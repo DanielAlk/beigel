@@ -18,9 +18,11 @@
 @import "searchbox";
 @import "custom";
 
-.search-box {
-	margin: -15px -50px 0;
-	background-color: $brand-primary;
+section.search-box { margin: -15px -50px 0; background-color: $brand-primary;
+	@media(max-width: $screen-xs-max) { margin-left: -15px; margin-right: -15px; }
+	@media(min-width: $screen-lg-min) {
+		.search-box-submit { margin-top: 42px; }
+	}
 }
 
 .container-fluid { @extend .form-format; padding-bottom: 100px;

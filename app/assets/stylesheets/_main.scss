@@ -79,6 +79,9 @@ section.cover, div.cover { background-size: cover; background-position: center c
 }
 @media(max-width:$screen-xs-max) {
 	.drawer-xs-285 { @include drawer(285px); }
+	.drawer-xs-320 { @include drawer(320px); }
+	.drawer-xs-335 { @include drawer(335px); }
+	.drawer-xs-380 { @include drawer(380px); }
 }
 
 /* ITEMS */
