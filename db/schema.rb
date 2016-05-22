@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508095416) do
+ActiveRecord::Schema.define(version: 20160522072950) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",        null: false
@@ -53,6 +53,39 @@ ActiveRecord::Schema.define(version: 20160508095416) do
   add_index "characteristics", ["available_characteristic_id"], name: "index_characteristics_on_available_characteristic_id", using: :btree
   add_index "characteristics", ["classifiable_type", "classifiable_id"], name: "index_characteristics_on_classifiable_type_and_classifiable_id", using: :btree
 
+  create_table "development_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "title",      limit: 255
+    t.string   "slug",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "development_types", ["slug"], name: "index_development_types_on_slug", unique: true, using: :btree
+
+  create_table "developments", force: :cascade do |t|
+    t.string   "title",               limit: 255
+    t.string   "info",                limit: 255
+    t.text     "description",         limit: 65535
+    t.integer  "status",              limit: 4,                              default: 0
+    t.integer  "development_type_id", limit: 4
+    t.integer  "stage",               limit: 4,                              default: 0
+    t.integer  "delivery_month",      limit: 4
+    t.integer  "delivery_year",       limit: 4
+    t.integer  "zone_id",             limit: 4
+    t.string   "address",             limit: 255
+    t.string   "zip_code",            limit: 255
+    t.decimal  "lat",                               precision: 10, scale: 6
+    t.decimal  "lng",                               precision: 10, scale: 6
+    t.string   "slug",                limit: 255
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
+  end
+
+  add_index "developments", ["development_type_id"], name: "index_developments_on_development_type_id", using: :btree
+  add_index "developments", ["slug"], name: "index_developments_on_slug", unique: true, using: :btree
+  add_index "developments", ["zone_id"], name: "index_developments_on_zone_id", using: :btree
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
     t.integer  "sluggable_id",   limit: 4,   null: false
@@ -86,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160508095416) do
     t.string   "info",               limit: 255
     t.text     "description",        limit: 65535
     t.integer  "status",             limit: 4,                              default: 0
+    t.integer  "development_id",     limit: 4
     t.integer  "property_type_id",   limit: 4
     t.integer  "age",                limit: 4
     t.integer  "environments",       limit: 4
@@ -111,6 +145,7 @@ ActiveRecord::Schema.define(version: 20160508095416) do
     t.datetime "updated_at",                                                            null: false
   end
 
+  add_index "properties", ["development_id"], name: "index_properties_on_development_id", using: :btree
   add_index "properties", ["property_type_id"], name: "index_properties_on_property_type_id", using: :btree
   add_index "properties", ["slug"], name: "index_properties_on_slug", unique: true, using: :btree
   add_index "properties", ["zone_id"], name: "index_properties_on_zone_id", using: :btree
@@ -146,6 +181,9 @@ ActiveRecord::Schema.define(version: 20160508095416) do
   add_index "zones", ["slug"], name: "index_zones_on_slug", unique: true, using: :btree
 
   add_foreign_key "characteristics", "available_characteristics"
+  add_foreign_key "developments", "development_types"
+  add_foreign_key "developments", "zones"
+  add_foreign_key "properties", "developments"
   add_foreign_key "properties", "property_types"
   add_foreign_key "properties", "zones"
 end

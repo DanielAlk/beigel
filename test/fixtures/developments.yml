@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  info: MyString
+  description: MyText
+  status: 1
+  development_type: 
+  stage: 1
+  delivery_month: 1
+  delivery_year: 1
+  zone_id: 
+  address: MyString
+  zip_code: MyString
+  lat: 9.99
+  lng: 9.99
+  slug: MyString
+
+two:
+  name: MyString
+  info: MyString
+  description: MyText
+  status: 1
+  development_type: 
+  stage: 1
+  delivery_month: 1
+  delivery_year: 1
+  zone_id: 
+  address: MyString
+  zip_code: MyString
+  lat: 9.99
+  lng: 9.99
+  slug: MyString

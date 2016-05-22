@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @development.name %>
+</p>
+
+<p>
+  <strong>Info:</strong>
+  <%= @development.info %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @development.description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @development.status %>
+</p>
+
+<p>
+  <strong>Development type:</strong>
+  <%= @development.development_type %>
+</p>
+
+<p>
+  <strong>Stage:</strong>
+  <%= @development.stage %>
+</p>
+
+<p>
+  <strong>Delivery month:</strong>
+  <%= @development.delivery_month %>
+</p>
+
+<p>
+  <strong>Delivery year:</strong>
+  <%= @development.delivery_year %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @development.zone %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @development.address %>
+</p>
+
+<p>
+  <strong>Zip code:</strong>
+  <%= @development.zip_code %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @development.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @development.lng %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @development.slug %>
+</p>
+
+<%= link_to 'Edit', edit_development_path(@development) %> |
+<%= link_to 'Back', developments_path %>

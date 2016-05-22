@@ -6,7 +6,7 @@
 			<li><%= link_to 'Home', path_to_home, class: nav_class(:home) %></li>
 		<% end %>
 		<li><%= link_to 'Servicios', services_path, class: nav_class([:services, :assessments, :investments]) %></li>
-		<li><%= link_to 'Emprendimientos', developments_path, class: nav_class(:developments) %></li>
+		<li><%= link_to 'Emprendimientos', developments_page_path, class: nav_class(:developments) %></li>
 		<li><%= link_to 'Comprar', results_path('comprar'), class: nav_class(:results, { operation_type: :buy }) %></li>
 		<li><%= link_to 'Alquilar', results_path('alquilar'), class: nav_class(:results, { operation_type: :rent }) %></li>
 		<%= '</ul><ul class="list-inline">'.html_safe if format == :header %>

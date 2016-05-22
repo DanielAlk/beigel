@@ -1,0 +1,69 @@
+<%= form_for(@development) do |f| %>
+  <% if @development.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@development.errors.count, "error") %> prohibited this development from being saved:</h2>
+
+      <ul>
+      <% @development.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :info %><br>
+    <%= f.text_field :info %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.number_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :development_type %><br>
+    <%= f.text_field :development_type %>
+  </div>
+  <div class="field">
+    <%= f.label :stage %><br>
+    <%= f.number_field :stage %>
+  </div>
+  <div class="field">
+    <%= f.label :delivery_month %><br>
+    <%= f.number_field :delivery_month %>
+  </div>
+  <div class="field">
+    <%= f.label :delivery_year %><br>
+    <%= f.number_field :delivery_year %>
+  </div>
+  <div class="field">
+    <%= f.label :zone_id %><br>
+    <%= f.text_field :zone_id %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :zip_code %><br>
+    <%= f.text_field :zip_code %>
+  </div>
+  <div class="field">
+    <%= f.label :lat %><br>
+    <%= f.text_field :lat %>
+  </div>
+  <div class="field">
+    <%= f.label :lng %><br>
+    <%= f.text_field :lng %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

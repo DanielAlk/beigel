@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         put '/clone', to: :clone, as: :clone
       end
     end
+    resources :developments
   end
 
   root 'pages#home'
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
 
   get 'home', to: 'pages#home', as: :home
-  get 'emprendimientos' => 'pages#developments', as: :developments
+  get 'emprendimientos' => 'pages#developments', as: :developments_page
   get 'empresas-amigas' => 'pages#friends', as: :friends
   get 'la-empresa' => 'pages#about', as: :about
   get 'contacto' => 'pages#contact', as: :contact

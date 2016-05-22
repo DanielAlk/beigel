@@ -5,6 +5,7 @@ class CreateProperties < ActiveRecord::Migration
       t.string :info
       t.text :description
       t.integer :status, :default=>0
+      t.references :development, index: true, foreign_key: true
       t.references :property_type, index: true, foreign_key: true
       t.integer :age
       t.integer :environments
