@@ -11,8 +11,8 @@ FilePicker.extension = function(data_appends) {
 
 FilePicker.plugin = function() {
 	var picker = this;
-	var images_container_selctor = $(this).data('images');
-	var $images_container = $(images_container_selctor);
+	var images_container_selector = $(this).data('images');
+	var $images_container = $(images_container_selector);
 	var $template = $($(this).data('template'));
 	var items = new FilePicker.Items;
 	var is_loading = false;
@@ -89,7 +89,7 @@ FilePicker.plugin = function() {
 	};
 	$images_container.sortable({ update: updatePositions, placeholder: 'file-picker-image' });
 	$(picker).change(user_selection).ready(loadPicker);
-	$(document).on('click', images_container_selctor + ' a.delete', deleteFile)
+	$(document).on('click', images_container_selector + ' a.delete', deleteFile)
   $images_container.disableSelection();
 };
 
