@@ -1,0 +1,11 @@
+<div class="col-sm-6 col-md-4 col-lg-3">
+	<%= link_to development_file_path(development), class: 'tile tile-sm max-xs-330 center-block' do %>
+		<div class="tile-image">
+			<%= image_tag development.images.first.item.url(:thumb), class: 'cover' %>
+		</div>
+		<div class="tile-body">
+			<h2 class="tile-title"><%= development.zone.name %></h2>
+			<p class="tile-text"><%= development.short %></p>
+		</div>
+	<% end %>
+</div>

@@ -1,20 +1,25 @@
 <% row_class = false unless local_assigns.has_key? :row_class %>
 
+<% content_for :extra_js do %>
+	Utils.paginationNext();
+<% end %>
+
 <section class="pad-xs-S-70">
 	<div class="container bg-white">
 		<div class="section-title">
 			<h2>Emprendimientos</h2>
 			<p>Edificios de pozo, en construcción, y a estrenar. Excelentes valores con financiación.</p>
 		</div>
-		<div class="row <%= row_class %>">
-			<% @developments.each do |development| %>
-				<%= render 'partials/development', development: development %>
-			<% end %>
+		<div class="row <%= row_class %>" id="developments">
+			<%= render @developments %>
 		</div>
 		<div class="text-center mar-xs-N-30">
 			<% if params[:action] == 'developments' %>
-				<%= link_to '#' do %>
-					Ver Más &nbsp;<i class="fa fa-arrow-circle-down"></i>
+				<% unless @developments.total_pages == @developments.current_page %>
+					<% next_page = params[:page].present? ? params[:page].to_i + 1 : 2 %>
+					<%= link_to '?page=', id: 'pagination_next', data: { page: next_page } do %>
+						Ver Más &nbsp;<i class="fa fa-arrow-circle-down"></i>
+					<% end %>
 				<% end %>
 			<% else %>
 				<%= link_to developments_page_path do %>

@@ -3,7 +3,12 @@
 	<section>
 		<div class="container bg-white">
 			<div class="content stack-15-i">
-				<%= render 'properties/file', property: @property %>
+				<% if @property.present? %>
+					<%= render 'properties/file', property: @property %>
+				<% end %>
+				<% if @development.present? %>
+					<%= render 'developments/file', development: @development %>
+				<% end %>
 			</div>
 		</div>
 	</section>

@@ -29,7 +29,12 @@ class PagesController < ApplicationController
   end
 
   def file
-  	@property = Property.friendly.find(params[:property_id])
+  	if params[:property_id].present?
+  		@property = Property.friendly.find(params[:property_id])
+  	end
+  	if params[:development_id].present?
+  		@development = Development.friendly.find(params[:development_id])
+  	end
   end
 
   def soon
@@ -50,37 +55,11 @@ class PagesController < ApplicationController
 	  end
 
 	  def set_developments_limited
-	  	@developments = [
-	  		{ cover: 'ventures-1.jpg', neighborhood: 'Palermo' },
-	  		{ cover: 'ventures-2.jpg', neighborhood: 'Villa Urquiza' },
-	  		{ cover: 'ventures-3.jpg', neighborhood: 'Recoleta' },
-	  		{ cover: 'ventures-4.jpg', neighborhood: 'Villa Devoto' },
-	  		{ cover: 'ventures-5.jpg', neighborhood: 'Cañitas' },
-	  		{ cover: 'ventures-6.jpg', neighborhood: 'San Telmo' },
-	  		{ cover: 'ventures-7.jpg', neighborhood: 'Belgrano' },
-	  		{ cover: 'ventures-8.jpg', neighborhood: 'La Boca' }
-	  	].shuffle
+	  	@developments = Development.limit 8
 	  end
 
 	  def set_developments
-	  	@developments = [
-	  		{ cover: 'ventures-1.jpg', neighborhood: 'Palermo' },
-	  		{ cover: 'ventures-2.jpg', neighborhood: 'Villa Urquiza' },
-	  		{ cover: 'ventures-3.jpg', neighborhood: 'Recoleta' },
-	  		{ cover: 'ventures-4.jpg', neighborhood: 'Villa Devoto' },
-	  		{ cover: 'ventures-5.jpg', neighborhood: 'Cañitas' },
-	  		{ cover: 'ventures-6.jpg', neighborhood: 'San Telmo' },
-	  		{ cover: 'ventures-7.jpg', neighborhood: 'Belgrano' },
-	  		{ cover: 'ventures-8.jpg', neighborhood: 'La Boca' },
-	  		{ cover: 'ventures-9.jpg', neighborhood: 'Palermo' },
-	  		{ cover: 'ventures-10.jpg', neighborhood: 'Villa Urquiza' },
-	  		{ cover: 'ventures-11.jpg', neighborhood: 'Recoleta' },
-	  		{ cover: 'ventures-12.jpg', neighborhood: 'Villa Devoto' },
-	  		{ cover: 'ventures-13.jpg', neighborhood: 'Cañitas' },
-	  		{ cover: 'ventures-14.jpg', neighborhood: 'San Telmo' },
-	  		{ cover: 'ventures-15.jpg', neighborhood: 'Belgrano' },
-	  		{ cover: 'ventures-16.jpg', neighborhood: 'La Boca' }
-	  	].shuffle
+	  	@developments = Development.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
 	  end
 
 end

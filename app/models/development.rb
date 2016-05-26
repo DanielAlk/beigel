@@ -28,7 +28,7 @@ class Development < ActiveRecord::Base
       self.info
     else
       sanitizer = Rails::Html::WhiteListSanitizer.new
-      short_description = sanitizer.sanitize(self.description, tags: [])[0..140].split(' ')
+      short_description = sanitizer.sanitize(self.description, tags: [])[0..70].split(' ')
       short_description.pop()
       (short_description.join(' ') + '...')
     end

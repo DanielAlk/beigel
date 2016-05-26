@@ -1,9 +1,0 @@
-<%= link_to file_path, class: 'card' do %>
-	<%= render 'partials/gallery', gallery_class: 'card-gallery', images: @properties.shuffle %>
-	<div class="card-body">
-		<h2 class="card-title"><%= property[:neighborhood] %></h2>
-		<p class="card-text">PUERTO PAMPA, Caboto 420.| Boca | Departamentos, Oficinas, Locales y Venta Puerto Pampa es un complejo de usos mixtos compuestos por viviendas, oficinas.</p>
-		<h3 class="card-price"><%= currency property[:price], '$' %></h3>
-		<span class="btn btn-primary btn-fix">Ver Ficha</span>
-	</div>
-<% end %>

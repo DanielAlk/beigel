@@ -1,0 +1,7 @@
+$developments = $("<%= escape_javascript(render(@developments)) %>");
+$developments.find('.card-gallery').gallery();
+$('#developments').append($developments);
+$('#page_entries_info').html('<%= page_entries_info @developments %>');
+<% if @developments.total_pages == @developments.current_page %>
+	$('#pagination_next').remove();
+<% end %>
