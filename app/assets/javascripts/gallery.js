@@ -101,9 +101,19 @@ Gallery.extension = function(options) {
 		var fullscreenGalleryClick = function(e) {
 			if ($(e.target).is($gallery)) $gallery.fadeToggle(100);
 		};
+		var fullscreenGalleryKeyup = function(e) {
+			if ($gallery.is(':visible')) {
+				switch(e.which) {
+					case 39: next(e); break;
+					case 37: prev(e); break;
+					case 27: $toggle.click(); break;
+				};
+			};
+		};
 		var fullscreenGalleryInit = function() {
 			$gallery.on('gallery.show', fullscreenGalleryOnShow);
 			$gallery.click(fullscreenGalleryClick);
+			$(document).keyup(fullscreenGalleryKeyup);
 		};
 		var init = function() {
 			if ($items.length > 1) {
