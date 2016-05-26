@@ -1,0 +1,203 @@
+<% content_for :extra_js do %>
+  $('.card-gallery').gallery({ toggle: '.fullscreen-gallery' });
+  $('.fullscreen-gallery').gallery({ fullscreen: true });
+<% end %>
+
+<% content_for :extra_script do %>
+  <script type="text/javascript">
+    var startMap = function() {
+      Maps.file(<%= development.lat %>, <%= development.lng %>);
+    };
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?callback=startMap"></script>
+<% end %>
+
+<%= render 'partials/gallery', gallery_class: 'fullscreen-gallery', images: development.images, fullscreen: true %>
+<% if admin_signed_in? %>
+  <div class="admin-options btn-group btn-group-justified">
+    <%= link_to developments_path, class: 'btn btn-warning' do %>
+      <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Volver al listado
+    <% end %>
+    <%= link_to edit_development_path(development), class: 'btn btn-primary' do %>
+      <i class="fa fa-file-text-o" aria-hidden="true"></i> Principal
+    <% end %>
+    <%= link_to edit_development_path(development, development_step_from_status(:properties)), class: 'btn btn-info' do %>
+      <i class="fa fa-list-alt" aria-hidden="true"></i> Propiedades
+    <% end %>
+    <%= link_to edit_development_path(development, development_step_from_status(:characteristics)), class: 'btn btn-danger' do %>
+      <i class="fa fa-list-alt" aria-hidden="true"></i> Caracteristicas
+    <% end %>
+    <%= link_to edit_development_path(development, development_step_from_status(:multimedia)), class: 'btn btn-primary' do %>
+      <i class="fa fa-camera-retro" aria-hidden="true"></i> Multimedia
+    <% end %>
+    <%= link_to '#', class: 'btn btn-info', data: { submit: 'form.edit_development' } do %>
+      <% if development.active? %>
+        <i class="fa fa-pause fa-fh" aria-hidden="true"></i> Pausar
+      <% else %>
+        <i class="fa fa-play fa-fh" aria-hidden="true"></i> Activar
+      <% end %>
+    <% end %>
+    <%= link_to development, method: :delete, data: { confirm: '¿Seguro querés eliminar esta emprendimiento?' }, class: 'btn btn-danger' do %>
+      <i class="fa fa-trash-o fa-fh" aria-hidden="true"></i> Eliminar
+    <% end %>
+  </div>
+  <%= form_for development do |f| %>
+    <%= f.hidden_field :status, value: (development.active? ? :inactive : :active) %>
+  <% end %>
+<% end %>
+<div class="card card-compress development">
+  <%= render 'partials/gallery', gallery_class: 'card-gallery', images: development.images, toggle: true %>
+  <div class="card-body">
+    <h2 class="card-title">
+      <%= development.title %>
+      <% if admin_signed_in? %>
+        <% if development.draft? %>
+          <small> > Editando</small>
+        <% elsif development.active? %>
+          <small> > Activa</small>
+        <% else %>
+          <small> > Pausada</small>
+        <% end %>
+      <% end %>
+    </h2>
+    <div class="card-text">
+      <%= development.address %> | <%= development.zone.name %> | <%= development.short %>
+    </div>
+    <div class="card-text">
+      Emprendimiento <%= development.type %><br>
+      ENTREGA: &nbsp; <%= development.delivery_date %><br>
+      UNIDADES: &nbsp; <%= development.properties.count %>
+    </div>
+    <div class="card-price">
+      <% if development.for_sale? %>
+        <% property = development.lowest_sale_price_property %>
+        <div class="price-box <%= 'pull-left' if development.for_rent? %>">
+          <h4>Venta desde</h4>
+          <strong><big><%= currency property.sale_price, property.currency_for(:sale) + ' ' %></big></strong>
+        </div>
+      <% end %>
+      <% if development.for_rent? %>
+        <% property = development.lowest_rent_price_property %>
+        <div class="price-box <%= 'pull-right' if development.for_sale? %>">
+          <h4>Alquiler desde</h4>
+          <strong><big><%= currency property.rent_price, property.currency_for(:rent) + ' ' %></big></strong>
+        </div>
+      <% end %>
+    </div>
+    <!--span class="card-text">
+      Ver publicación en &nbsp;
+      <%= link_to '#', class: 'partner-logo sm' do %>
+        <%= image_tag 'logo-zonaprop-grey-bg.jpg' %>
+      <% end %>
+    </span-->
+  </div>
+</div>
+<div class="content-wall">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3 class="title">Descripción</h3>
+      <div class="tinymce-content mar-xs-S-50">
+        <%= development.description.html_safe %>
+        <br><br>
+        <strong>
+          BEIGEL BIENES RAÍCES | <%= link_to '4553-1700', 'tel:+541145531700', class: 'text-link' %>
+        </strong>
+      </div>
+    </div>
+    <% if development.characteristics.services.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Srevicios</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% development.characteristics.services.each do |characteristic| %>
+            <li>- <%= characteristic.title %>.</li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if development.characteristics.environments.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Ambientes</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% development.characteristics.environments.each do |characteristic| %>
+            <li>- <%= characteristic.title %>.</li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if development.characteristics.services.present? && development.characteristics.environments.present? %>
+      <div class="clearfix"></div>
+    <% end %>
+    <% if development.characteristics.extended.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Detalles</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% development.characteristics.extended.each do |characteristic| %>
+            <% if characteristic.has_options && characteristic.option_value.present? %>
+              <li>- <strong><%= characteristic.title %>:</strong><br>&nbsp; &nbsp; &nbsp;<%= characteristic.option_value %>.</li>
+            <% elsif !characteristic.has_options %>
+              <li>- <strong><%= characteristic.title %>.</strong></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <% if development.characteristics.services.present? && !development.characteristics.environments.present? || !development.characteristics.services.present? && development.characteristics.environments.present? %>
+      <div class="clearfix"></div>
+    <% end %>
+    <% if development.characteristics.general.present? %>
+      <div class="col-xs-12 col-sm-6">
+        <h3 class="title">Adicionales</h3>
+        <ul class="list-unstyled mar-xs-S-50 column-gap-sm-2-10">
+          <% development.characteristics.general.each do |characteristic| %>
+            <li>- <%= characteristic.title %>.</li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to 'Otros inmuebles similares', '#', class: 'btn btn-primary btn-fix' %>
+</div>
+<div class="scroll-900">
+  <div class="scroll-window">
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Direccion</th>
+          <th>Ambientes</th>
+          <th>Sup. Cubierta</th>
+          <th>Sup. Total</th>
+          <th>Cochera</th>
+          <th>Venta</th>
+          <th>Alquiler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% development.properties.each do |property| %>
+          <tr data-href="<%= property_path property %>" style="cursor:pointer;">
+            <td><%= property.address %></td>
+            <td><%= property.environments %></td>
+            <td><%= property.constructed_area %></td>
+            <td><%= property.area %></td>
+            <td><%= property.garages %></td>
+            <td><%= currency property.sale_price, property.currency_for(:sale) + ' ' %></td>
+            <td><%= currency property.rent_price, property.currency_for(:rent) + ' ' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="content-wall-20">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="map-xs-300">
+        <div class="map-canvas" id="file-map"></div>
+      </div>
+    </div>
+    <div class="col-sm-6 hidden-xs">
+      <div class="map-xs-300">
+        <div class="map-canvas" id="file-street"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,53 +1,8 @@
-<p id="notice"><%= notice %></p>
+<h1 style="margin-bottom:30px;">Emprendimientos <%= link_to 'Crear nuevo', new_development_path, class: 'pull-right btn btn-warning' %></h1>
+<p><%= page_entries_info @developments %></p>
 
-<h1>Listing Developments</h1>
+<% @developments.each do |development| %>
+  <%= render 'panel_development', development: development %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Info</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Development type</th>
-      <th>Stage</th>
-      <th>Delivery month</th>
-      <th>Delivery year</th>
-      <th>Zone</th>
-      <th>Address</th>
-      <th>Zip code</th>
-      <th>Lat</th>
-      <th>Lng</th>
-      <th>Slug</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @developments.each do |development| %>
-      <tr>
-        <td><%= development.title %></td>
-        <td><%= development.short %></td>
-        <td><%= development.description.html_safe %></td>
-        <td><%= development.status %></td>
-        <td><%= development.type %></td>
-        <td><%= development.stage %></td>
-        <td><%= development.delivery_month %></td>
-        <td><%= development.delivery_year %></td>
-        <td><%= development.zone.name %></td>
-        <td><%= development.address %></td>
-        <td><%= development.zip_code %></td>
-        <td><%= development.lat %></td>
-        <td><%= development.lng %></td>
-        <td><%= development.slug %></td>
-        <td><%= link_to 'Show', development %></td>
-        <td><%= link_to 'Edit', edit_development_path(development) %></td>
-        <td><%= link_to 'Destroy', development, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Development', new_development_path %>
+<%= will_paginate @developments %>

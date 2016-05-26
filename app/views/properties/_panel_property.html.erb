@@ -55,7 +55,7 @@
 				<span>Editar</span>
 			<% end %>
 		<% end %>
-		<%= link_to clone_property_path(property), method: :put, data: { after_save_path: 'asd' } do %>
+		<%= link_to clone_property_path(property), method: :put do %>
 			<i class="fa fa-clone fa-fh" aria-hidden="true"></i>
 			<span>Duplicar</span>
 		<% end %>

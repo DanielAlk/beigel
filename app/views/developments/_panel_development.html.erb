@@ -1,0 +1,66 @@
+<div class="panel-card panel-card-actions-4">
+	<%= link_to development, class: 'panel-card-link' do %>
+		<div class="panel-card-image">
+			<%= image_tag development.images.first.item.url(:thumb) rescue nil %>
+		</div>
+		<div class="panel-card-content">
+			<h2><%= development.title %></h2>
+			<div class="panel-card-price">
+				<% if development.for_sale? %>
+					<% property = development.lowest_sale_price_property %>
+				  <span>
+				  	<strong>Venta desde: </strong>
+				  	<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
+				  </span>
+				  &nbsp;
+				<% end %>
+				<% if development.for_rent? %>
+					<% property = development.lowest_rent_price_property %>
+				  <span>
+				  	<strong>Alquiler desde: </strong>
+				  	<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
+				  </span>
+				  &nbsp;
+				<% end %>
+			</div>
+			<div class="panel-card-status">
+				<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+				<%= development.created_at.strftime('%d/%m/%Y') %>
+				<% if development.draft? %>
+					<span class="panel-card-status-draft"> > Editando</span>
+				<% elsif development.active? %>
+					<span class="panel-card-status-active"> > Activa</span>
+				<% else %>
+					<span class="panel-card-status-paused"> > Pausada</span>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	<div class="panel-card-actions">
+		<%= link_to development, method: :delete, data: { confirm: '¿Seguro querés eliminar este emprendimiento?' } do %>
+			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
+			<span>Eliminar</span>
+		<% end %>
+		<%= link_to edit_development_path(development) do %>
+			<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
+			<span>Editar</span>
+		<% end %>
+		<%= form_for development do |f| %>
+			<%= f.hidden_field :status, value: (development.active? ? :inactive : :active) %>
+			<%= hidden_field_tag :after_save_path, developments_path %>
+			<%= f.button :submit do %>
+				<% if development.active? %>
+					<i class="fa fa-pause" aria-hidden="true"></i>
+					<span>Pausar</span>
+				<% else %>
+					<i class="fa fa-play" aria-hidden="true"></i>
+					<span>Activar</span>
+				<% end %>
+			<% end %>
+		<% end %>
+		<%= link_to development do %>
+			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
+			<span>Ver</span>
+		<% end %>
+	</div>
+</div>

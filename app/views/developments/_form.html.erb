@@ -49,7 +49,7 @@
     <div class="row">
       <div class="col-xs-4">
         <%= f.label :delivery_month, 'Entrega' %><br>
-        <%= f.select :delivery_month, options_for_select([ ['Inmediata', 0], ['1° trimestre', 13], ['2° trimestre', 14], ['3° trimestre', 15], ['4° trimestre', 16], ['Enero', 1], ['Febrero', 2], ['Marzo', 3], ['Abril', 4], ['Mayo', 5], ['Junio', 6], ['Julio', 7], ['Agosto', 8], ['Septiembre', 9], ['Octubre', 10], ['Noviembre', 11], ['Diciembre', 12] ], @development.delivery_month), {}, { data: { mobile: browser.mobile? } } %>
+        <%= f.select :delivery_month, options_for_select(@development.delivery_months, @development.delivery_month), {}, { data: { mobile: browser.mobile? } } %>
       </div>
       <div class="col-xs-4">
         <% year = Date.today.year %>

@@ -80,6 +80,11 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 			img { width: 75px; height: 55px; }
 		}
 	}
+	&.panel-card-actions-4 {
+		.panel-card-actions { width: 340px;
+			a, button { width: calc(100% / 4 - 10px); }
+		}
+	}
 }
 a.panel-card-link { color: inherit;
 	&:hover h2 { text-decoration: underline; }

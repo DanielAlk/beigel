@@ -11,6 +11,7 @@ Utils.load = function() {
 	Utils.radios.init();
 	Utils.checkboxes.init();
 	Utils.submitTriggers();
+	Utils.dataHref();
 	Utils.nav();
 };
 
@@ -84,6 +85,13 @@ Utils.submitTriggers = function() {
 	$(document).on('click', '[data-submit]', function(e) {
 		e.preventDefault();
 		$($(this).data('submit')).submit();
+	});
+};
+
+Utils.dataHref = function() {
+	$(document).on('click', '[data-href]', function(e) {
+		e.preventDefault();
+		window.location.href = $(this).data('href');
 	});
 };
 
