@@ -2,24 +2,41 @@
 
 <% content_for :extra_js do %>
   Property.new();
+  $('#file_picker').filePicker({ imageable_type: 'property' });
+  $('#toggle_view').click(function(e) {
+    $('#property_list, #new_property, .toggle-view').fadeToggle();
+    if ($(this).text() == 'Agregar unidad') $(this).text('Ver unidades');
+    else $(this).text('Agregar unidad');
+  });
 <% end %>
 
-<% content_for :extra_script do %>
-  <script type="text/javascript">
-    var startMap = function() {
-      Maps.form('property');
-    };
-    (function() {
-      if (!Maps.centered.map) $('body').append($('<script>', { async: true, defer: true, src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDsrnIHj474TA_EAZ4XIw8LToEt8-V23uM&callback=startMap' }));
-      else startMap();
-    })();
-  </script>
+<% if @development.properties.present? && @property.blank? %>
+  <% @form_style = 'display:none;' %>
+  <%= button_tag 'Agregar unidad', class: 'btn btn-primary btn-sm', id: 'toggle_view', style: 'margin:-10px 0 20px;' %>
+  <%= button_tag 'Finalizar carga de unidades', class: 'btn btn-sm btn-success',  style: 'margin:-10px 0 20px;', data: { submit: 'form.edit_development' } %>
+  <div class="mar-xs-S-30" id="property_list">
+    <% @development.properties.each do |property| %>
+      <%= render 'properties/panel_property', property: property, format: :development %>
+    <% end %>
+  </div>
 <% end %>
 
-<%= form_for(@property) do |f| %>
+<% if @property.present? %>
+  <%= link_to 'Cancelar edición', edit_development_path(@development, development_step_from_status(:properties)), class: 'btn btn-primary btn-sm', style: 'margin:-10px 0 20px;' %>
+  <%= button_tag 'Finalizar carga de unidades', class: 'btn btn-sm btn-success',  style: 'margin:-10px 0 20px;', data: { submit: 'form.edit_development' } %>
+<% end %>
+
+<%= form_for(@development) do |f| %>
   <%= render 'form_errors' %>
+  <%= f.hidden_field :status, value: @development.active? ? :active : :characteristics %>
+<% end %>
+
+<%= form_for(@property = (@property.present? ? @property : @development.properties.new), html: { style: @form_style }) do |f| %>
+  <%= render 'properties/form_errors' %>
   <div class="hidden">
-    <%= f.hidden_field :status, value: (@property.active? ? :active : :characteristics) %>
+    <%= hidden_field_tag 'after_save_path', edit_development_path(@development, @development.step) %>
+    <%= f.hidden_field :development_id, value: @development.id %>
+    <%= file_field_tag 'file_picker', multiple: true, required: true, accept: 'image/*', data: { :images => '.file-picker-images', :template => '#file_picker_template' } %>
   </div>
   <div class="field">
     <%= f.label :title, 'Titulo' %><br>
@@ -38,10 +55,6 @@
       <div class="col-xs-4">
         <%= f.label :property_type_id, 'Tipo de propiedad' %><br>
         <%= f.select :property_type_id, options_from_collection_for_select(PropertyType.all, :id, :name, @property.property_type_id), { data: { mobile: browser.mobile? } } %>
-      </div>
-      <div class="col-xs-4">
-        <%= f.label :age, 'Antigüedad' %><br>
-        <%= f.select :age, options_for_select([ ['En construcción', -1], ['A estrenar', 0], ['1 año', 1], ['2 años', 2], ['3 años', 3], ['4 años', 4], ['de 5 a 10 años', 5], ['de 10 a 20 años', 10], ['de 20 a 50 años', 20], ['Mas de 50 años', 50] ], @property.age || 0) %>
       </div>
       <div class="col-xs-4">
         <%= f.label :environments, 'Ambientes' %><br>
@@ -107,32 +120,22 @@
       </div>
     </div>
   </div>
-  <div class="field">
-    <h3 class="field-title">Ubicación</h3>
-    <div class="row">
-      <div class="col-xs-4">
-        <%= f.label :zone_id, 'Barrio' %><br>
-        <%= f.select :zone_id, options_from_collection_for_select(Zone.all, :id, :name, @property.zone_id), {}, { data: { mobile: browser.mobile? } } %>
-      </div>
-      <div class="col-xs-4">
-        <%= f.label :address, 'Dirección' %><br>
-        <%= f.text_field :address, required: true %>
-      </div>
-      <div class="col-xs-4">
-        <%= f.label :zip_code, 'Código Postal' %><br>
-        <%= f.text_field :zip_code %>
-      </div>
+  <div class="field file-picker">
+    <h3 class="field-title">Fotos</h3>
+    <%= label_tag 'file_picker', nil, class: 'file-picker-label' do %>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span>Agregar imágenes</span>
+    <% end %>
+    <div class="file-picker-images">
+      <% @property.images.each_with_index do |image, index| %>
+        <%= render 'partials/file_picker_image', image: image, index: index %>
+      <% end %>
     </div>
-  </div>
-  <div class="map-container">
-    <div class="hidden">
-      <%= f.hidden_field :lat, required: true %>
-      <%= f.hidden_field :lng, required: true %>
-    </div>
-    <a href="#" class="btn btn-block btn-warning btn-sm" id="geocode_btn">Ubicar en mapa</a>
-    <div id="new_property_map"></div>
   </div>
   <div class="actions">
-    <%= f.submit (@property.active? ? 'Actualizar' : 'Siguiente') %>
+    <%= f.submit 'Guardar unidad' %>
   </div>
 <% end %>
+
+<% #template %>
+<%= render 'partials/file_picker_image' %>

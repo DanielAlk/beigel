@@ -1,0 +1,107 @@
+<% content_for :extra_js do %>
+  Development.characteristics();
+<% end %>
+
+<%= form_for(@development) do |f| %>
+  <%= render 'form_errors' %>
+  <div class="hidden">
+    <%= f.hidden_field :status, value: (@development.active? ? :active : :multimedia) %>
+  </div>
+  <% if @development.development_type.characteristics.services.present? %>
+    <div class="field">
+      <h3 class="field-title">
+        Servicios
+        <label class="checkbox-inline">
+          <%= check_box_tag :select_all, nil, nil, data: { target: '.development_services' } %>
+          Todos
+        </label>
+      </h3>
+      <div class="row">
+        <% @development.development_type.characteristics.services.each do |char| %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'development[characteristics][]', char.acid, @development.characteristics.where(:available_characteristic => char.acid).present?, id: 'development_characteristics_' + char.acid.to_s, class: 'development_services' %>
+              <%= char.title %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @development.development_type.characteristics.extended.present? %>
+    <div class="field">
+      <h3 class="field-title">
+        Principales
+        <label class="checkbox-inline">
+          <%= check_box_tag :select_all, nil, nil, data: { target: '.development_extended' } %>
+          Todos
+        </label>
+      </h3>
+      <div class="row">
+        <% @development.development_type.characteristics.extended.each do |char| %>
+          <% @development_char = @development.characteristics.find_by :available_characteristic => char.acid %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'development[characteristics][]', char.acid, @development_char.present?, id: 'development_characteristics_' + char.acid.to_s, class: 'development_extended' %>
+              <%= char.title %>
+            </label>
+            <% if char.options.present? && options = JSON.parse(char.options) %>
+              <span class="characteristic-option">
+                <% if options.include?('type') && options['type'].present? && options['type'].to_sym == :integer %>
+                  <%= text_field_tag 'development[options][' + char.acid.to_s + ']', (@development_char.option_value rescue nil), class: 'autonumeric' %>
+                <% else %>
+                  <%= select_tag 'development[options][' + char.acid.to_s + ']', options_for_select(options, (@development_char.option_value rescue nil)) %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @development.development_type.characteristics.environments.present? %>
+    <div class="field">
+      <h3 class="field-title">
+        Ambientes
+        <label class="checkbox-inline">
+          <%= check_box_tag :select_all, nil, nil, data: { target: '.development_environments' } %>
+          Todos
+        </label>
+      </h3>
+      <div class="row">
+        <% @development.development_type.characteristics.environments.each do |char| %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'development[characteristics][]', char.acid, @development.characteristics.where(:available_characteristic => char.acid).present?, id: 'development_characteristics_' + char.acid.to_s, class: 'development_environments' %>
+              <%= char.title %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <% if @development.development_type.characteristics.general.present? %>
+    <div class="field">
+      <h3 class="field-title">
+        Generales
+        <label class="checkbox-inline">
+          <%= check_box_tag :select_all, nil, nil, data: { target: '.development_general' } %>
+          Todos
+        </label>
+      </h3>
+      <div class="row">
+        <% @development.development_type.characteristics.general.each do |char| %>
+          <div class="col-xs-4">
+            <label class="checkbox-inline">
+              <%= check_box_tag 'development[characteristics][]', char.acid, @development.characteristics.where(:available_characteristic => char.acid).present?, id: 'development_characteristics_' + char.acid.to_s, class: 'development_general' %>
+              <%= char.title %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit (@development.active? ? 'Actualizar' : 'Siguiente') %>
+  </div>
+<% end %>

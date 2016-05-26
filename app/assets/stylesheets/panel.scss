@@ -29,7 +29,7 @@ section.search-box { margin: -15px -50px 0; background-color: $brand-primary;
 	&.sessions, &.registrations, &.passwords { max-width: 600px; padding-top: 15px;
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 	}
-	&.properties { max-width: 900px; padding-top: 15px;
+	&.properties, &.developments { max-width: 900px; padding-top: 15px;
 		&.index, &.search { max-width: 1200px; }
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 		&.show { width: 1160px; padding: 30px; max-width: none;
@@ -40,7 +40,7 @@ section.search-box { margin: -15px -50px 0; background-color: $brand-primary;
 	}
 }
 
-#new_property_map.active { height: 300px; }
+#new_property_map.active, #new_development_map.active { height: 300px; }
 
 div.alert-dismissible { position: fixed; top: 0; right: 0; z-index: 8; margin: 40px 10px 0 0; opacity: 0.93; }
 
@@ -69,6 +69,17 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 /*PANEL CARD */
 .panel-card { @include block-shadow; position: relative; border: 1px solid #ececec; padding-left: 120px; padding-right: 400px; 
 	+.panel-card { margin-top: 15px; }
+	&.small-actions { padding-right: 300px; padding-left: 90px;
+		.panel-card-content { height: 65px;
+			h2 { font-size: 18px; }
+		}
+		.panel-card-actions { width: 300px;
+			a, button { width: calc(100% / 4 - 10px); padding-top: 12px; font-size: .8em; }
+		}
+		.panel-card-image { padding: 5px;
+			img { width: 75px; height: 55px; }
+		}
+	}
 }
 a.panel-card-link { color: inherit;
 	&:hover h2 { text-decoration: underline; }

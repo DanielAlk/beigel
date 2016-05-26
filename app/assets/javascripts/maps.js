@@ -1,19 +1,19 @@
 var Maps = {}
 
-Maps.newProperty = function() {
-	var $new_property_map = $('#new_property_map');
+Maps.form = function(record) {
+	var $map = $('#new_' + record + '_map');
 	var $geocode_btn = $('#geocode_btn');
-	var $property_address = $('#property_address');
-	var $property_zone_id = $('#property_zone_id');
-	var $lng = $('#property_lng');
-	var $lat = $('#property_lat');
-	var $form = $new_property_map.closest('form');
+	var $address = $('#' + record + '_address');
+	var $zone_id = $('#' + record + '_zone_id');
+	var $lng = $('#' + record + '_lng');
+	var $lat = $('#' + record + '_lat');
+	var $form = $map.closest('form');
 	var addressTail = 'Ciudad Autónoma de Buenos Aires, Argentina';
 	var geocoder = new google.maps.Geocoder();
 	var clickHandler = function(e) {
 		!e || e.preventDefault();
-		if (!$property_address.valid()) return;
-		var address = $property_address.val() + $property_zone_id.children('option:selected').text() + addressTail;
+		if (!$address.valid()) return;
+		var address = $address.val() + $zone_id.children('option:selected').text() + addressTail;
 		geocoder.geocode({ 'address' : address }, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				Maps.centered(results[0].geometry.location);
@@ -25,8 +25,8 @@ Maps.newProperty = function() {
 	};
 	var checkCenter = function(e) {
 		if (!$lng.val() || !$lat.val()) return clickHandler();
-		if (!$property_address.valid()) return;
-		var address = $property_address.val() + $property_zone_id.children('option:selected').text() + addressTail;
+		if (!$address.valid()) return;
+		var address = $address.val() + $zone_id.children('option:selected').text() + addressTail;
 		geocoder.geocode({ 'address' : address }, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
 				var currentCenter = Maps.centered.map.getCenter();
@@ -44,7 +44,7 @@ Maps.newProperty = function() {
 		});
 		return false;
 	};
-	Maps.centered.init($new_property_map);
+	Maps.centered.init($map);
 	$geocode_btn.click(clickHandler);
 	$form.submit(checkCenter);
 	if ($lng.val() && $lat.val()) Maps.centered(new google.maps.LatLng($lat.val(),$lng.val()));

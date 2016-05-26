@@ -12,7 +12,7 @@ Property.nav = function() {
 Property.new = function() {
 	Utils.autonumeric();
 	Utils.selectpicker();
-	var $form = $('#new_property');
+	var $form = $('form.new_property, form.edit_property');
 	$form.validate({
 		rules: {
 			'property[sale_price]': {

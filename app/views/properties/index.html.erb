@@ -9,74 +9,7 @@
 <p><%= page_entries_info @properties %></p>
 
 <% @properties.each do |property| %>
-	<div class="panel-card">
-		<%= link_to property, class: 'panel-card-link' do %>
-			<div class="panel-card-image">
-				<%= image_tag property.images.first.item.url(:thumb) rescue nil %>
-			</div>
-			<div class="panel-card-content">
-				<h2><%= property.title %></h2>
-				<div class="panel-card-price">
-					<% if property.for_sale? %>
-					  <span>
-					  	<strong>Venta: </strong>
-					  	<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
-					  </span>
-					  &nbsp;
-					<% end %>
-					<% if property.for_rent? %>
-					  <span>
-					  	<strong>Alquiler: </strong>
-					  	<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
-					  </span>
-					  &nbsp;
-					<% end %>
-				</div>
-				<div class="panel-card-status">
-					<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-					<%= property.created_at.strftime('%d/%m/%Y') %>
-					<% if property.draft? %>
-						<span class="panel-card-status-draft"> > Editando</span>
-					<% elsif property.active? %>
-						<span class="panel-card-status-active"> > Activa</span>
-					<% else %>
-						<span class="panel-card-status-paused"> > Pausada</span>
-					<% end %>
-				</div>
-			</div>
-		<% end %>
-		<div class="panel-card-actions">
-			<%= link_to property, method: :delete, data: { confirm: '¿Seguro querés eliminar esta propiedad?' } do %>
-				<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
-				<span>Eliminar</span>
-			<% end %>
-			<%= link_to edit_property_path(property) do %>
-				<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
-				<span>Editar</span>
-			<% end %>
-			<%= link_to clone_property_path(property), method: :put do %>
-				<i class="fa fa-clone fa-fh" aria-hidden="true"></i>
-				<span>Duplicar</span>
-			<% end %>
-			<%= form_for property do |f| %>
-				<%= f.hidden_field :status, value: (property.active? ? :inactive : :active) %>
-				<%= hidden_field_tag :after_update_url, properties_path %>
-				<%= f.button :submit do %>
-					<% if property.active? %>
-						<i class="fa fa-pause" aria-hidden="true"></i>
-						<span>Pausar</span>
-					<% else %>
-						<i class="fa fa-play" aria-hidden="true"></i>
-						<span>Activar</span>
-					<% end %>
-				<% end %>
-			<% end %>
-			<%= link_to property do %>
-				<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
-				<span>Ver</span>
-			<% end %>
-		</div>
-	</div>
+	<%= render 'panel_property', property: property %>
 <% end %>
 
 <%= will_paginate @properties %>

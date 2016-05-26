@@ -4,10 +4,11 @@ class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :clone, :destroy]
   before_action :related_objects, only: :update
   before_action :build_search_params, only: :search
+  after_action :claim_imageable, only: [:create, :update]
   layout 'panel'
 
   def search
-    @properties = Property.filter(@search_filters)
+    @properties = Property.where(development: nil).filter(@search_filters)
     @properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
     render :index
   end
@@ -15,7 +16,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
+    @properties = Property.where(development: nil).order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /properties/1
@@ -30,6 +31,10 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1/edit
   def edit
+    if @property.development.present?
+      development = @property.development
+      redirect_to edit_development_path development, development.step, @property
+    end
   end
 
   # POST /properties
@@ -39,7 +44,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
-        format.html { redirect_to property_status_path, notice: 'Property was successfully created.' }
+        format.html { redirect_to after_save_path, notice: 'Property was successfully created.' }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new }
@@ -53,7 +58,7 @@ class PropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @property.update(property_params)
-        format.html { redirect_to property_status_path, notice: 'Property was successfully updated.' }
+        format.html { redirect_to after_save_path, notice: 'Property was successfully updated.' }
         format.json { render :show, status: :ok, location: @property }
       else
         format.html { render :edit }
@@ -80,7 +85,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if property.save
-        format.html { redirect_to property, notice: 'Property was successfully created.' }
+        format.html { redirect_to edit_property_path property, notice: 'Property was successfully cloned.' }
         format.json { render :show, status: :created, location: property }
       else
         format.html { render :new }
@@ -94,19 +99,39 @@ class PropertiesController < ApplicationController
   def destroy
     @property.destroy
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
+      format.html { redirect_to after_destroy_path, notice: 'Property was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    def property_status_path
-      if params[:after_update_url].present?
-        params[:after_update_url]
+    def after_save_path
+      if params[:after_save_path].present?
+        params[:after_save_path]
       elsif @property.draft?
         edit_property_path @property, @property.step
       else
         @property
+      end
+    end
+
+    def after_destroy_path
+      if @property.development.present?
+        edit_development_path @property.development, Development.steps.keys[Development.statuses[:properties]]
+      else
+        properties_url
+      end
+    end
+
+    def claim_imageable
+      image_titles = params.require(:property)[:image_titles]
+      if image_titles.present? && image_titles.count > 0
+        image_titles.each do |id, title|
+          image = Image.find(id)
+          if image.present?
+            image.update(title: title, imageable: @property)
+          end
+        end
       end
     end
 
@@ -168,7 +193,7 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      pp = params.require(:property).permit(:title, :info, :description, :status, :property_type_id, :age, :environments, :garages, :bathrooms, :toilettes, :expenses, :sale_price, :sale_currency, :rent_price, :rent_currency, :area_unit, :constructed_area, :unconstructed_area, :zone_id, :address, :zip_code, :lat, :lng)
+      pp = params.require(:property).permit(:title, :info, :description, :status, :development_id, :property_type_id, :age, :environments, :garages, :bathrooms, :toilettes, :expenses, :sale_price, :sale_currency, :rent_price, :rent_currency, :area_unit, :constructed_area, :unconstructed_area, :zone_id, :address, :zip_code, :lat, :lng)
       pp[:expenses].tr!('.', '') if pp[:expenses].present?
       pp[:sale_price].tr!('.', '') if pp[:sale_price].present?
       pp[:rent_price].tr!('.', '') if pp[:rent_price].present?

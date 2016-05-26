@@ -2,6 +2,7 @@ class Property < ActiveRecord::Base
   extend FriendlyId
   include Filterable
   friendly_id :slug_candidates, use: :slugged
+  belongs_to :development
   belongs_to :property_type
   belongs_to :zone
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
@@ -12,6 +13,7 @@ class Property < ActiveRecord::Base
   before_save :re_slug
   before_save :calculate_area
   before_save :clean_description
+  before_save :development_property
   after_update :re_classify
 
   scope :operation_type, -> (operation_type) { operation_type == :buy ? where.not(sale_price: nil) : where.not(rent_price: nil) }
@@ -80,6 +82,18 @@ class Property < ActiveRecord::Base
         :title,
         [ :title, :id ]
       ]
+    end
+
+    def development_property
+      if self.development.present?
+        self.zone = self.development.zone
+        self.address = self.development.address
+        self.zip_code = self.development.zip_code
+        self.lat = self.development.lat
+        self.lng = self.development.lng
+        self.age = 0
+        self.status = self.development.draft? ? :property : self.development.status
+      end
     end
 
     def calculate_area

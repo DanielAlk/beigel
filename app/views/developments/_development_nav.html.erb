@@ -1,0 +1,18 @@
+<% content_for :extra_js do %>
+  Development.nav();
+<% end %>
+
+<ul class="nav nav-tabs" id="edit_development_nav">
+  <li role="presentation" class="<%= 'active' if development_step_for? :development %>">
+  	<%= link_to 'Principal', '#', data: { development_status: :development } %>
+  </li>
+  <li role="presentation" class="<%= 'active' if development_step_for? :properties %>">
+  	<%= link_to 'Propiedades', '#', data: { development_status: :properties } %>
+  </li>
+  <li role="presentation" class="<%= 'active' if development_step_for? :characteristics %>">
+  	<%= link_to 'Caracteristicas', '#', data: { development_status: :characteristics } %>
+  </li>
+  <li role="presentation" class="<%= 'active' if development_step_for? :multimedia %>">
+  	<%= link_to 'Multimedia', '#', data: { development_status: :multimedia } %>
+  </li>
+</ul>

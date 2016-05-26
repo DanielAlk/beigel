@@ -1,6 +1,16 @@
-<h1>Editing Development</h1>
+<h1><b>Emprendimiento</b> <small><%= @development.title %> <em> :<%= @development.status %></em></small></h1>
 
-<%= render 'form' %>
+<%= render 'development_nav' %>
+
+<% if development_step_for? :development %>
+	<%= render 'form' %>
+<% elsif development_step_for? :properties %>
+  <%= render 'form_properties' %>
+<% elsif development_step_for? :characteristics %>
+  <%= render 'form_characteristics' %>
+<% elsif development_step_for? :multimedia %>
+	<%= render 'form_multimedia' %>
+<% end %>
 
 <%= link_to 'Show', @development %> |
 <%= link_to 'Back', developments_path %>

@@ -2,17 +2,17 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @development.name %>
+  <%= @development.title %>
 </p>
 
 <p>
   <strong>Info:</strong>
-  <%= @development.info %>
+  <%= @development.short %>
 </p>
 
 <p>
   <strong>Description:</strong>
-  <%= @development.description %>
+  <%= @development.description.html_safe %>
 </p>
 
 <p>
@@ -22,7 +22,7 @@
 
 <p>
   <strong>Development type:</strong>
-  <%= @development.development_type %>
+  <%= @development.type %>
 </p>
 
 <p>
@@ -42,7 +42,7 @@
 
 <p>
   <strong>Zone:</strong>
-  <%= @development.zone %>
+  <%= @development.zone.name %>
 </p>
 
 <p>

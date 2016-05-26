@@ -1,69 +1,89 @@
+<%= tinymce_init %>
+
+<% content_for :extra_js do %>
+  Development.new();
+<% end %>
+
+<% content_for :extra_script do %>
+  <script type="text/javascript">
+    var startMap = function() {
+      Maps.form('development');
+    };
+    (function() {
+      if (!Maps.centered.map) $('body').append($('<script>', { async: true, defer: true, src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDsrnIHj474TA_EAZ4XIw8LToEt8-V23uM&callback=startMap' }));
+      else startMap();
+    })();
+  </script>
+<% end %>
+
 <%= form_for(@development) do |f| %>
-  <% if @development.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@development.errors.count, "error") %> prohibited this development from being saved:</h2>
-
-      <ul>
-      <% @development.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= render 'form_errors' %>
+  <div class="hidden">
+    <%= f.hidden_field :status, value: (@development.active? ? :active : :properties) %>
+  </div>
+  <div class="field">
+    <%= f.label :title, 'Titulo' %><br>
+    <%= f.text_field :title, minlength: 10, required: true %>
+  </div>
+  <div class="field">
+    <%= f.label :info, 'Descripción corta <small>(opcional)</small>'.html_safe %><br>
+    <%= f.text_field :info, minlength: 10, maxlength: 120 %>
+  </div>
+  <div class="field">
+    <%= f.label :description, 'Descripción' %><br>
+    <%= f.text_area :description, rows: 4, minlength: 30, required: true, class: 'tinymce' %>
+  </div>
+  <div class="field">
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.label :development_type_id, 'Tipo de emprendimiento' %><br>
+        <%= f.select :development_type_id, options_from_collection_for_select(DevelopmentType.all, :id, :name, @development.development_type_id), { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :stage, 'Etapa' %><br>
+        <%= f.select :stage, options_for_select([ ['En Pozo', :well], ['En Construcción', :construction], ['Terminado', :done] ], @development.stage), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :info %><br>
-    <%= f.text_field :info %>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.label :delivery_month, 'Entrega' %><br>
+        <%= f.select :delivery_month, options_for_select([ ['Inmediata', 0], ['1° trimestre', 13], ['2° trimestre', 14], ['3° trimestre', 15], ['4° trimestre', 16], ['Enero', 1], ['Febrero', 2], ['Marzo', 3], ['Abril', 4], ['Mayo', 5], ['Junio', 6], ['Julio', 7], ['Agosto', 8], ['Septiembre', 9], ['Octubre', 10], ['Noviembre', 11], ['Diciembre', 12] ], @development.delivery_month), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <% year = Date.today.year %>
+        <%= f.label :delivery_year, 'Año' %><br>
+        <%= f.select :delivery_year, options_for_select([ [year], [year+1], [year+2], [year+3], [year+4], [year+5], [year+6] ], @development.delivery_year), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+    </div>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <h3 class="field-title">Ubicación</h3>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= f.label :zone_id, 'Barrio' %><br>
+        <%= f.select :zone_id, options_from_collection_for_select(Zone.all, :id, :name, @development.zone_id), {}, { data: { mobile: browser.mobile? } } %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :address, 'Dirección' %><br>
+        <%= f.text_field :address, required: true %>
+      </div>
+      <div class="col-xs-4">
+        <%= f.label :zip_code, 'Código Postal' %><br>
+        <%= f.text_field :zip_code %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.number_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :development_type %><br>
-    <%= f.text_field :development_type %>
-  </div>
-  <div class="field">
-    <%= f.label :stage %><br>
-    <%= f.number_field :stage %>
-  </div>
-  <div class="field">
-    <%= f.label :delivery_month %><br>
-    <%= f.number_field :delivery_month %>
-  </div>
-  <div class="field">
-    <%= f.label :delivery_year %><br>
-    <%= f.number_field :delivery_year %>
-  </div>
-  <div class="field">
-    <%= f.label :zone_id %><br>
-    <%= f.text_field :zone_id %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :zip_code %><br>
-    <%= f.text_field :zip_code %>
-  </div>
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat %>
-  </div>
-  <div class="field">
-    <%= f.label :lng %><br>
-    <%= f.text_field :lng %>
+  <div class="map-container">
+    <div class="hidden">
+      <%= f.hidden_field :lat, required: true %>
+      <%= f.hidden_field :lng, required: true %>
+    </div>
+    <a href="#" class="btn btn-block btn-warning btn-sm" id="geocode_btn">Ubicar en mapa</a>
+    <div id="new_development_map"></div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit (@development.active? ? 'Actualizar' : 'Siguiente') %>
   </div>
 <% end %>

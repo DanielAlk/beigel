@@ -27,7 +27,11 @@ Rails.application.routes.draw do
         put '/clone', to: :clone, as: :clone
       end
     end
-    resources :developments
+    resources :developments do
+      member do
+        get '/edit/(*step)(/:property_id)', to: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
+      end
+    end
   end
 
   root 'pages#home'

@@ -26,15 +26,15 @@
   <tbody>
     <% @developments.each do |development| %>
       <tr>
-        <td><%= development.name %></td>
-        <td><%= development.info %></td>
-        <td><%= development.description %></td>
+        <td><%= development.title %></td>
+        <td><%= development.short %></td>
+        <td><%= development.description.html_safe %></td>
         <td><%= development.status %></td>
-        <td><%= development.development_type %></td>
+        <td><%= development.type %></td>
         <td><%= development.stage %></td>
         <td><%= development.delivery_month %></td>
         <td><%= development.delivery_year %></td>
-        <td><%= development.zone %></td>
+        <td><%= development.zone.name %></td>
         <td><%= development.address %></td>
         <td><%= development.zip_code %></td>
         <td><%= development.lat %></td>

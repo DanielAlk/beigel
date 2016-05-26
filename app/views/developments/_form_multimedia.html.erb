@@ -1,0 +1,46 @@
+<% content_for :extra_js do %>
+  Development.multimedia({
+    imageable_id: <%= @development.id %>,
+    imageable_type: 'development'
+  });
+<% end %>
+
+<%= form_for(@development) do |f| %>
+  <%= render 'form_errors' %>
+  <div class="hidden">
+    <%= f.hidden_field :step, value: :multimedia %>
+    <%= f.hidden_field :status, value: :active %>
+    <%= file_field_tag 'file_picker', multiple: true, required: true, accept: 'image/*', data: { :images => '.file-picker-images', :template => '#file_picker_template' } %>
+  </div>
+  <div class="field file-picker">
+    <h3 class="field-title">Fotos</h3>
+    <%= label_tag 'file_picker', nil, class: 'file-picker-label' do %>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      <span>Agregar imágenes</span>
+    <% end %>
+    <div class="file-picker-images">
+      <% @development.images.each_with_index do |image, index| %>
+        <%= render 'partials/file_picker_image', image: image, index: index %>
+      <% end %>
+    </div>
+  </div>
+  <div class="field videos">
+    <h3 class="field-title">Videos</h3>
+    <div class="development-videos" id="video-adder">
+      <% if @development.videos.count > 0 %>
+        <% @development.videos.each_with_index do |video, index| %>
+          <%= render 'partials/picker_video', video: video, id: index %>
+        <% end %>
+      <% else %>
+        <%= render 'partials/picker_video', id: @development.videos.count %>
+      <% end %>
+    </div>
+    <%= link_to 'Agregar video', '#', class: 'btn btn-sm btn-warning', id: 'video-adder-btn' %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Actualizar' %>
+  </div>
+<% end %>
+
+<% #template %>
+<%= render 'partials/file_picker_image' %>
