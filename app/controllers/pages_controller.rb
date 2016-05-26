@@ -55,11 +55,11 @@ class PagesController < ApplicationController
 	  end
 
 	  def set_developments_limited
-	  	@developments = Development.limit 8
+	  	@developments = Development.active.limit 8
 	  end
 
 	  def set_developments
-	  	@developments = Development.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
+	  	@developments = Development.active.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
 	  end
 
 end
