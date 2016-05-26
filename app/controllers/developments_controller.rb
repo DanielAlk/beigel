@@ -99,6 +99,22 @@ class DevelopmentsController < ApplicationController
           end
         end
       end
+      # Videos
+      video_urls = params.require(:development)[:video_urls]
+      if video_urls.present? && video_urls.count > 0
+        @development.videos.each do |video|
+          if video.url.blank? || !video_urls.include?(video.url)
+            video.destroy
+          end
+        end
+        video_urls.each do |video_url|
+          if video_url.present? && @development.videos.find_by(url: video_url).blank?
+            @development.videos.new url: video_url
+          end
+        end
+      elsif params.require(:development)[:step] == 'multimedia'
+        @development.videos.destroy_all
+      end
     end
 
     # Use callbacks to share common setup or constraints between actions.

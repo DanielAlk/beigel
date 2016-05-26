@@ -1,8 +1,11 @@
 <% video = nil unless local_assigns.has_key? :video %>
+<% name = nil unless local_assigns.has_key? :name %>
 <% id = nil unless local_assigns.has_key? :id %>
+<% name_to_s = name.present? ? name.to_s + '[video_urls][]' : 'video_urls[]' %>
+<% id_to_s = (name.present? ? name.to_s  + '_video_urls_' : 'video_urls_') + id.to_s %>
 
 <div class="video-input valid">
-  <%= text_field_tag 'property[video_urls][]', (video.url rescue nil), id: 'property_video_urls_' + id.to_s, placeholder: 'URL del video' %>
+  <%= text_field_tag name_to_s, (video.url rescue nil), id: id_to_s, placeholder: 'URL del video' %>
   <div class="video-icons">
   	<i class="fa fa-youtube-play waiting" aria-hidden="true"></i>
   	<i class="fa fa-exclamation-triangle repeated invalid" aria-hidden="true"></i>

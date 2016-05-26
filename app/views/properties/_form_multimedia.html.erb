@@ -29,10 +29,10 @@
     <div class="property-videos" id="video-adder">
       <% if @property.videos.count > 0 %>
         <% @property.videos.each_with_index do |video, index| %>
-          <%= render 'partials/picker_video', video: video, id: index %>
+          <%= render 'partials/picker_video', video: video, id: index, name: :property %>
         <% end %>
       <% else %>
-        <%= render 'partials/picker_video', id: @property.videos.count %>
+        <%= render 'partials/picker_video', id: @property.videos.count, name: :property %>
       <% end %>
     </div>
     <%= link_to 'Agregar video', '#', class: 'btn btn-sm btn-warning', id: 'video-adder-btn' %>
