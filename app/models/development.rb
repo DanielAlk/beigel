@@ -12,6 +12,7 @@ class Development < ActiveRecord::Base
   validate :activation
   before_save :clean_description
 	before_save :re_slug
+  before_save :activate_properties
   after_update :re_classify
 
 	enum status: [ :development, :properties, :characteristics, :multimedia, :active, :inactive, :copy ]
@@ -64,6 +65,14 @@ class Development < ActiveRecord::Base
     def clean_description
       sanitizer = Rails::Html::WhiteListSanitizer.new
       self.description = sanitizer.sanitize(self.description, tags: %w(strong em br a), attributes: %w(href))
+    end
+
+    def activate_properties
+      if self.status_changed?
+        self.properties.each do |property|
+          property.save
+        end
+      end
     end
 
   	def re_classify

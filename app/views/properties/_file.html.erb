@@ -25,7 +25,7 @@
       <% end %>
     <% end %>
     <% if property.development.present? %>
-      <%= link_to edit_property_path(property), class: 'btn btn-primary' do %>
+      <%= link_to edit_development_path(property.development, development_step_from_status(:properties), property), class: 'btn btn-primary' do %>
         <i class="fa fa-file-text-o" aria-hidden="true"></i> Editar
       <% end %>
     <% else %>
