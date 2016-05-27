@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160522072950) do
+ActiveRecord::Schema.define(version: 20160527070927) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",        null: false
@@ -159,6 +159,15 @@ ActiveRecord::Schema.define(version: 20160522072950) do
   end
 
   add_index "property_types", ["slug"], name: "index_property_types_on_slug", unique: true, using: :btree
+
+  create_table "showcase_items", force: :cascade do |t|
+    t.integer  "showcaseable_id",   limit: 4
+    t.string   "showcaseable_type", limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "showcase_items", ["showcaseable_type", "showcaseable_id"], name: "index_showcase_items_on_showcaseable_type_and_showcaseable_id", using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.integer  "format",        limit: 4,   default: 0

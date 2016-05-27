@@ -1,0 +1,21 @@
+<%= form_for(@showcase_item) do |f| %>
+  <% if @showcase_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@showcase_item.errors.count, "error") %> prohibited this showcase_item from being saved:</h2>
+
+      <ul>
+      <% @showcase_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :showcaseable_id %><br>
+    <%= f.text_field :showcaseable_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

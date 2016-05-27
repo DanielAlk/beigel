@@ -5,6 +5,7 @@ class Property < ActiveRecord::Base
   belongs_to :development
   belongs_to :property_type
   belongs_to :zone
+  has_one :showcase_item, :as => :showcaseable, :dependent => :destroy
   has_many :characteristics, :as => :classifiable, :dependent => :destroy
   has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy
   has_many :videos, :as => :mediable, :dependent => :destroy

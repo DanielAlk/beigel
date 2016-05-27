@@ -3,6 +3,7 @@ class Development < ActiveRecord::Base
 	friendly_id :slug_candidates, use: :slugged
 	belongs_to :development_type
 	belongs_to :zone
+  has_one :showcase_item, :as => :showcaseable, :dependent => :destroy
 	has_many :properties, :dependent => :destroy
 	has_many :characteristics, :as => :classifiable, :dependent => :destroy
 	has_many :images, -> { order(position: :asc) }, :as => :imageable, :dependent => :destroy

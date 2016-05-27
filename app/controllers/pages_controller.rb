@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-	before_action :set_slider_items
+	before_action :set_showcase_items, except: [:developments, :file, :soon]
 	before_action :set_developments_limited, only: :home
 	before_action :set_developments, only: :developments
 	layout 'soon', only: :soon
@@ -42,16 +42,8 @@ class PagesController < ApplicationController
 
   private
 
-	  def set_slider_items
-	  	@slider_items = [
-	  		{ cover: 'main-image-1.jpg', type: 'Emprendimiento', address: '11 de Septiembre 5762' },
-	  		{ cover: 'main-image-2.jpg', type: 'Emprendimiento', address: 'Alvarez thomas 3321' },
-	  		{ cover: 'main-image-3.jpg', type: 'PH', address: 'Alcaraz 6734' },
-	  		{ cover: 'main-image-4.jpg', type: 'Emprendimiento', address: 'Elcano 1278' },
-	  		{ cover: 'main-image-5.jpg', type: 'PH 3 Ambientes', address: 'Colombres 3426' },
-	  		{ cover: 'main-image-6.jpg', type: 'CASA 5 Ambientes', address: 'Chivilcoy 8762' },
-	  		{ cover: 'main-image-7.jpg', type: 'Emprendimiento', address: 'Cramer 3461' }
-	  	].shuffle
+	  def set_showcase_items
+	  	@showcase_items = ShowcaseItem.all.shuffle
 	  end
 
 	  def set_developments_limited

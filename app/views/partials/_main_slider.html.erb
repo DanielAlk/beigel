@@ -4,8 +4,6 @@
 
 <section class="main-slider" data-slider=".slider-item">
 	<div class="slider-items">
-		<% @slider_items.each do |slider_item| %>
-			<%= render 'partials/main_slider_item', slider_item: slider_item %>
-		<% end %>
+		<%= render @showcase_items %>
 	</div>
 </section>

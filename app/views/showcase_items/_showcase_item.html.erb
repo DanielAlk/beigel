@@ -1,0 +1,14 @@
+<div class="slider-item <%= 'active' if showcase_item_counter == 0 %>" style="background-image:url('<%= asset_path(showcase_item.cover) %>')">
+	<div class="container">
+		<div class="slider-item-caption">
+			<h5 class="slider-item-subtitle"><%= showcase_item.title %></h5>
+			<h2 class="slider-item-title"><%= showcase_item.address %></h2>
+			<p class="slider-item-text"><%= showcase_item.short %></p>
+			<% if showcase_item.showcaseable.class == Development %>
+				<%= link_to 'Más Info', development_file_path(showcase_item.showcaseable), class: 'btn btn-primary btn-fix' %>
+			<% elsif showcase_item.showcaseable.class == Property %>
+				<%= link_to 'Más Info', property_file_path(showcase_item.showcaseable), class: 'btn btn-primary btn-fix' %>
+			<% end %>
+		</div>
+	</div>
+</div>

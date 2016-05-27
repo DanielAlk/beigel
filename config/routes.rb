@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get '/edit/(*step)(/:property_id)', to: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
       end
     end
+    resources :showcase_items
   end
 
   root 'pages#home'
