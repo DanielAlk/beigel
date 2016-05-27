@@ -35,6 +35,10 @@ class PagesController < ApplicationController
   	if params[:development_id].present?
   		@development = Development.friendly.find(params[:development_id])
   	end
+    object = @property || @development
+    unless object.active?
+      raise ActionController::RoutingError.new('Not Found')
+    end
   end
 
   def soon

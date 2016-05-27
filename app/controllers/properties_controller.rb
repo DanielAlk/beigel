@@ -9,14 +9,14 @@ class PropertiesController < ApplicationController
 
   def search
     @properties = Property.where(development: nil).filter(@search_filters)
-    @properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
+    @properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 6)
     render :index
   end
 
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.where(development: nil).order(updated_at: :desc).paginate(:page => params[:page], :per_page => 5)
+    @properties = Property.where(development: nil).order(updated_at: :desc).paginate(:page => params[:page], :per_page => 6)
   end
 
   # GET /properties/1
