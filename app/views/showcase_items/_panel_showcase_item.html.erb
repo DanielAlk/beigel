@@ -1,0 +1,61 @@
+<div class="panel-card small-actions panel-card-actions-3">
+	<%= link_to showcase_item, class: 'panel-card-link' do %>
+		<div class="panel-card-image">
+			<%= image_tag showcase_item.showcaseable.images.first.item.url(:thumb) rescue nil %>
+		</div>
+		<div class="panel-card-content">
+			<h2><%= showcase_item.title %></h2>
+			<div class="panel-card-price">
+				<% if showcase_item.development? && development = showcase_item.showcaseable %>
+					<% if development.for_sale? %>
+						<% property = development.lowest_sale_price_property %>
+					  <span>
+					  	<strong>Venta desde: </strong>
+					  	<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<% if development.for_rent? %>
+						<% property = development.lowest_rent_price_property %>
+					  <span>
+					  	<strong>Alquiler desde: </strong>
+					  	<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<em> > Emprendimiento</em>
+				<% elsif showcase_item.property? && property = showcase_item.showcaseable %>
+					<% if property.for_sale? %>
+					  <span>
+					  	<strong>Venta: </strong>
+					  	<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<% if property.for_rent? %>
+					  <span>
+					  	<strong>Alquiler: </strong>
+					  	<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<em> > Propiedad</em>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	<div class="panel-card-actions">
+		<%= link_to showcase_item, method: :delete, data: { confirm: '¿Seguro querés eliminar este item?' } do %>
+			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
+			<span>Eliminar</span>
+		<% end %>
+		<%= link_to edit_showcase_item_path(showcase_item) do %>
+			<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
+			<span>Editar</span>
+		<% end %>
+		<%= link_to showcase_item do %>
+			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
+			<span>Ver</span>
+		<% end %>
+	</div>
+</div>

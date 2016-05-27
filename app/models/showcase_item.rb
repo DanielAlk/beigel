@@ -16,4 +16,13 @@ class ShowcaseItem < ActiveRecord::Base
   def short
   	self.showcaseable.short
   end
+
+  def development?
+    self.showcaseable.class == Development
+  end
+
+  def property?
+    self.showcaseable.class == Property
+  end
+
 end

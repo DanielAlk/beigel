@@ -29,7 +29,7 @@ section.search-box { margin: -15px -50px 0; background-color: $brand-primary;
 	&.sessions, &.registrations, &.passwords { max-width: 600px; padding-top: 15px;
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 	}
-	&.properties, &.developments { max-width: 900px; padding-top: 15px;
+	&.properties, &.developments, &.showcase_items { max-width: 900px; padding-top: 15px;
 		&.index, &.search { max-width: 1200px; }
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 		&.show { width: 1160px; padding: 30px; max-width: none;
@@ -78,6 +78,12 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 		}
 		.panel-card-image { padding: 5px;
 			img { width: 75px; height: 55px; }
+		}
+		&.panel-card-actions-3 { padding-right: 220px;
+			.panel-card-actions { width: 220px;
+				a { width: calc(100% / 3 - 10px);
+				}
+			}
 		}
 	}
 	&.panel-card-actions-4 {

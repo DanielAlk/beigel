@@ -1,27 +1,5 @@
-<p id="notice"><%= notice %></p>
+<h1 style="margin-bottom:30px;">Showcase <%= link_to 'Crear nuevo', new_showcase_item_path, class: 'pull-right btn btn-warning' %></h1>
 
-<h1>Listing Showcase Items</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Showcaseable</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @showcase_items.each do |showcase_item| %>
-      <tr>
-        <td><%= showcase_item.showcaseable %></td>
-        <td><%= link_to 'Show', showcase_item %></td>
-        <td><%= link_to 'Edit', edit_showcase_item_path(showcase_item) %></td>
-        <td><%= link_to 'Destroy', showcase_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Showcase item', new_showcase_item_path %>
+<% @showcase_items.each do |showcase_item| %>
+  <%= render 'panel_showcase_item', showcase_item: showcase_item %>
+<% end %>
