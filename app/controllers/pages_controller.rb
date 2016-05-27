@@ -43,7 +43,7 @@ class PagesController < ApplicationController
   private
 
 	  def set_showcase_items
-	  	@showcase_items = ShowcaseItem.all.shuffle
+	  	@showcase_items = ShowcaseItem.select { |showcase_item| showcase_item.showcaseable.active? }.shuffle
 	  end
 
 	  def set_developments_limited
