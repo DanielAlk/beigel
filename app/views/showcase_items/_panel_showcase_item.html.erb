@@ -1,4 +1,4 @@
-<div class="panel-card small-actions panel-card-actions-3">
+<div class="panel-card actions-toggle small-actions panel-card-actions-2">
 	<%= link_to showcase_item, class: 'panel-card-link' do %>
 		<div class="panel-card-image">
 			<%= image_tag showcase_item.showcaseable.images.first.item.url(:thumb) rescue nil %>
@@ -45,13 +45,12 @@
 		</div>
 	<% end %>
 	<div class="panel-card-actions">
+		<div class="panel-card-actions-toggle" data-class-toggler="{{parent}}" data-class="active">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+		</div>
 		<%= link_to showcase_item, method: :delete, data: { confirm: '¿Seguro querés eliminar este item?' } do %>
 			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
 			<span>Eliminar</span>
-		<% end %>
-		<%= link_to edit_showcase_item_path(showcase_item) do %>
-			<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
-			<span>Editar</span>
 		<% end %>
 		<%= link_to showcase_item do %>
 			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>

@@ -1,6 +1,6 @@
 <% content_for :extra_js do %>
 	Utils.init();
-  $('.card-gallery').gallery();
+	Panel.showcaseToggle('<%= showcase_items_path %>');
 <% end %>
 
 <%= render 'partials/search_filters' %>

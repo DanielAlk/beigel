@@ -12,6 +12,7 @@ Utils.load = function() {
 	Utils.checkboxes.init();
 	Utils.submitTriggers();
 	Utils.dataHref();
+	Utils.classToggler();
 	Utils.nav();
 };
 
@@ -105,6 +106,19 @@ Utils.autonumeric = function() {
 
 Utils.drawer = function() {
 	$('[class*=drawer]').drawer();
+};
+
+Utils.classToggler = function() {
+	$(document).on('click', '[data-class-toggler]', function(e) {
+		e.preventDefault();
+		var toggler = this;
+		var $toggler = $(toggler);
+		var selector = $toggler.data('class-toggler');
+		var match = selector.match(/\{\{([\d\w]+)\}\}/);
+		selector = !!match ? match[1] : selector;
+		var $target = !!match ? $toggler[selector]() : $(selector);
+		$target.toggleClass($toggler.data('class') || 'active');
+	});
 };
 
 Utils.nav = function() {

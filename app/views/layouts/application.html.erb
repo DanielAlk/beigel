@@ -9,7 +9,7 @@
 
 <body class="<%= 'admin' if request.subdomain[/panel/] %>">
 	<div class="body">
-		<%= render 'layouts/admin_nav' %>
+		<%= render 'panel/navigation' %>
 		<%= render 'layouts/navigation' %>
 		<div class="page-container">
 			<%= yield %>

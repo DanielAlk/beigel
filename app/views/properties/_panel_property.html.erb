@@ -1,6 +1,6 @@
 <% format = :default unless local_assigns.has_key? :format %>
 
-<div class="panel-card <%= 'small-actions' if format == :development %>">
+<div class="panel-card actions-toggle <%= 'small-actions' if format == :development %>">
 	<%= link_to property, class: 'panel-card-link' do %>
 		<div class="panel-card-image">
 			<%= image_tag property.images.first.item.url(:thumb) rescue nil %>
@@ -39,6 +39,9 @@
 		</div>
 	<% end %>
 	<div class="panel-card-actions">
+		<div class="panel-card-actions-toggle" data-class-toggler="{{parent}}" data-class="active">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+		</div>
 		<%= link_to property, method: :delete, data: { confirm: '¿Seguro querés eliminar esta propiedad?' } do %>
 			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
 			<span>Eliminar</span>
@@ -77,6 +80,14 @@
 		<%= link_to property do %>
 			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
 			<span>Ver</span>
+		<% end %>
+		<% if format == :default %>
+			<%= link_to '#', class: 'showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
+				<i class="fa fa-spinner fa-pulse fa-fh"></i>
+				<i class="fa fa-star fa-fh" aria-hidden="true"></i>
+				<i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
+				<span>Showcase</span>
+			<% end %>
 		<% end %>
 	</div>
 </div>

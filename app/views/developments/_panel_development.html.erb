@@ -1,4 +1,4 @@
-<div class="panel-card panel-card-actions-4">
+<div class="panel-card actions-toggle panel-card-actions-5">
 	<%= link_to development, class: 'panel-card-link' do %>
 		<div class="panel-card-image">
 			<%= image_tag development.images.first.item.url(:thumb) rescue nil %>
@@ -37,6 +37,9 @@
 		</div>
 	<% end %>
 	<div class="panel-card-actions">
+		<div class="panel-card-actions-toggle" data-class-toggler="{{parent}}" data-class="active">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+		</div>
 		<%= link_to development, method: :delete, data: { confirm: '¿Seguro querés eliminar este emprendimiento?' } do %>
 			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
 			<span>Eliminar</span>
@@ -61,6 +64,12 @@
 		<%= link_to development do %>
 			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
 			<span>Ver</span>
+		<% end %>
+		<%= link_to '#', class: 'showcase-item-toggle ' + (development.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (development.showcase_item.id rescue nil), showcaseable_id: development.id, showcaseable_type: 'Development' } do %>
+			<i class="fa fa-spinner fa-pulse fa-fh"></i>
+			<i class="fa fa-star fa-fh" aria-hidden="true"></i>
+			<i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
+			<span>Showcase</span>
 		<% end %>
 	</div>
 </div>

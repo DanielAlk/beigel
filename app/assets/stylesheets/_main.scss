@@ -27,6 +27,14 @@
 	column-gap: $gap;
 }
 
+@mixin rotate($deg) {
+	-moz-transform: rotate($deg);
+	-webkit-transform: rotate($deg);
+	-o-transform: rotate($deg);
+	-ms-transform: rotate($deg);
+	transform: rotate($deg);
+}
+
 a:hover, a:focus { text-decoration: none; }
 
 .bootstrap-select .btn:focus, a:focus, .btn:focus, .btn:active:focus, .btn.active:focus { outline: none!important; }
