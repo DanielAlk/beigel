@@ -172,7 +172,7 @@
       </thead>
       <tbody>
         <% development.properties.each do |property| %>
-          <tr data-href="<%= property_path property %>" style="cursor:pointer;">
+          <tr data-href="<%= property_file_path property %>" style="cursor:pointer;">
             <td><%= property.address %></td>
             <td><%= property.environments %></td>
             <td><%= property.constructed_area %></td>
