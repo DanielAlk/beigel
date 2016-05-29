@@ -29,8 +29,8 @@ section.search-box { margin: -15px -50px 0; background-color: $brand-primary;
 	&.sessions, &.registrations, &.passwords { max-width: 600px; padding-top: 15px;
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 	}
-	&.properties, &.developments, &.showcase_items { max-width: 900px; padding-top: 15px;
-		&.index, &.search { max-width: 1200px; }
+	&.properties, &.developments, &.showcase_items, &.panel { max-width: 900px; padding-top: 15px;
+		&:not(.panel).index, &.search { max-width: 1200px; }
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 		&.show { width: 1160px; padding: 30px; max-width: none;
 			@media(max-width: 1199px) { width: 960px; }
@@ -156,4 +156,31 @@ a.panel-card-link { color: inherit;
 	.slider-item-title { margin: 10px 0 5px; }
 	.slider-item-text { margin: 0 0 15px; }
 	.slider-item-caption {display: table-cell;height: 400px;vertical-align: middle;}
+}
+
+/* PANEL */
+.panel-actions { @include clear-both;
+	a {
+		float: left; width: calc(50% - 10px); text-align: center;
+		border: 2px solid #000; margin: 5px; height: 130px; padding: 40px 0;
+		border-radius: 8px; color: #fff;
+		box-shadow: inset 0px 0px 10px 2px #FFF;
+		i, span { display: block; }
+		i { font-size: 2em; }
+		&:hover { box-shadow: inset 0px 0px 12px 3px #FFF; }
+		&:active { box-shadow: inset 0px 0px 10px 2px #555; }
+	}
+}
+.panel-default .panel-actions a {background-color: #f5f5f5; color: #000; }
+.panel-primary .panel-actions a {background-color: $brand-primary; border-color: $brand-primary; }
+.panel-success .panel-actions a {background-color: $brand-success;}
+.panel-info .panel-actions a {background-color: #D9EDF7; color: #337290; border-color: #337290; }
+.panel-warning .panel-actions a {background-color: #FCF8E3; color: #8A6D3B; border-color: #8A6D3B; }
+.panel-danger .panel-actions a {background-color: $brand-danger;}
+
+.panel-actions-1 { @extend .panel-actions;
+	a { width: calc(100% - 10px); }
+}
+.panel-actions-3 { @extend .panel-actions;
+	a { width: calc(33.33% - 10px); }
 }

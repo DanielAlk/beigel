@@ -5,7 +5,7 @@
 
 <%= render 'partials/search_filters' %>
 
-<h1 style="margin-bottom:30px;">Propiedades <%= link_to 'Crear nueva', new_property_path, class: 'pull-right btn btn-warning' %></h1>
+<h1 style="margin-bottom:30px;"><i class="fa fa-home fa-fh" aria-hidden="true"></i> Inmuebles <%= link_to 'Crear nueva', new_property_path, class: 'pull-right btn btn-warning' %></h1>
 <p><%= page_entries_info @properties %></p>
 
 <% @properties.each do |property| %>

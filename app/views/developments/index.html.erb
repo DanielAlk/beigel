@@ -2,7 +2,7 @@
 	Panel.showcaseToggle('<%= showcase_items_path %>');
 <% end %>
 
-<h1 style="margin-bottom:30px;">Emprendimientos <%= link_to 'Crear nuevo', new_development_path, class: 'pull-right btn btn-warning' %></h1>
+<h1 style="margin-bottom:30px;"><i class="fa fa-building-o fa-fh" aria-hidden="true"></i> Emprendimientos <%= link_to 'Crear nuevo', new_development_path, class: 'pull-right btn btn-warning' %></h1>
 <p><%= page_entries_info @developments %></p>
 
 <% @developments.each do |development| %>
