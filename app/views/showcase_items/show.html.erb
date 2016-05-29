@@ -1,12 +1,12 @@
 <div class="admin-options btn-group btn-group-justified">
-	<%= link_to showcase_items_path, class: 'btn btn-warning' do %>
+	<%= link_to showcase_items_path, class: 'btn btn-sm btn-warning' do %>
 		<i class="fa fa-arrow-circle-o-left fa-fw" aria-hidden="true"></i> Volver al listado
 	<% end %>
-	<%= link_to @showcase_item.showcaseable, class: 'btn btn-primary' do %>
+	<%= link_to @showcase_item.showcaseable, class: 'btn btn-sm btn-primary' do %>
 		<i class="fa fa-external-link fa-fw" aria-hidden="true"></i>
 		<span>Ver <%= @showcase_item.development? ? 'emprendimiento' : 'propiedad' %></span>
 	<% end %>
-	<%= link_to @showcase_item, method: :delete, data: { confirm: '¿Seguro querés eliminar este item?' }, class: 'btn btn-danger' do %>
+	<%= link_to @showcase_item, method: :delete, data: { confirm: '¿Seguro querés eliminar este item?' }, class: 'btn btn-sm btn-danger' do %>
 		<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> Quitar del showcase
 	<% end %>
 </div>

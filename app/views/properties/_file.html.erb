@@ -20,19 +20,19 @@
 <% if admin_signed_in? %>
   <div class="admin-options btn-group btn-group-justified">
     <% if property.development.present? %>
-      <%= link_to property.development, class: 'btn btn-warning' do %>
+      <%= link_to property.development, class: 'btn btn-sm btn-warning' do %>
         <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Ver emprendimiento
       <% end %>
     <% else %>
-      <%= link_to properties_path, class: 'btn btn-warning' do %>
+      <%= link_to properties_path, class: 'btn btn-sm btn-warning' do %>
         <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Ir al listado
       <% end %>
     <% end %>
-    <%= link_to clone_property_path(property), method: :put, class: 'btn btn-primary' do %>
+    <%= link_to clone_property_path(property), method: :put, class: 'btn btn-sm btn-primary' do %>
       <i class="fa fa-clone fa-fh" aria-hidden="true"></i> Duplicar
     <% end %>
     <% if property.development.blank? %>
-      <%= link_to '#', class: 'btn btn-warning', data: { submit: 'form.edit_property' } do %>
+      <%= link_to '#', class: 'btn btn-sm btn-warning', data: { submit: 'form.edit_property' } do %>
         <% if property.active? %>
           <i class="fa fa-pause fa-fh" aria-hidden="true"></i> Pausar
         <% else %>
@@ -40,35 +40,35 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= link_to property, method: :delete, data: { confirm: '¿Seguro querés eliminar esta propiedad?' }, class: 'btn btn-danger' do %>
+    <%= link_to property, method: :delete, data: { confirm: '¿Seguro querés eliminar esta propiedad?' }, class: 'btn btn-sm btn-danger' do %>
       <i class="fa fa-trash-o fa-fh" aria-hidden="true"></i> Eliminar
     <% end %>
   </div>
   <div class="admin-options btn-group btn-group-justified">
     <% if property.development.present? %>
-      <%= link_to edit_development_path(property.development, development_step_from_status(:properties), property), class: 'btn btn-primary' do %>
+      <%= link_to edit_development_path(property.development, development_step_from_status(:properties), property), class: 'btn btn-sm btn-primary' do %>
         <i class="fa fa-file-text-o" aria-hidden="true"></i> Editar
       <% end %>
     <% else %>
-      <%= link_to edit_property_path(property), class: 'btn btn-warning' do %>
+      <%= link_to edit_property_path(property), class: 'btn btn-sm btn-warning' do %>
         <i class="fa fa-file-text-o" aria-hidden="true"></i> Principal
       <% end %>
-      <%= link_to edit_property_path(property, property_step_from_status(:characteristics)), class: 'btn btn-info' do %>
+      <%= link_to edit_property_path(property, property_step_from_status(:characteristics)), class: 'btn btn-sm btn-info' do %>
         <i class="fa fa-list-alt" aria-hidden="true"></i> Caracteristicas
       <% end %>
-      <%= link_to edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-danger' do %>
+      <%= link_to edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-sm btn-danger' do %>
         <i class="fa fa-camera-retro" aria-hidden="true"></i> Multimedia
       <% end %>
     <% end %>
     <% if property.development.blank? %>
-      <%= link_to '#', class: 'btn btn-info showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
+      <%= link_to '#', class: 'btn btn-sm btn-info showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
         <i class="fa fa-spinner fa-pulse fa-fh"></i>
         <i class="fa fa-star fa-fh" aria-hidden="true"></i>
         <i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
         <span>Showcase</span>
       <% end %>
     <% end %>
-    <%= link_to '#', class: 'btn btn-default promotion-toggle ' + (property.promotion.present? ? 'active' : ''), data: { promotion_id: (property.promotion.id rescue nil), promotionable_id: property.id, promotionable_type: 'Property' } do %>
+    <%= link_to '#', class: 'btn btn-sm btn-default promotion-toggle ' + (property.promotion.present? ? 'active' : ''), data: { promotion_id: (property.promotion.id rescue nil), promotionable_id: property.id, promotionable_type: 'Property' } do %>
       <i class="fa fa-spinner fa-pulse fa-fh"></i>
       <i class="fa fa-toggle-on fa-fh" aria-hidden="true"></i>
       <i class="fa fa-toggle-off fa-fh" aria-hidden="true"></i>

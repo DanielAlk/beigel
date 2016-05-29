@@ -7,6 +7,7 @@ one:
   tel: MyString
   message: MyText
   data: MyString
+  read: false
   contactable_id: 
   contactable_type: Contactable
 
@@ -17,5 +18,6 @@ two:
   tel: MyString
   message: MyText
   data: MyString
+  read: false
   contactable_id: 
   contactable_type: Contactable

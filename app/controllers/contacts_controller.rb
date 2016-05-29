@@ -1,13 +1,15 @@
 class ContactsController < ApplicationController
   before_action :authenticate_admin!, except: :create
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :mark_as_read, only: :show
   layout 'panel'
 
   # GET /contacts
   # GET /contacts.json
   def index
-    order_params = params.require(:order).permit(:contactable_id, :subject, :name, :email, :tel) rescue {created_at: :desc}
-    @contacts = Contact.order(order_params).paginate(:page => params[:page], :per_page => 16)
+    order_params = params.require(:order).permit(:contactable_id, :subject, :name, :email, :tel, :created_at) rescue {created_at: :desc}
+    method_name = params.require(:filter).permit(Contact.subjects.keys.map {|k|k.to_sym}).keys[0] rescue :all
+    @contacts = Contact.public_send(method_name).order(order_params).paginate(:page => params[:page], :per_page => 16)
   end
 
   # GET /contacts/1
@@ -73,6 +75,13 @@ class ContactsController < ApplicationController
       end
     end
 
+    def mark_as_read
+      unless @contact.read
+        @contact.read = true
+        @contact.save
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = Contact.find(params[:id])
@@ -80,6 +89,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:subject, :name, :email, :tel, :message, :data, :contactable_id, :contactable_type)
+      params.require(:contact).permit(:subject, :name, :email, :tel, :message, :data, :read, :contactable_id, :contactable_type)
     end
 end

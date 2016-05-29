@@ -60,10 +60,11 @@ ActiveRecord::Schema.define(version: 20160529101607) do
     t.string   "tel",              limit: 255
     t.text     "message",          limit: 65535
     t.string   "data",             limit: 255
+    t.boolean  "read",             limit: 1,     default: false
     t.integer  "contactable_id",   limit: 4
     t.string   "contactable_type", limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   add_index "contacts", ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id", using: :btree

@@ -7,6 +7,7 @@ class CreateContacts < ActiveRecord::Migration
       t.string :tel
       t.text :message
       t.string :data
+      t.boolean :read, :default => false
       t.references :contactable, polymorphic: true, index: true
 
       t.timestamps null: false

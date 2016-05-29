@@ -7,9 +7,9 @@ class Contact < ActiveRecord::Base
   enum subject: [ :contact, :services, :investments, :assessments, :development, :property ]
   
   def subject_es
-  	if self.subject.present?
-	  	[ :contacto, :servicios, :inversiones, :tasaciones, :eprendimiento, :inmueble ][Contact.subjects[self.subject]].to_s.capitalize
-	  end
+    if self.subject.present?
+      [ :contacto, :servicios, :inversiones, :tasaciones, :eprendimiento, :inmueble ][Contact.subjects[self.subject]].to_s.capitalize
+    end
   end
 
   private
