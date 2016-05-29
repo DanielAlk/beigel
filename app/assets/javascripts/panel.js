@@ -33,3 +33,37 @@ Panel.showcaseToggle = function(showcase_items_path) {
 		else activate($toggle);
 	});
 };
+
+Panel.promotionToggle = function(promotions_path) {
+	var activate = function($toggle) {
+		$toggle.removeClass('active').addClass('loading');
+		var data = {
+			promotion: {
+				promotionable_id: $toggle.data('promotionable-id'),
+				promotionable_type: $toggle.data('promotionable-type')
+			}
+		};
+		$.post(promotions_path, data, function(response) {
+			$toggle.data('promotion-id', response.id).removeClass('loading').addClass('active');
+		}, 'json');
+	};
+	var deactivate = function($toggle) {
+		$toggle.removeClass('active').addClass('loading');
+		var id = $toggle.data('promotion-id');
+		$.ajax({
+			url: promotions_path + '/' + id,
+			dataType: 'json',
+			method: 'DELETE'
+		})
+		.done(function(response) {
+			$toggle.removeClass('loading');
+		});
+	};
+	$(document).on('click', '.promotion-toggle', function(e) {
+		e.preventDefault();
+		var $toggle = $(this);
+		if ($toggle.hasClass('loading')) return;
+		if ($toggle.hasClass('active')) deactivate($toggle);
+		else activate($toggle);
+	});
+};

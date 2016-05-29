@@ -61,3 +61,9 @@
 	&:not(.loading) .fa-spinner { display: none; }
 	&.loading { .fa-star, .fa-star-o { display: none; } }
 }
+
+.promotion-toggle {
+	&:not(.active) .fa-toggle-on, &.active .fa-toggle-off { display: none; }
+	&:not(.loading) .fa-spinner { display: none; }
+	&.loading { .fa-toggle-off, .fa-toggle-on { display: none; } }
+}

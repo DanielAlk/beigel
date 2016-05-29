@@ -21,4 +21,6 @@ body.admin { padding-top: 30px; }
 	}
 }
 
-.admin-options { margin: 0px -1px 20px 1px; }
+.admin-options { margin: 0px -1px 20px 1px;
+	.btn-default { background-color: #EFEFEF; border-color: #e0e0e0; }
+}

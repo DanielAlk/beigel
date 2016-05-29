@@ -1,0 +1,64 @@
+<div class="panel-card actions-toggle small-actions panel-card-actions-3">
+	<%= link_to promotion.promotionable, class: 'panel-card-link' do %>
+		<div class="panel-card-image">
+			<%= image_tag promotion.promotionable.images.first.item.url(:thumb) rescue nil %>
+		</div>
+		<div class="panel-card-content">
+			<h2><%= promotion.promotionable.title %></h2>
+			<div class="panel-card-price">
+				<% if promotion.development? && development = promotion.promotionable %>
+					<% if development.for_sale? %>
+						<% property = development.lowest_sale_price_property %>
+					  <span>
+					  	<strong>Venta desde: </strong>
+					  	<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<% if development.for_rent? %>
+						<% property = development.lowest_rent_price_property %>
+					  <span>
+					  	<strong>Alquiler desde: </strong>
+					  	<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<em> > Emprendimiento</em>
+				<% elsif promotion.property? && property = promotion.promotionable %>
+					<% if property.for_sale? %>
+					  <span>
+					  	<strong>Venta: </strong>
+					  	<%= currency property.sale_price, property.currency_for(:sale) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<% if property.for_rent? %>
+					  <span>
+					  	<strong>Alquiler: </strong>
+					  	<%= currency property.rent_price, property.currency_for(:rent) + ' ' %>
+					  </span>
+					  &nbsp;
+					<% end %>
+					<em> > Propiedad</em>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	<div class="panel-card-actions">
+		<div class="panel-card-actions-toggle" data-class-toggler="{{parent}}" data-class="active">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+		</div>
+		<%= link_to promotion, method: :delete, data: { confirm: '¿Seguro querés eliminar esta promoción?' } do %>
+			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
+			<span>Quitar</span>
+		<% end %>
+		<%= link_to edit_property_path(promotion.promotionable) do %>
+			<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
+			<span>Editar</span>
+		<% end %>
+		<%= link_to promotion.promotionable do %>
+			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
+			<span>Ver</span>
+		<% end %>
+	</div>
+</div>

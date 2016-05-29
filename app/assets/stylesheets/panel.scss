@@ -29,7 +29,7 @@ section.search-box { margin: -15px -50px 0; background-color: $brand-primary;
 	&.sessions, &.registrations, &.passwords { max-width: 600px; padding-top: 15px;
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 	}
-	&.properties, &.developments, &.showcase_items, &.panel { max-width: 900px; padding-top: 15px;
+	&.properties, &.developments, &.showcase_items, &.promotions, &.panel { max-width: 900px; padding-top: 15px;
 		&:not(.panel).index, &.search { max-width: 1200px; }
 		@media(min-width: $screen-sm-min) { padding-left: 50px; padding-right: 50px; }
 		&.show { width: 1160px; padding: 30px; max-width: none;
@@ -67,43 +67,51 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 .nav.nav-tabs { margin: 20px 0 30px; }
 
 /*PANEL CARD */
-.panel-card { @include block-shadow; position: relative; border: 1px solid #ececec; padding-left: 120px; padding-right: 490px; 
+$panel-card-actions-width-2: 150px;
+$panel-card-actions-width-3: 220px;
+$panel-card-actions-width-4: 300px;
+$panel-card-actions-width-4-bis: 340px;
+$panel-card-actions-width-5-bis: 380px;
+$panel-card-actions-width-5: 410px;
+$panel-card-actions-width-7: 580px;
+
+.panel-card { @include block-shadow; position: relative; border: 1px solid #ececec; padding-left: 120px; padding-right: $panel-card-actions-width-7; 
 	+.panel-card { margin-top: 15px; }
-	&.small-actions { padding-right: 300px; padding-left: 90px;
+	&.small-actions { padding-right: $panel-card-actions-width-5-bis; padding-left: 90px;
 		.panel-card-content { height: 65px;
 			h2 { font-size: 18px; }
 		}
-		.panel-card-actions { width: 300px;
-			a, button { width: calc(100% / 4 - 10px); padding-top: 12px; font-size: .8em; }
+		.panel-card-actions { width: $panel-card-actions-width-5-bis;
+			a, button { width: calc(100% / 5 - 10px); padding-top: 12px; font-size: .8em; }
 		}
 		.panel-card-image { padding: 5px;
 			img { width: 75px; height: 55px; }
 		}
-		&.panel-card-actions-2 { padding-right: 150px;
-			.panel-card-actions { width: 150px;
+		&.panel-card-actions-2 { padding-right: $panel-card-actions-width-2;
+			.panel-card-actions { width: $panel-card-actions-width-2;
 				a { width: calc(100% / 2 - 10px);
 				}
 			}
 		}
-		&.panel-card-actions-3 { padding-right: 220px;
-			.panel-card-actions { width: 220px;
+		&.panel-card-actions-3 { padding-right: $panel-card-actions-width-3;
+			.panel-card-actions { width: $panel-card-actions-width-3;
 				a { width: calc(100% / 3 - 10px);
 				}
 			}
 		}
 	}
 	&.panel-card-actions-4 {
-		.panel-card-actions { width: 340px;
+		.panel-card-actions { width: $panel-card-actions-width-4-bis;
 			a, button { width: calc(100% / 4 - 10px); }
 		}
 	}
 	&.panel-card-actions-5 {
-		.panel-card-actions { width: 410px;
+		.panel-card-actions { width: $panel-card-actions-width-5;
 			a, button { width: calc(100% / 5 - 10px); }
 		}
 	}
 	&.actions-toggle { padding-right: 0; overflow: hidden;
-		.panel-card-actions { @include transition(right, 400ms, ease-out); right: -490px; background-color: #F5F5F5;
+		.panel-card-actions { @include transition(right, 250ms, ease-out); right: -$panel-card-actions-width-7; background-color: #F5F5F5;
 			.panel-card-actions-toggle {
 				position: absolute; height: 100%; background-color: #F5F5F5;
 				right: 100%; width: 30px; text-align: center; border: 1px solid #C1C0C0;
@@ -117,11 +125,11 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 				}
 			}
 		}
-		&.small-actions { .panel-card-actions { right: -300px; .panel-card-actions-toggle { line-height: 68px; } } }
-		&.panel-card-actions-2 { .panel-card-actions { right: -150px; } }
-		&.panel-card-actions-3 { .panel-card-actions { right: -220px; } }
-		&.panel-card-actions-4 { .panel-card-actions { right: -340px; } }
-		&.panel-card-actions-5 { .panel-card-actions { right: -410px; } }
+		&.small-actions { .panel-card-actions { right: -$panel-card-actions-width-5-bis; .panel-card-actions-toggle { line-height: 68px; } } }
+		&.panel-card-actions-2 { .panel-card-actions { right: -$panel-card-actions-width-2; } }
+		&.panel-card-actions-3 { .panel-card-actions { right: -$panel-card-actions-width-3; } }
+		&.panel-card-actions-4 { .panel-card-actions { right: -$panel-card-actions-width-4-bis; } }
+		&.panel-card-actions-5 { .panel-card-actions { right: -$panel-card-actions-width-5; } }
 	}
 }
 
@@ -134,8 +142,8 @@ a.panel-card-link { color: inherit;
 .panel-card-content { padding: 10px; height: 95px; position: relative; 
 	h2 { margin: 1px 0 6px; font-size: 22px; }
 }
-.panel-card-actions { position: absolute; right: 0; top: 0; height: 100%; width: 490px; 
-	a, button { position: relative; width: calc(100% / 6 - 10px); display: block; margin: 5px; padding: 22px 0 0; float: left; text-align: center; height: calc(100% - 10px); border: 1px solid; border-radius: 5%; font-size: 1em; color: #555; background-color: #f5f5f5; 
+.panel-card-actions { position: absolute; right: 0; top: 0; height: 100%; width: $panel-card-actions-width-7; 
+	a, button { position: relative; width: calc(100% / 7 - 10px); display: block; margin: 5px; padding: 22px 0 0; float: left; text-align: center; height: calc(100% - 10px); border: 1px solid; border-radius: 5%; font-size: 1em; color: #555; background-color: #f5f5f5; 
 		&>span { display: block; }
 		&>i { font-size: 1.6em; }
 		&[data-method=delete] { color: #E26E6E; }
@@ -144,6 +152,7 @@ a.panel-card-link { color: inherit;
 		button { padding-top: 4px; }
 	}
 	.showcase-item-toggle { color: #F0AD4E; }
+	.promotion-toggle { color: $brand-primary; }
 }
 .panel-card-status { margin: 6px 0 0; }
 
@@ -173,10 +182,10 @@ a.panel-card-link { color: inherit;
 }
 .panel-default .panel-actions a {background-color: #f5f5f5; color: #000; }
 .panel-primary .panel-actions a {background-color: $brand-primary; border-color: $brand-primary; }
-.panel-success .panel-actions a {background-color: $brand-success;}
+.panel-success .panel-actions a {background-color: #dff0d8; color: #3c763d; border-color: #3c763d;}
 .panel-info .panel-actions a {background-color: #D9EDF7; color: #337290; border-color: #337290; }
 .panel-warning .panel-actions a {background-color: #FCF8E3; color: #8A6D3B; border-color: #8A6D3B; }
-.panel-danger .panel-actions a {background-color: $brand-danger;}
+.panel-danger .panel-actions a {background-color: #f2dede; color: #a94442; border-color: #a94442;}
 
 .panel-actions-1 { @extend .panel-actions;
 	a { width: calc(100% - 10px); }

@@ -3,6 +3,7 @@
   $('.fullscreen-gallery').gallery({ fullscreen: true });
   <% if admin_signed_in? %>
     Panel.showcaseToggle('<%= showcase_items_path %>');
+    Panel.promotionToggle('<%= promotions_path %>');
   <% end %>
 <% end %>
 
@@ -25,14 +26,6 @@
     <% else %>
       <%= link_to properties_path, class: 'btn btn-warning' do %>
         <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Ir al listado
-      <% end %>
-    <% end %>
-    <% if property.development.blank? %>
-      <%= link_to '#', class: 'btn btn-info showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
-        <i class="fa fa-spinner fa-pulse fa-fh"></i>
-        <i class="fa fa-star fa-fh" aria-hidden="true"></i>
-        <i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
-        <span>Showcase</span>
       <% end %>
     <% end %>
     <%= link_to clone_property_path(property), method: :put, class: 'btn btn-primary' do %>
@@ -66,6 +59,20 @@
       <%= link_to edit_property_path(property, property_step_from_status(:multimedia)), class: 'btn btn-danger' do %>
         <i class="fa fa-camera-retro" aria-hidden="true"></i> Multimedia
       <% end %>
+    <% end %>
+    <% if property.development.blank? %>
+      <%= link_to '#', class: 'btn btn-info showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
+        <i class="fa fa-spinner fa-pulse fa-fh"></i>
+        <i class="fa fa-star fa-fh" aria-hidden="true"></i>
+        <i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
+        <span>Showcase</span>
+      <% end %>
+    <% end %>
+    <%= link_to '#', class: 'btn btn-default promotion-toggle ' + (property.promotion.present? ? 'active' : ''), data: { promotion_id: (property.promotion.id rescue nil), promotionable_id: property.id, promotionable_type: 'Property' } do %>
+      <i class="fa fa-spinner fa-pulse fa-fh"></i>
+      <i class="fa fa-toggle-on fa-fh" aria-hidden="true"></i>
+      <i class="fa fa-toggle-off fa-fh" aria-hidden="true"></i>
+      <span>Promoción</span>
     <% end %>
   </div>
   <%= form_for property do |f| %>

@@ -1,6 +1,7 @@
 <% content_for :extra_js do %>
 	Utils.init();
 	Panel.showcaseToggle('<%= showcase_items_path %>');
+	Panel.promotionToggle('<%= promotions_path %>');
 <% end %>
 
 <%= render 'partials/search_filters' %>

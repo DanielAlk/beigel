@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       end
     end
     resources :showcase_items
+    resources :promotions
   end
 
   root 'pages#home'
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
 
   get 'home', to: 'pages#home', as: :home
   get 'emprendimientos' => 'pages#developments', as: :developments_page
+  get 'promociones' => 'pages#promotions', as: :promotions_page
   get 'empresas-amigas' => 'pages#friends', as: :friends
   get 'la-empresa' => 'pages#about', as: :about
   get 'contacto' => 'pages#contact', as: :contact

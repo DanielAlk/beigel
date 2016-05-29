@@ -1,13 +1,17 @@
 class PagesController < ApplicationController
-	before_action :set_showcase_items, except: [:developments, :file, :soon]
+	before_action :set_showcase_items, except: [:developments, :promotions, :file, :soon]
 	before_action :set_developments_limited, only: :home
-	before_action :set_developments, only: :developments
+  before_action :set_developments, only: :developments
+	before_action :set_promotions, only: :promotions
 	layout 'soon', only: :soon
 
   def home
   end
 
   def developments
+  end
+
+  def promotions
   end
 
   def friends
@@ -54,8 +58,12 @@ class PagesController < ApplicationController
 	  	@developments = Development.active.limit 8
 	  end
 
-	  def set_developments
-	  	@developments = Development.active.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
+    def set_developments
+      @developments = Development.active.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
+    end
+
+	  def set_promotions
+	  	@promotions = Promotion.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
 	  end
 
 end

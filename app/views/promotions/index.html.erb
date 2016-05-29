@@ -1,0 +1,10 @@
+<h1 style="margin-bottom:30px;"><i class="fa fa-bomb fa-fh" aria-hidden="true"></i> Promociones</h1>
+
+<% if @promotions.blank? %>
+  <p>No definiste propiedades en promoción</p>
+  <%= link_to 'Ver propiedades', properties_path %>
+<% else %>
+  <% @promotions.each do |promotion| %>
+    <%= render 'card', promotion: promotion %>
+  <% end %>
+<% end %>

@@ -1,0 +1,7 @@
+$promotions = $("<%= escape_javascript(render(@promotions)) %>");
+$promotions.find('.card-gallery').gallery();
+$('#promotions').append($promotions);
+$('#page_entries_info').html('<%= page_entries_info @promotions %>');
+<% if @promotions.total_pages == @promotions.current_page %>
+	$('#pagination_next').remove();
+<% end %>

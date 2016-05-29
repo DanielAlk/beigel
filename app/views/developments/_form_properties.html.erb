@@ -2,6 +2,7 @@
 
 <% content_for :extra_js do %>
   Property.new();
+  Panel.promotionToggle('<%= promotions_path %>');
   $('#file_picker').filePicker({ imageable_type: 'property' });
   $('#toggle_view').click(function(e) {
     $('#property_list, #new_property, .toggle-view').fadeToggle();
