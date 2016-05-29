@@ -6,7 +6,8 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    order_params = params.require(:order).permit(:contactable_id, :subject, :name, :email, :tel) rescue {created_at: :desc}
+    @contacts = Contact.order(order_params).paginate(:page => params[:page], :per_page => 16)
   end
 
   # GET /contacts/1

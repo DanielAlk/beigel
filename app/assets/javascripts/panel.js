@@ -1,5 +1,15 @@
 var Panel = {};
 
+Panel.tableOrder = function() {
+	var $form = $('form#table-order');
+	$('[data-order]').click(function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		$form.append($('<input>', { type: 'hidden', name: 'order['+ $this.data('order') +']', val: $this.data('way') }));
+		$form.submit();
+	});
+};
+
 Panel.showcaseToggle = function(showcase_items_path) {
 	var activate = function($toggle) {
 		$toggle.removeClass('active').addClass('loading');

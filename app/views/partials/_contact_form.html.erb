@@ -13,7 +13,7 @@
 	<%= f.hidden_field :data %>
 	<%= f.text_field :name, class: 'form-control', placeholder: 'Nombre', required: true %>
 	<%= f.email_field :email, class: 'form-control', placeholder: 'Email', required: true %>
-	<%= f.phone_field :tel, class: 'form-control', placeholder: 'Teléfono' %>
+	<%= f.phone_field :tel, class: 'form-control', placeholder: 'Teléfono', required: true %>
 	<%= f.text_area :message, class: 'form-control', placeholder: 'Mensaje', rows: '6', required: true, minlength: 15 %>
 	<div class="text-center mar-xs-NS-30">
 		<%= submit_tag 'Consultar', class: 'btn btn-default btn-fix' %>

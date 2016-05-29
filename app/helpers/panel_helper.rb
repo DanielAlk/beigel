@@ -18,4 +18,16 @@ module PanelHelper
 			//]]>
 		</script>'.html_safe
 	end
+
+	def table_order param
+		order_param = params.require(:order).permit(param)[param] rescue nil
+		data = "data-order=#{param}"
+		if order_param.present?
+			oposite_order = order_param.to_sym == :asc ? :desc : :asc
+			data << " data-way=#{oposite_order} class=#{order_param}"
+		else
+			data << " data-way=asc"
+		end
+		data
+	end
 end

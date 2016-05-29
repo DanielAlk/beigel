@@ -67,3 +67,16 @@
 	&:not(.loading) .fa-spinner { display: none; }
 	&.loading { .fa-toggle-off, .fa-toggle-on { display: none; } }
 }
+
+a.table-photo-link {
+	margin: -5px; display: block; line-height: 30px;
+	overflow: hidden; padding-left: 50px; position: relative; color: inherit;
+	max-width: 300px; text-overflow: ellipsis; white-space: nowrap;
+	img { position: absolute; top: 0; left: 0; height: auto; height: 30px; }
+}
+
+th[data-order] { cursor: pointer;
+	&:before {font: normal normal normal 14px/1 FontAwesome; font-size: inherit; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+	&.asc:before { content: '\f0dd'; vertical-align: top; margin-right: 6px;}
+	&.desc:before { content: '\f0de'; vertical-align: bottom; margin-right: 6px;}
+}

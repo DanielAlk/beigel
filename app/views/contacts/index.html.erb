@@ -1,34 +1,55 @@
-<p id="notice"><%= notice %></p>
+<% content_for :extra_js do %>
+  Panel.tableOrder();
+<% end %>
 
-<h1>Listing Contacts</h1>
+<div class="hidden">
+  <%= form_tag '#', method: :get, id: 'table-order' do %>
 
-<table>
+  <% end %>
+</div>
+
+<h1 style="margin-bottom:30px;"><i class="fa fa-exclamation-circle fa-fh" aria-hidden="true"></i> Notificaciones</h1>
+<p><%= page_entries_info @properties %></p>
+
+<table class="table table-hover table-condensed">
   <thead>
     <tr>
-      <th>Subject</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Tel</th>
-      <th>Message</th>
-      <th>Data</th>
-      <th>Contactable</th>
-      <th colspan="3"></th>
+      <th <%= table_order :contactable_id %> >Inmueble/Emprendimiento</th>
+      <th <%= table_order :name %> >Name</th>
+      <th <%= table_order :email %> >Email</th>
+      <th <%= table_order :tel %> >Tel</th>
+      <th <%= table_order :subject %> >Subject</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @contacts.each do |contact| %>
       <tr>
-        <td><%= contact.subject %></td>
+        <td>
+          <% if contact.contactable.present? %>
+            <%= link_to contact.contactable, class: 'table-photo-link' do %>
+              <%= image_tag contact.contactable.images.first.item.url(:thumb) %>
+              <span><%= contact.contactable.title %></span>
+            <% end %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td><%= contact.name %></td>
         <td><%= contact.email %></td>
         <td><%= contact.tel %></td>
-        <td><%= contact.message %></td>
-        <td><%= contact.data %></td>
-        <td><%= contact.contactable %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= contact.subject_es %></td>
+        <td>
+          <%= link_to contact, style: "color:#00944B;" do %>
+            <i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to contact, style: "color:#E26E6E;", method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fa fa-trash-o fa-fh fa-lg" aria-hidden="true"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +57,4 @@
 
 <br>
 
-<%= link_to 'New Contact', new_contact_path %>
+<%= will_paginate @properties %>
