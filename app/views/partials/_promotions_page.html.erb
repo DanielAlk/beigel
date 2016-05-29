@@ -1,6 +1,7 @@
 <% row_class = false unless local_assigns.has_key? :row_class %>
 
 <% content_for :extra_js do %>
+	$('.card-gallery').gallery();
 	Utils.paginationNext();
 <% end %>
 
