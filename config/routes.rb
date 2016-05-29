@@ -41,12 +41,14 @@ Rails.application.routes.draw do
   post 'buscar', to: 'search#index', as: :search
   get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
 
+  resources :contacts
+
   get 'home', to: 'pages#home', as: :home
   get 'emprendimientos' => 'pages#developments', as: :developments_page
   get 'promociones' => 'pages#promotions', as: :promotions_page
   get 'empresas-amigas' => 'pages#friends', as: :friends
   get 'la-empresa' => 'pages#about', as: :about
-  get 'contacto' => 'pages#contact', as: :contact
+  get 'contacto' => 'pages#contact', as: :contact_page
   get 'servicios' => 'pages#services', as: :services
   get 'ficha-propiedad/(:property_id)' => 'pages#file', as: :property_file
   get 'ficha-emprendimiento/(:development_id)' => 'pages#file', as: :development_file

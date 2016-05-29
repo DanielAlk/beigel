@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529073145) do
+ActiveRecord::Schema.define(version: 20160529101607) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",        null: false
@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(version: 20160529073145) do
 
   add_index "characteristics", ["available_characteristic_id"], name: "index_characteristics_on_available_characteristic_id", using: :btree
   add_index "characteristics", ["classifiable_type", "classifiable_id"], name: "index_characteristics_on_classifiable_type_and_classifiable_id", using: :btree
+
+  create_table "contacts", force: :cascade do |t|
+    t.integer  "subject",          limit: 4
+    t.string   "name",             limit: 255
+    t.string   "email",            limit: 255
+    t.string   "tel",              limit: 255
+    t.text     "message",          limit: 65535
+    t.string   "data",             limit: 255
+    t.integer  "contactable_id",   limit: 4
+    t.string   "contactable_type", limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "contacts", ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id", using: :btree
 
   create_table "development_types", force: :cascade do |t|
     t.string   "name",       limit: 255

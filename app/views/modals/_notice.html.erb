@@ -9,12 +9,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title">Beigel</h3>
+          <h3 class="modal-title">Beigel Bienes Raices</h3>
         </div>
         <div class="modal-body">
           <p>
-            <%= notice if notice.present? %>
-            <%= alert if alert.present? %>
+            <%= notice.html_safe if notice.present? %>
+            <%= alert.html_safe if alert.present? %>
           </p>
         </div>
         <div class="modal-footer">

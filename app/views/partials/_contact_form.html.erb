@@ -1,8 +1,20 @@
-<%= form_tag '', method: :post, role: 'form', class: 'stack-5' do %>
-	<%= text_field_tag :name, nil, class: 'form-control', placeholder: 'Nombre' %>
-	<%= email_field_tag :email, nil, class: 'form-control', placeholder: 'Email' %>
-	<%= phone_field_tag :phone, nil, class: 'form-control', placeholder: 'Teléfono' %>
-	<%= text_area_tag :message, nil, class: 'form-control', placeholder: 'Mensaje', rows: '6' %>
+<% subject = nil unless local_assigns.has_key? :subject %>
+<% contactable = nil unless local_assigns.has_key? :contactable %>
+
+<% content_for :extra_js do %>
+	$('form#new_contact').validate();
+<% end %>
+
+<%= form_for Contact.new, method: :post, html: { role: 'form', class: 'stack-5 slick-error-labels' } do |f| %>
+	<%= hidden_field_tag :after_save_path, request.path %>
+	<%= f.hidden_field :subject, value: subject %>
+	<%= f.hidden_field :contactable_id, value: contactable.id rescue nil %>
+	<%= f.hidden_field :contactable_type, value: contactable.class rescue nil %>
+	<%= f.hidden_field :data %>
+	<%= f.text_field :name, class: 'form-control', placeholder: 'Nombre', required: true %>
+	<%= f.email_field :email, class: 'form-control', placeholder: 'Email', required: true %>
+	<%= f.phone_field :tel, class: 'form-control', placeholder: 'Teléfono' %>
+	<%= f.text_area :message, class: 'form-control', placeholder: 'Mensaje', rows: '6', required: true, minlength: 15 %>
 	<div class="text-center mar-xs-NS-30">
 		<%= submit_tag 'Consultar', class: 'btn btn-default btn-fix' %>
 	</div>

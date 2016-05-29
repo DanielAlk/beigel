@@ -19,5 +19,5 @@
 			</div>
 		</div>
 	</section>
-	<%= render 'partials/contact', title: '¿querés saber más sobre esta propiedad?' %>
+	<%= render 'partials/contact', title: '¿querés saber más sobre esta propiedad?', contactable: (@property.present? ? @property : @development) %>
 </div>

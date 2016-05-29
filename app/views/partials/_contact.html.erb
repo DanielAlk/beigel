@@ -1,4 +1,6 @@
 <% title = nil unless local_assigns.has_key? :title %>
+<% subject = nil unless local_assigns.has_key? :subject %>
+<% contactable = nil unless local_assigns.has_key? :contactable %>
 
 <section class="pad-xs-NS-50 cover text-white" style="background-image: url('<%= asset_path 'contact-bg.jpg' %>')">
 	<div class="container">
@@ -8,7 +10,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-				<%= render 'partials/contact_form' %>
+				<%= render 'partials/contact_form', subject: subject, contactable: contactable %>
 			</div>
 		</div>
 	</div>

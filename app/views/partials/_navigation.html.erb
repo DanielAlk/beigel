@@ -13,7 +13,7 @@
 		<li><%= link_to 'Empresas amigas', friends_path, class: nav_class(:friends) %></li>
 		<li><%= link_to 'La Empresa', about_path, class: nav_class(:about) %></li>
 		<li>
-			<%= link_to 'Contacto', contact_path, class: nav_class(:contact) %>
+			<%= link_to 'Contacto', contact_page_path, class: nav_class(:contact) %>
 			<% if format == :header %>
 				<span class="social-links">
 					<%= link_to 'mailto:info@beigel.com.ar' do %>
