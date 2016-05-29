@@ -54,7 +54,7 @@
 		<div class="btn-group">
 			<% if admin_signed_in? %>
 				<%= link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, aria_haspopup: 'true', aria_expanded: false do -%>
-					<i class="fa fa-user" aria-hidden="true"></i> &nbsp; <%= current_admin.email %>
+					<%= current_admin.email %> &nbsp; <i class="fa fa-user" aria-hidden="true"></i>
 				<% end %>
 				<ul class="dropdown-menu">
 					<li>
