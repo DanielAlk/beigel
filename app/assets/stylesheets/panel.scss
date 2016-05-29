@@ -162,8 +162,8 @@ a.panel-card-link { color: inherit;
 .panel-actions { @include clear-both;
 	a {
 		float: left; width: calc(50% - 10px); text-align: center;
-		border: 2px solid #000; margin: 5px; height: 130px; padding: 40px 0;
-		border-radius: 8px; color: #fff;
+		border: 2px solid #000; margin: 5px; height: 100px;
+		border-radius: 8px; color: #fff; padding: 26px 0;
 		box-shadow: inset 0px 0px 10px 2px #FFF;
 		i, span { display: block; }
 		i { font-size: 2em; }
@@ -180,6 +180,9 @@ a.panel-card-link { color: inherit;
 
 .panel-actions-1 { @extend .panel-actions;
 	a { width: calc(100% - 10px); }
+}
+.panel-actions-2 { @extend .panel-actions;
+	a { width: calc(50% - 10px); }
 }
 .panel-actions-3 { @extend .panel-actions;
 	a { width: calc(33.33% - 10px); }
