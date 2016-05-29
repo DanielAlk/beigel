@@ -6,6 +6,6 @@
 	<%= link_to 'Ver emprendimientos', developments_path %><br>
 <% else %>
 	<% @showcase_items.each do |showcase_item| %>
-	  <%= render 'panel_showcase_item', showcase_item: showcase_item %>
+	  <%= render 'card', showcase_item: showcase_item %>
 	<% end %>
 <% end %>

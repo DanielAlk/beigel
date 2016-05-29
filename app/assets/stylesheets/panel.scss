@@ -125,12 +125,6 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 	}
 }
 
-.showcase-item-toggle { color: #F0AD4E !important;
-	&:not(.active) .fa-star, &.active .fa-star-o { display: none; }
-	&:not(.loading) .fa-spinner { display: none; }
-	&.loading { .fa-star, .fa-star-o { display: none; } }
-}
-
 a.panel-card-link { color: inherit;
 	&:hover h2 { text-decoration: underline; }
 }
@@ -149,6 +143,7 @@ a.panel-card-link { color: inherit;
 	form { display: inline;
 		button { padding-top: 4px; }
 	}
+	.showcase-item-toggle { color: #F0AD4E; }
 }
 .panel-card-status { margin: 6px 0 0; }
 

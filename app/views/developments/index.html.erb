@@ -6,7 +6,7 @@
 <p><%= page_entries_info @developments %></p>
 
 <% @developments.each do |development| %>
-  <%= render 'panel_development', development: development %>
+  <%= render 'card', development: development %>
 <% end %>
 
 <%= will_paginate @developments %>

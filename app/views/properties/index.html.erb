@@ -9,7 +9,7 @@
 <p><%= page_entries_info @properties %></p>
 
 <% @properties.each do |property| %>
-	<%= render 'panel_property', property: property %>
+	<%= render 'card', property: property %>
 <% end %>
 
 <%= will_paginate @properties %>

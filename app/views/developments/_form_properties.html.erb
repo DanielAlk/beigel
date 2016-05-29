@@ -16,7 +16,7 @@
   <%= button_tag 'Finalizar carga de unidades', class: 'btn btn-sm btn-success',  style: 'margin:-10px 0 20px;', data: { submit: 'form.edit_development' } %>
   <div class="mar-xs-S-30" id="property_list">
     <% @development.properties.each do |property| %>
-      <%= render 'properties/panel_property', property: property, format: :development %>
+      <%= render 'properties/card', property: property, format: :development %>
     <% end %>
   </div>
 <% end %>

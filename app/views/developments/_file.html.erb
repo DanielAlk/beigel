@@ -1,6 +1,9 @@
 <% content_for :extra_js do %>
   $('.card-gallery').gallery({ toggle: '.fullscreen-gallery' });
   $('.fullscreen-gallery').gallery({ fullscreen: true });
+  <% if admin_signed_in? %>
+    Panel.showcaseToggle('<%= showcase_items_path %>');
+  <% end %>
 <% end %>
 
 <% content_for :extra_script do %>
@@ -16,21 +19,15 @@
 <% if admin_signed_in? %>
   <div class="admin-options btn-group btn-group-justified">
     <%= link_to developments_path, class: 'btn btn-warning' do %>
-      <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Volver al listado
+      <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Ir al listado
     <% end %>
-    <%= link_to edit_development_path(development), class: 'btn btn-primary' do %>
-      <i class="fa fa-file-text-o" aria-hidden="true"></i> Principal
+    <%= link_to '#', class: 'btn btn-info showcase-item-toggle ' + (development.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (development.showcase_item.id rescue nil), showcaseable_id: development.id, showcaseable_type: 'Development' } do %>
+      <i class="fa fa-spinner fa-pulse fa-fh"></i>
+      <i class="fa fa-star fa-fh" aria-hidden="true"></i>
+      <i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
+      <span>Showcase</span>
     <% end %>
-    <%= link_to edit_development_path(development, development_step_from_status(:properties)), class: 'btn btn-info' do %>
-      <i class="fa fa-list-alt" aria-hidden="true"></i> Propiedades
-    <% end %>
-    <%= link_to edit_development_path(development, development_step_from_status(:characteristics)), class: 'btn btn-danger' do %>
-      <i class="fa fa-list-alt" aria-hidden="true"></i> Caracteristicas
-    <% end %>
-    <%= link_to edit_development_path(development, development_step_from_status(:multimedia)), class: 'btn btn-primary' do %>
-      <i class="fa fa-camera-retro" aria-hidden="true"></i> Multimedia
-    <% end %>
-    <%= link_to '#', class: 'btn btn-info', data: { submit: 'form.edit_development' } do %>
+    <%= link_to '#', class: 'btn btn-primary', data: { submit: 'form.edit_development' } do %>
       <% if development.active? %>
         <i class="fa fa-pause fa-fh" aria-hidden="true"></i> Pausar
       <% else %>
@@ -39,6 +36,20 @@
     <% end %>
     <%= link_to development, method: :delete, data: { confirm: '¿Seguro querés eliminar esta emprendimiento?' }, class: 'btn btn-danger' do %>
       <i class="fa fa-trash-o fa-fh" aria-hidden="true"></i> Eliminar
+    <% end %>
+  </div>
+  <div class="admin-options btn-group btn-group-justified">
+    <%= link_to edit_development_path(development), class: 'btn btn-warning' do %>
+      <i class="fa fa-file-text-o" aria-hidden="true"></i> Principal
+    <% end %>
+    <%= link_to edit_development_path(development, development_step_from_status(:properties)), class: 'btn btn-info' do %>
+      <i class="fa fa-list-alt" aria-hidden="true"></i> Propiedades
+    <% end %>
+    <%= link_to edit_development_path(development, development_step_from_status(:characteristics)), class: 'btn btn-primary' do %>
+      <i class="fa fa-list-alt" aria-hidden="true"></i> Caracteristicas
+    <% end %>
+    <%= link_to edit_development_path(development, development_step_from_status(:multimedia)), class: 'btn btn-danger' do %>
+      <i class="fa fa-camera-retro" aria-hidden="true"></i> Multimedia
     <% end %>
   </div>
   <%= form_for development do |f| %>

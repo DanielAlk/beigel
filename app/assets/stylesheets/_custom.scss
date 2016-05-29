@@ -55,3 +55,9 @@
 	&>a, &>span { @extend .btn-primary; }
 	&>em { @extend .btn-warning; @extend .disabled; }
 }
+
+.showcase-item-toggle {
+	&:not(.active) .fa-star, &.active .fa-star-o { display: none; }
+	&:not(.loading) .fa-spinner { display: none; }
+	&.loading { .fa-star, .fa-star-o { display: none; } }
+}
