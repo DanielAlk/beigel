@@ -10,10 +10,15 @@
 				<%= link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, aria_haspopup: 'true', aria_expanded: false do -%>
 					<i class="fa fa-cog" aria-hidden="true"></i> &nbsp; Opciones
 				<% end %>
-				<ul class="dropdown-menu">					
+				<ul class="dropdown-menu">
 					<li>
 						<%= link_to path_to_home do %>
 							<i class="fa fa-bold fa-fw" aria-hidden="true"></i> &nbsp; Web
+						<% end %>
+					</li>
+					<li>
+						<%= link_to panel_path do %>
+							<i class="fa fa-sliders fa-fw" aria-hidden="true"></i> &nbsp; Panel
 						<% end %>
 					</li>
 					<li class="dropdown-header">Listas</li>
