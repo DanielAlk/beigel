@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  include PrettyParams
 	include FilteringForProperties
 
   def index
@@ -8,7 +9,7 @@ class SearchController < ApplicationController
   		operation_type = search_params[:operation_type].respond_to?(:each)? search_params[:operation_type][0] : search_params[:operation_type]
   	end
   	search = operation_type == 'buy' ? 'comprar' : 'alquilar'
-  	search << '/' + build_params_string(search_params, search_params_format)
+  	search << '/' + prettify_params(search_params)
   	redirect_to results_path(search: search)
   end
 
@@ -20,25 +21,18 @@ class SearchController < ApplicationController
   		operation_type = :rent
   	end
 		search_params = search_params.sub(operation_type_regex, '')
-		search_params = parse_params_string(search_params, search_params_format)
+		search_params = parse_pretty_params(search_params)
 		search_params[:operation_type] = operation_type
 		build_search(search_params)
 		@properties = Property.active.filter(@search_filters)
 		@properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 3)
   end
 
-  private
+  protected
 
-	  def search_params_format
-	  	property_type_map = {}
-	  	PropertyType.all.each do |pt|
-	  		property_type_map[pt.title] = pt.name
-	  	end
+	  def pretty_params_format
 	  	{
-	  		property_type_slug: {
-	  			id: 1,
-	  			map: property_type_map,
-  			},
+	  		property_type_slug: 1,
 	  		zone_slug: 2,
 	  		price: {
 	  			currency: 3,
