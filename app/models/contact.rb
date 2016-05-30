@@ -1,5 +1,7 @@
 class Contact < ActiveRecord::Base
   belongs_to :contactable, polymorphic: true
+  belongs_to :property, -> { where(contacts: { contactable_type: 'Property' }) }, foreign_key: :contactable_id
+  belongs_to :development, -> { where(contacts: { contactable_type: 'Development' }) }, foreign_key: :contactable_id
   validates_presence_of :name
   validates_presence_of :email
   validates_length_of :message, minimum: 15, message: "debe contener al menos 15 caracteres"

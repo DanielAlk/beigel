@@ -7,9 +7,14 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    order_params = params.require(:order).permit(:contactable_id, :subject, :name, :email, :tel, :created_at) rescue {created_at: :desc}
+    order_params = params.require(:order).permit(:contactable, :subject, :name, :email, :tel, :created_at) rescue {created_at: :desc}
     method_name = params.require(:filter).permit(Contact.subjects.keys.map {|k|k.to_sym}).keys[0] rescue :all
-    @contacts = Contact.public_send(method_name).order(order_params).paginate(:page => params[:page], :per_page => 16)
+    if order_params.present? && order_params[:contactable].present?
+      contacts = Contact.public_send(method_name).includes(:property, :development).references(:property, :development).order('properties.title ' + order_params[:contactable].upcase).order('developments.title ' + order_params[:contactable].upcase)
+    else
+      contacts = Contact.public_send(method_name).order(order_params)
+    end
+    @contacts = contacts.paginate(:page => params[:page], :per_page => 16)
   end
 
   # GET /contacts/1

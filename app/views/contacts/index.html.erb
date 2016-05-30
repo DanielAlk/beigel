@@ -33,13 +33,13 @@
     <thead>
       <tr>
         <% if (params[:filter].keys.include? 'development' rescue false) || (params[:filter].keys.include? 'property' rescue false) || params[:filter].blank? %>
-          <th <%= table_order :contactable_id %> >Inmueble/Emprendimiento</th>
+          <th <%= table_order :contactable %> >Inmueble/Emprendimiento</th>
         <% end %>
         <th <%= table_order :name %> >Name</th>
         <th <%= table_order :email %> >Email</th>
         <th <%= table_order :tel %> >Tel</th>
         <th <%= table_order :subject %> >Subject</th>
-        <th <%= table_order :created_at %> >Fecha</th>
+        <th <%= table_order :created_at, :desc %> >Fecha</th>
         <th colspan="2"></th>
       </tr>
     </thead>
@@ -63,7 +63,7 @@
           <td><%= contact.email %></td>
           <td><%= contact.tel %></td>
           <td><%= contact.subject_es %></td>
-          <td><%= contact.created_at.strftime '%d-%m-%Y' %></td>
+          <td><%= contact.created_at.strftime '%d-%m-%Y %H:%Mhs.' %></td>
           <td>
             <%= link_to contact, style: "color:#00944B;" do %>
               <i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
