@@ -32,6 +32,11 @@
   <table class="table table-hover table-condensed">
     <thead>
       <tr>
+        <th>
+          <label class="checkbox-inline" style="height:auto;line-height:inherit;">
+            <input type="checkbox" data-select-all="">
+          </label>
+        </th>
         <% if (params[:filter].keys.include? 'development' rescue false) || (params[:filter].keys.include? 'property' rescue false) || params[:filter].blank? %>
           <%= table_order 'Inmueble/Emprendimiento', :contactable %>
         <% end %>
@@ -40,13 +45,18 @@
         <%= table_order 'Tel', :tel %>
         <%= table_order 'Subject', :subject %>
         <%= table_order 'Fecha', :created_at, :desc %>
-        <th colspan="2"></th>
+        <th colspan="3"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @contacts.each do |contact| %>
         <tr class="<%= 'info' unless contact.read %>">
+          <td>
+            <label class="checkbox-inline" style="height:auto;line-height:inherit;">
+              <input type="checkbox" name="contact[id][]" id="contact_id_<%= contact.id %>" value="<%= contact.id %>">
+            </label>
+          </td>
           <% if (params[:filter].keys.include? 'development' rescue false) || (params[:filter].keys.include? 'property' rescue false) || params[:filter].blank? %>
             <td>
               <% if contact.contactable.present? %>
@@ -64,6 +74,12 @@
           <td><%= contact.tel %></td>
           <td><%= contact.subject_es %></td>
           <td><%= contact.created_at.strftime '%d-%m-%Y %H:%Mhs.' %></td>
+          <td>
+            <%= link_to contact, style: "color:#00944B;" do %>
+              <i class="fa fa-exclamation fa-fh" aria-hidden="true"></i>
+              <i class="fa fa-check fa-fh" aria-hidden="true"></i>
+            <% end %>
+          </td>
           <td>
             <%= link_to contact, style: "color:#00944B;" do %>
               <i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
