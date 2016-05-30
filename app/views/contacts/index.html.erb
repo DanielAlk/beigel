@@ -3,30 +3,49 @@
   $('[title]').tooltip();
 <% end %>
 
+<% if @object.present? %>
+  <% @table_order_path = development_contacts_path(@object) if @object.class.name == 'Development' %>
+  <% @table_order_path = property_contacts_path(@object) if @object.class.name == 'Property' %>
+<% end %>
+
 <div class="hidden">
-  <%= form_tag contacts_path, method: :get, id: 'table-order' do %>
+  <%= form_for contacts_path, method: :delete, html: { id: 'destroy_all' }, data: { confirm: '¿Seguro eliminar?' } do %>
+    <% if @object.present? %>
+      <%= hidden_field_tag :after_destroy_path, request.path %>
+    <% end %>
+  <% end %>
+  <%= form_tag (@table_order_path || contacts_path), method: :get, id: 'table-order' do %>
     <% if params[:filter].present? %>
       <% params[:filter].keys.each do |subject| %>
         <%= hidden_field :filter, subject %>
       <% end %>
     <% end %>
   <% end %>
-  <% Contact.subjects.keys.each do |subject| %>
-    <%= form_tag contacts_path, method: :get, id: subject.to_s + '_filter' do %>
-      <%= hidden_field :filter, subject %>
+  <% if @object.blank? %>
+    <% Contact.subjects.keys.each do |subject| %>
+      <%= form_tag contacts_path, method: :get, id: subject.to_s + '_filter' do %>
+        <%= hidden_field :filter, subject %>
+      <% end %>
     <% end %>
   <% end %>
-  <%= form_for contacts_path, method: :delete, html: { id: 'destroy_all' }, data: { confirm: '¿Seguro eliminar?' } {} %>
 </div>
 
-<h1 style="margin-bottom:30px;"><i class="fa fa-exclamation-circle fa-fh" aria-hidden="true"></i> Notificaciones</h1>
-<div class="admin-options btn-group btn-group-justified">
-  <%= link_to 'Todos', contacts_path, class: 'btn btn-sm btn-default ' + (params[:filter].blank? ? 'active' : '') %>
-  <% Contact.subjects.keys.each do |subject| %>
-    <% class_append = params[:filter].present? && params[:filter].keys.include?(subject) ? 'active' : '' %>
-    <%= link_to contact_subject_translate(subject), '#', class: 'btn btn-sm btn-default ' + class_append, data: { submit: '#' + subject + '_filter' } %>
+<h1 style="margin-bottom:30px;">
+  <i class="fa fa-exclamation-circle fa-fh" aria-hidden="true"></i> Notificaciones
+  <% if @object.present? %>
+    <small>Para: <%= link_to @object.title, @object %></small>
   <% end %>
-</div>
+</h1>
+
+<% if @object.blank? %>
+  <div class="admin-options btn-group btn-group-justified">
+    <%= link_to 'Todos', contacts_path, class: 'btn btn-sm btn-default ' + (params[:filter].blank? ? 'active' : '') %>
+    <% Contact.subjects.keys.each do |subject| %>
+      <% class_append = params[:filter].present? && params[:filter].keys.include?(subject) ? 'active' : '' %>
+      <%= link_to contact_subject_translate(subject), '#', class: 'btn btn-sm btn-default ' + class_append, data: { submit: '#' + subject + '_filter' } %>
+    <% end %>
+  </div>
+<% end %>
 <div class="admin-options btn-group pull-right">
   <%= link_to contacts_path, title: 'Marcar seleccionados como no leídos', class: 'btn btn-sm btn-warning disabled', data: { collect_ids: 'contact[ids][]', read: 0 } do %>
     <i class="fa fa-exclamation fa-fw" aria-hidden="true"></i>
@@ -88,7 +107,11 @@
           <td><%= contact.subject_es %></td>
           <td><%= contact.created_at.strftime '%d-%m-%Y %H:%Mhs.' %></td>
           <td>
-            <%= link_to contact, title: 'Leer', style: "color:#00944B;" do %>
+            <% if @object.present? %>
+              <% @contact_show_path = development_contact_path(@object, contact) if @object.class.name == 'Development' %>
+              <% @contact_show_path = property_contact_path(@object, contact) if @object.class.name == 'Property' %>
+            <% end %>
+            <%= link_to (@contact_show_path || contact), title: 'Leer', style: "color:#00944B;" do %>
               <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
             <% end %>
           </td>
@@ -100,8 +123,19 @@
             <% end %>
           </td>
           <td>
-            <%= link_to contact, title: 'eliminar', style: "color:#E26E6E;", method: :delete, data: { confirm: 'Are you sure?' } do %>
-              <i class="fa fa-trash-o fa-fw fa-lg" aria-hidden="true"></i>
+            <% if @object.blank? %>
+              <%= link_to contact, title: 'eliminar', style: "color:#E26E6E;", method: :delete, data: { confirm: 'Are you sure?' } do %>
+                <i class="fa fa-trash-o fa-fw fa-lg" aria-hidden="true"></i>
+              <% end %>
+            <% else %>
+              <%= link_to contact, title: 'eliminar', style: "color:#E26E6E;", data: { submit: '#edit_contact_' + contact.id.to_s } do %>
+                <i class="fa fa-trash-o fa-fw fa-lg" aria-hidden="true"></i>
+              <% end %>
+              <div class="hidden">
+                <%= form_for contact, method: :delete, data: { confirm: '¿Seguro eliminar?' } do |f| %>
+                  <%= hidden_field_tag :after_destroy_path, request.path %>
+                <% end %>
+              </div>
             <% end %>
           </td>
         </tr>

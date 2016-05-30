@@ -9,12 +9,21 @@ class ContactsController < ApplicationController
   def index
     order_params = params.require(:order).permit(:contactable, :subject, :name, :email, :tel, :created_at) rescue {created_at: :desc}
     method_name = params.require(:filter).permit(Contact.subjects.keys.map {|k|k.to_sym}).keys[0] rescue :all
+    contacts = Contact.where(nil)
+    if params[:id].present?
+      if request.path.start_with? '/properties'
+        @object = Property.select(:id, :slug, :title).friendly.find(params[:id])
+      elsif request.path.start_with? '/developments'
+        @object = Development.select(:id, :slug, :title).friendly.find(params[:id])
+      end
+      contacts = contacts.where(contactable_id: @object.id)
+    end
     if order_params.present? && order_params[:contactable].present?
-      contacts = Contact.public_send(method_name).includes(:property, :development).references(:all)
+      contacts = contacts.public_send(method_name).includes(:property, :development).references(:all)
       contacts = contacts.order('properties.title ' + order_params[:contactable].upcase)
       contacts = contacts.order('developments.title ' + order_params[:contactable].upcase)
     else
-      contacts = Contact.public_send(method_name).order(order_params)
+      contacts = contacts.public_send(method_name).order(order_params)
     end
     @contacts = contacts.paginate(:page => params[:page], :per_page => 16)
   end
@@ -22,6 +31,13 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    if params[:property_contact_id].present? && params[:id].present?
+      if request.path.start_with? '/properties'
+        @object = Property.select(:id, :slug, :title).friendly.find(params[:id])
+      elsif request.path.start_with? '/developments'
+        @object = Development.select(:id, :slug, :title).friendly.find(params[:id])
+      end
+    end
   end
 
   # GET /contacts/new
@@ -68,7 +84,7 @@ class ContactsController < ApplicationController
   def destroy
     @contact.destroy
     respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
+      format.html { redirect_to after_destroy_path, notice: 'Contact was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -93,7 +109,7 @@ class ContactsController < ApplicationController
     @contacts = Contact.where(id: contact_ids)
     @contacts.destroy_all
     respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contacts where successfully destroyed.' }
+      format.html { redirect_to after_destroy_path, notice: 'Contacts where successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -107,6 +123,14 @@ class ContactsController < ApplicationController
       end
     end
 
+    def after_destroy_path
+      if params[:after_destroy_path].present?
+        params[:after_destroy_path]
+      else
+        contacts_url
+      end
+    end
+
     def mark_as_read
       unless @contact.read
         @contact.read = true
@@ -116,7 +140,7 @@ class ContactsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = Contact.find(params[:property_contact_id] || params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,6 +1,9 @@
 <h1 style="margin-bottom:30px;">
   <i class="fa fa-exclamation-circle fa-fh" aria-hidden="true"></i> Notificaciones
-  <%= link_to 'Volver al listado', contacts_path, class: 'btn btn-warning pull-right' %>
+  <% if @object.present? %>
+    <% @back_path = @object.class.name == 'Property' ? property_contacts_path(@object) : development_contacts_path(@object) %>
+  <% end %>
+  <%= link_to 'Volver al listado', (@back_path || contacts_path), class: 'btn btn-warning pull-right' %>
 </h1>
 
 <h3>

@@ -28,6 +28,11 @@
         <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Ir al listado
       <% end %>
     <% end %>
+    <% if property.contacts.present? %>
+      <%= link_to property_contacts_path(property), class: 'btn btn-sm btn-info' do %>
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Notificaciones
+      <% end %>
+    <% end %>
     <%= link_to clone_property_path(property), method: :put, class: 'btn btn-sm btn-primary' do %>
       <i class="fa fa-clone fa-fh" aria-hidden="true"></i> Duplicar
     <% end %>

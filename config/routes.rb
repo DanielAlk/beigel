@@ -25,11 +25,29 @@ Rails.application.routes.draw do
       member do
         get '/edit/(*step)', to: :edit, step: /principal|caracteristicas|media/, as: :edit
         put '/clone', to: :clone, as: :clone
+        resources :contacts, only: :index, as: :property_contacts, path: 'notifications' do
+          collection do
+            delete '/', to: :destroy_all
+          end
+          get '/', to: :show
+        end
       end
     end
     resources :developments do
       member do
         get '/edit/(*step)(/:property_id)', to: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
+        resources :contacts, only: :index, as: :development_contacts, path: 'notifications' do
+          collection do
+            delete '/', to: :destroy_all
+          end
+          get '/', to: :show
+        end
+      end
+    end
+    resources :contacts, except: [:new, :create], path: 'notifications' do
+      collection do
+        put '/', to: :update_all
+        delete '/', to: :destroy_all
       end
     end
     resources :showcase_items
@@ -41,12 +59,7 @@ Rails.application.routes.draw do
   post 'buscar', to: 'search#index', as: :search
   get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
 
-  resources :contacts, path: 'notifications' do
-    collection do
-      put '/', to: :update_all
-      delete '/', to: :destroy_all
-    end
-  end
+  resources :contacts, only: :create, path: 'notifications'
 
   get 'home', to: 'pages#home', as: :home
   get 'emprendimientos' => 'pages#developments', as: :developments_page
