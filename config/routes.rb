@@ -41,7 +41,12 @@ Rails.application.routes.draw do
   post 'buscar', to: 'search#index', as: :search
   get '*search', to: 'search#results', search: /comprar.*|alquilar.*/, as: :results
 
-  resources :contacts, path: 'notifications'
+  resources :contacts, path: 'notifications' do
+    collection do
+      put '/', to: :update_all
+      delete '/', to: :destroy_all
+    end
+  end
 
   get 'home', to: 'pages#home', as: :home
   get 'emprendimientos' => 'pages#developments', as: :developments_page

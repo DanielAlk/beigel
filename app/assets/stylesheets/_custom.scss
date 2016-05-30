@@ -68,6 +68,12 @@
 	&.loading { .fa-toggle-off, .fa-toggle-on { display: none; } }
 }
 
+.active-toggle {
+	&:not(.active) .fa.active, &.active .fa.inactive { display: none; }
+	&:not(.loading) .fa-spinner { display: none; }
+	&.loading { .fa.active, .fa.inactive { display: none; } }
+}
+
 a.table-photo-link {
 	margin: -5px; display: block; line-height: 30px;
 	overflow: hidden; padding-left: 50px; position: relative; color: inherit;

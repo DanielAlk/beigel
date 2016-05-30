@@ -48,7 +48,7 @@ class ImagesController < ApplicationController
     end
   end
 
-  # PUT /images/1.json
+  # PUT /images.json
   def update_all
     image_ids = params.require(:image)[:ids]
     image_positions = params.require(:image)[:positions]

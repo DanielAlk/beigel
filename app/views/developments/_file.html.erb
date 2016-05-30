@@ -21,7 +21,7 @@
     <%= link_to developments_path, class: 'btn btn-sm btn-warning' do %>
       <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Ir al listado
     <% end %>
-    <%= link_to '#', class: 'btn btn-sm btn-info showcase-item-toggle ' + (development.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (development.showcase_item.id rescue nil), showcaseable_id: development.id, showcaseable_type: 'Development' } do %>
+    <%= link_to '#', class: 'btn btn-sm btn-info showcase-item-toggle ' + (development.showcase_item.present? ? 'active' : ''), data: { id: (development.showcase_item.id rescue nil), showcaseable_id: development.id, showcaseable_type: 'Development' } do %>
       <i class="fa fa-spinner fa-pulse fa-fh"></i>
       <i class="fa fa-star fa-fh" aria-hidden="true"></i>
       <i class="fa fa-star-o fa-fh" aria-hidden="true"></i>

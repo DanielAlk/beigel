@@ -1,5 +1,6 @@
 <% content_for :extra_js do %>
-  Panel.tableOrder();
+  Panel.contacts();
+  $('[title]').tooltip();
 <% end %>
 
 <div class="hidden">
@@ -15,6 +16,7 @@
       <%= hidden_field :filter, subject %>
     <% end %>
   <% end %>
+  <%= form_for contacts_path, method: :delete, html: { id: 'destroy_all' }, data: { confirm: '¿Seguro eliminar?' } {} %>
 </div>
 
 <h1 style="margin-bottom:30px;"><i class="fa fa-exclamation-circle fa-fh" aria-hidden="true"></i> Notificaciones</h1>
@@ -23,6 +25,17 @@
   <% Contact.subjects.keys.each do |subject| %>
     <% class_append = params[:filter].present? && params[:filter].keys.include?(subject) ? 'active' : '' %>
     <%= link_to contact_subject_translate(subject), '#', class: 'btn btn-sm btn-default ' + class_append, data: { submit: '#' + subject + '_filter' } %>
+  <% end %>
+</div>
+<div class="admin-options btn-group pull-right">
+  <%= link_to contacts_path, title: 'Marcar seleccionados como no leídos', class: 'btn btn-sm btn-warning disabled', data: { collect_ids: 'contact[ids][]', read: 0 } do %>
+    <i class="fa fa-exclamation fa-fw" aria-hidden="true"></i>
+  <% end %>
+  <%= link_to contacts_path, title: 'Marcar seleccionados como leídos', class: 'btn btn-sm btn-primary disabled', data: { collect_ids: 'contact[ids][]', read: 1 } do %>
+    <i class="fa fa-check fa-fw" aria-hidden="true"></i>
+  <% end %>
+  <%= link_to '#destroy_all', title: 'Eliminar seleccionados', class: 'btn btn-sm btn-danger disabled', data: { collect_ids: 'contact[ids][]' } do %>
+    <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>
   <% end %>
 </div>
 
@@ -34,7 +47,7 @@
       <tr>
         <th>
           <label class="checkbox-inline" style="height:auto;line-height:inherit;">
-            <input type="checkbox" data-select-all="">
+            <input type="checkbox" name="select_all" data-target=".checkbox-target">
           </label>
         </th>
         <% if (params[:filter].keys.include? 'development' rescue false) || (params[:filter].keys.include? 'property' rescue false) || params[:filter].blank? %>
@@ -51,16 +64,16 @@
 
     <tbody>
       <% @contacts.each do |contact| %>
-        <tr class="<%= 'info' unless contact.read %>">
+        <tr class="<%= 'info' unless contact.read %>" id="contact_<%= contact.id %>">
           <td>
             <label class="checkbox-inline" style="height:auto;line-height:inherit;">
-              <input type="checkbox" name="contact[id][]" id="contact_id_<%= contact.id %>" value="<%= contact.id %>">
+              <input class="checkbox-target" type="checkbox" name="contact[ids][]" id="contact_id_<%= contact.id %>" value="<%= contact.id %>">
             </label>
           </td>
           <% if (params[:filter].keys.include? 'development' rescue false) || (params[:filter].keys.include? 'property' rescue false) || params[:filter].blank? %>
             <td>
               <% if contact.contactable.present? %>
-                <%= link_to contact.contactable, class: 'table-photo-link' do %>
+                <%= link_to contact.contactable, title: 'Ver ' + (contact.development? ? 'Emprendimiento' : 'Inmueble'), class: 'table-photo-link' do %>
                   <%= image_tag contact.contactable.images.first.item.url(:thumb) %>
                   <span><%= contact.contactable.title %></span>
                 <% end %>
@@ -75,19 +88,20 @@
           <td><%= contact.subject_es %></td>
           <td><%= contact.created_at.strftime '%d-%m-%Y %H:%Mhs.' %></td>
           <td>
-            <%= link_to contact, style: "color:#00944B;" do %>
-              <i class="fa fa-exclamation fa-fh" aria-hidden="true"></i>
-              <i class="fa fa-check fa-fh" aria-hidden="true"></i>
+            <%= link_to contact, title: 'Leer', style: "color:#00944B;" do %>
+              <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
             <% end %>
           </td>
           <td>
-            <%= link_to contact, style: "color:#00944B;" do %>
-              <i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
+            <%= link_to contact, title: 'Marcar como leído/no leído', style: "color:#00944B;", class: 'active-toggle' + (contact.read ? ' active' : ''), data: { id: contact.id, read: contact.read } do %>
+              <i class="fa fa-spinner fa-pulse fa-fw"></i>
+              <i class="fa fa-exclamation fa-fw inactive" aria-hidden="true"></i>
+              <i class="fa fa-check fa-fw active" aria-hidden="true"></i>
             <% end %>
           </td>
           <td>
-            <%= link_to contact, style: "color:#E26E6E;", method: :delete, data: { confirm: 'Are you sure?' } do %>
-              <i class="fa fa-trash-o fa-fh fa-lg" aria-hidden="true"></i>
+            <%= link_to contact, title: 'eliminar', style: "color:#E26E6E;", method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <i class="fa fa-trash-o fa-fw fa-lg" aria-hidden="true"></i>
             <% end %>
           </td>
         </tr>

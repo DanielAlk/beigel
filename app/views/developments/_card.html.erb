@@ -1,3 +1,5 @@
+<% card_actions = true unless local_assigns.has_key? :card_actions %>
+
 <div class="panel-card actions-toggle panel-card-actions-5">
 	<%= link_to development, class: 'panel-card-link' do %>
 		<div class="panel-card-image">
@@ -36,40 +38,42 @@
 			</div>
 		</div>
 	<% end %>
-	<div class="panel-card-actions">
-		<div class="panel-card-actions-toggle" data-class-toggler="{{parent}}" data-class="active">
-			<i class="fa fa-plus" aria-hidden="true"></i>
-		</div>
-		<%= link_to development, method: :delete, data: { confirm: '¿Seguro querés eliminar este emprendimiento?' } do %>
-			<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
-			<span>Eliminar</span>
-		<% end %>
-		<%= link_to edit_development_path(development) do %>
-			<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
-			<span>Editar</span>
-		<% end %>
-		<%= form_for development do |f| %>
-			<%= f.hidden_field :status, value: (development.active? ? :inactive : :active) %>
-			<%= hidden_field_tag :after_save_path, developments_path %>
-			<%= f.button :submit do %>
-				<% if development.active? %>
-					<i class="fa fa-pause" aria-hidden="true"></i>
-					<span>Pausar</span>
-				<% else %>
-					<i class="fa fa-play" aria-hidden="true"></i>
-					<span>Activar</span>
+	<% if card_actions %>
+		<div class="panel-card-actions">
+			<div class="panel-card-actions-toggle" data-class-toggler="{{parent}}" data-class="active">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+			</div>
+			<%= link_to development, method: :delete, data: { confirm: '¿Seguro querés eliminar este emprendimiento?' } do %>
+				<i class="fa fa-trash-o fa-fh" aria-hidden="true"></i>
+				<span>Eliminar</span>
+			<% end %>
+			<%= link_to edit_development_path(development) do %>
+				<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
+				<span>Editar</span>
+			<% end %>
+			<%= form_for development do |f| %>
+				<%= f.hidden_field :status, value: (development.active? ? :inactive : :active) %>
+				<%= hidden_field_tag :after_save_path, developments_path %>
+				<%= f.button :submit do %>
+					<% if development.active? %>
+						<i class="fa fa-pause" aria-hidden="true"></i>
+						<span>Pausar</span>
+					<% else %>
+						<i class="fa fa-play" aria-hidden="true"></i>
+						<span>Activar</span>
+					<% end %>
 				<% end %>
 			<% end %>
-		<% end %>
-		<%= link_to development do %>
-			<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
-			<span>Ver</span>
-		<% end %>
-		<%= link_to '#', class: 'showcase-item-toggle ' + (development.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (development.showcase_item.id rescue nil), showcaseable_id: development.id, showcaseable_type: 'Development' } do %>
-			<i class="fa fa-spinner fa-pulse fa-fh"></i>
-			<i class="fa fa-star fa-fh" aria-hidden="true"></i>
-			<i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
-			<span>Showcase</span>
-		<% end %>
-	</div>
+			<%= link_to development do %>
+				<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>
+				<span>Ver</span>
+			<% end %>
+			<%= link_to '#', class: 'showcase-item-toggle ' + (development.showcase_item.present? ? 'active' : ''), data: { id: (development.showcase_item.id rescue nil), showcaseable_id: development.id, showcaseable_type: 'Development' } do %>
+				<i class="fa fa-spinner fa-pulse fa-fh"></i>
+				<i class="fa fa-star fa-fh" aria-hidden="true"></i>
+				<i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
+				<span>Showcase</span>
+			<% end %>
+		</div>
+	<% end %>
 </div>

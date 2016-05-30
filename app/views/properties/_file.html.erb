@@ -61,14 +61,14 @@
       <% end %>
     <% end %>
     <% if property.development.blank? %>
-      <%= link_to '#', class: 'btn btn-sm btn-info showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { showcase_item_id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
+      <%= link_to '#', class: 'btn btn-sm btn-info showcase-item-toggle ' + (property.showcase_item.present? ? 'active' : ''), data: { id: (property.showcase_item.id rescue nil), showcaseable_id: property.id, showcaseable_type: 'Property' } do %>
         <i class="fa fa-spinner fa-pulse fa-fh"></i>
         <i class="fa fa-star fa-fh" aria-hidden="true"></i>
         <i class="fa fa-star-o fa-fh" aria-hidden="true"></i>
         <span>Showcase</span>
       <% end %>
     <% end %>
-    <%= link_to '#', class: 'btn btn-sm btn-default promotion-toggle ' + (property.promotion.present? ? 'active' : ''), data: { promotion_id: (property.promotion.id rescue nil), promotionable_id: property.id, promotionable_type: 'Property' } do %>
+    <%= link_to '#', class: 'btn btn-sm btn-default promotion-toggle ' + (property.promotion.present? ? 'active' : ''), data: { id: (property.promotion.id rescue nil), promotionable_id: property.id, promotionable_type: 'Property' } do %>
       <i class="fa fa-spinner fa-pulse fa-fh"></i>
       <i class="fa fa-toggle-on fa-fh" aria-hidden="true"></i>
       <i class="fa fa-toggle-off fa-fh" aria-hidden="true"></i>

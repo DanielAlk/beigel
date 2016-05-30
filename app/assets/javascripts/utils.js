@@ -8,12 +8,20 @@ Utils.init = function() {
 };
 
 Utils.load = function() {
+	Utils.handleAjaxErrors();
 	Utils.radios.init();
 	Utils.checkboxes.init();
 	Utils.submitTriggers();
 	Utils.dataHref();
 	Utils.classToggler();
 	Utils.nav();
+};
+
+Utils.handleAjaxErrors = function() {
+	$(document).ajaxError(function(event, xhr, settings, thrownError) {
+		Alerts.danger('Ocurrió un error de conexión debido a: <small>' + arguments.toString() + '</small>');
+		console.log(arguments);
+	});
 };
 
 Utils.paginationNext = function() {
@@ -23,6 +31,11 @@ Utils.paginationNext = function() {
 		$(this).data('page', Number(next_page)+1);
 		$.getScript(this.href + next_page);
 	});
+};
+
+Utils.messageRaw = function(html) {
+	var $modal = $('#modalGeneric');
+	$modal.modal('show').find('p').html(html);
 };
 
 Utils.message = function(text) {

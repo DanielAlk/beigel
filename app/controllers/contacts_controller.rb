@@ -73,6 +73,31 @@ class ContactsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /contacts.json
+  def update_all
+    contact_ids = params.require(:contact)[:ids]
+    @contacts = Contact.where(id: contact_ids)
+    respond_to do |format|
+      if @contacts.update_all(contact_params)
+        format.json { render :index, status: :ok, location: contacts_path }
+      else
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /contacts
+  # DELETE /contacts.json
+  def destroy_all
+    contact_ids = params.require(:contact)[:ids]
+    @contacts = Contact.where(id: contact_ids)
+    @contacts.destroy_all
+    respond_to do |format|
+      format.html { redirect_to contacts_url, notice: 'Contacts where successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     def after_save_path
       if params[:after_save_path].present?

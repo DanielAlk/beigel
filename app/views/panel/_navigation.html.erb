@@ -59,6 +59,12 @@
 						<% end %>
 					</li>
 				</ul>
+				<% if (unread_messages_count = Contact.where(read: false).count) > 0 %>
+					<%= link_to contacts_path do %>
+						<i class="fa fa-exclamation-circle" aria-hidden="true" style="margin-left:10px;"></i>
+						<%= pluralize unread_messages_count, 'mensaje', 'mensajes' %> sin leer
+					<% end %>
+				<% end %>
 			<% end %>
 		</div>
 		<div class="btn-group">

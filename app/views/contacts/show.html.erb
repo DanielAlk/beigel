@@ -1,44 +1,57 @@
-<p id="notice"><%= notice %></p>
+<h1 style="margin-bottom:30px;">
+  <i class="fa fa-exclamation-circle fa-fh" aria-hidden="true"></i> Notificaciones
+  <%= link_to 'Volver al listado', contacts_path, class: 'btn btn-warning pull-right' %>
+</h1>
 
-<p>
-  <strong>Subject:</strong>
-  <%= @contact.subject %>
-</p>
+<h3>
+  <% if @contact.subject == :contact %>
+    Contacto
+  <% end %>
+  <% if @contact.subject == :services %>
+    Contacto en servicios:
+  <% end %>
+  <% if @contact.subject == :investments %>
+    Contacto en inversiones:
+  <% end %>
+  <% if @contact.subject == :assessments %>
+    Contacto en tasaciones:
+  <% end %>
+  <% if @contact.subject == :development %>
+    Contacto en emprendimiento:
+  <% end %>
+  <% if @contact.subject == :property %>
+    Contacto en inmueble:
+  <% end %>
+</h3>
 
-<p>
-  <strong>Name:</strong>
-  <%= @contact.name %>
-</p>
+<% if @contact.contactable.present? %>
+  <div class="mar-xs-S-30">
+    <% if @contact.development? %>
+      <%= render 'developments/card', development: @contact.contactable, card_actions: false %>
+    <% end %>
+    <% if @contact.property? %>
+      <%= render 'properties/card', property: @contact.contactable, card_actions: false %>
+    <% end %>
+  </div>
+<% end %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @contact.email %>
-</p>
-
-<p>
-  <strong>Tel:</strong>
-  <%= @contact.tel %>
-</p>
-
-<p>
-  <strong>Message:</strong>
-  <%= @contact.message %>
-</p>
-
-<p>
-  <strong>Data:</strong>
-  <%= @contact.data %>
-</p>
-
-<p>
-  <strong>Read:</strong>
-  <%= @contact.read %>
-</p>
-
-<p>
-  <strong>Contactable:</strong>
-  <%= @contact.contactable %>
-</p>
-
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row">De:</th>
+      <td><%= @contact.name %></td>
+    </tr>
+    <tr>
+      <th scope="row">Email:</th>
+      <td><%= @contact.email %></td>
+    </tr>
+    <tr>
+      <th scope="row">Teléfono:</th>
+      <td><%= @contact.tel %></td>
+    </tr>
+    <tr>
+      <th scope="row">Mensaje:</th>
+      <td><%= @contact.message %></td>
+    </tr>
+  </tbody>
+</table>
