@@ -19,7 +19,7 @@ module PanelHelper
 		</script>'.html_safe
 	end
 
-	def table_order param, default_class = ''
+	def table_order text, param, default_class = ''
 		order_param = params.require(:order).permit(param)[param] rescue nil
 		data = "data-order=#{param}"
 		if order_param.present?
@@ -31,6 +31,6 @@ module PanelHelper
 		if params[:order].blank?
 			data << " class=#{default_class}"
 		end
-		data
+		"<th #{data}>#{text}</th>".html_safe
 	end
 end

@@ -33,13 +33,13 @@
     <thead>
       <tr>
         <% if (params[:filter].keys.include? 'development' rescue false) || (params[:filter].keys.include? 'property' rescue false) || params[:filter].blank? %>
-          <th <%= table_order :contactable %> >Inmueble/Emprendimiento</th>
+          <%= table_order 'Inmueble/Emprendimiento', :contactable %>
         <% end %>
-        <th <%= table_order :name %> >Name</th>
-        <th <%= table_order :email %> >Email</th>
-        <th <%= table_order :tel %> >Tel</th>
-        <th <%= table_order :subject %> >Subject</th>
-        <th <%= table_order :created_at, :desc %> >Fecha</th>
+        <%= table_order 'Name', :name %>
+        <%= table_order 'Email', :email %>
+        <%= table_order 'Tel', :tel %>
+        <%= table_order 'Subject', :subject %>
+        <%= table_order 'Fecha', :created_at, :desc %>
         <th colspan="2"></th>
       </tr>
     </thead>
