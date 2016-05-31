@@ -14,10 +14,10 @@
 				<input type="checkbox" name="select_all" data-target=".checkbox-target">
 			</label>
 		</span>
-		<%= link_to create_many_showcase_items_path, title: 'Agregar seleccionados a Showcase', class: 'btn btn-warning disabled', data: { http_method: :post, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Development' } do %>
+		<%= link_to create_many_showcase_items_path, title: 'Agregar seleccionados a Showcase', class: 'btn btn-primary disabled', data: { http_method: :post, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Development' } do %>
 	    <i class="fa fa-star fa-fw" aria-hidden="true"></i>
 	  <% end %>
-		<%= link_to showcase_items_path, title: 'Elminar seleccionados del Showcase', class: 'btn btn-success disabled', data: { http_method: :delete, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Development' } do %>
+		<%= link_to showcase_items_path, title: 'Elminar seleccionados del Showcase', class: 'btn btn-warning disabled', data: { http_method: :delete, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Development' } do %>
 	    <i class="fa fa-star-o fa-fw" aria-hidden="true"></i>
 	  <% end %>
 	  <%= link_to '#destroy_all', title: 'Eliminar seleccionados', class: 'btn btn-danger disabled', data: {  } do %>

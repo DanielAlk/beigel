@@ -27,10 +27,10 @@
 <% if @contact.contactable.present? %>
   <div class="mar-xs-S-30">
     <% if @contact.development? %>
-      <%= render 'developments/card', development: @contact.contactable, card_actions: false %>
+      <%= render 'developments/card', development: @contact.contactable, card_actions: false, checkable: false %>
     <% end %>
     <% if @contact.property? %>
-      <%= render 'properties/card', property: @contact.contactable, card_actions: false %>
+      <%= render 'properties/card', property: @contact.contactable, card_actions: false, checkable: false %>
     <% end %>
   </div>
 <% end %>

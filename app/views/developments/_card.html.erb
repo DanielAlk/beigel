@@ -1,11 +1,14 @@
 <% card_actions = true unless local_assigns.has_key? :card_actions %>
+<% checkable = true unless local_assigns.has_key? :checkable %>
 
-<div class="panel-card actions-toggle panel-card-actions-5 checkeable">
-	<div class="panel-card-checkbox">
-		<label class="checkbox-inline">
-		  <input class="checkbox-target" type="checkbox" name="development[ids][]" id="development_id_<%= development.id %>" value="<%= development.id %>">
-		</label>
-	</div>
+<div class="panel-card actions-toggle panel-card-actions-5 <%= 'checkable' if checkable %>">
+	<% if checkable %>
+		<div class="panel-card-checkbox">
+			<label class="checkbox-inline">
+			  <input class="checkbox-target" type="checkbox" name="development[ids][]" id="development_id_<%= development.id %>" value="<%= development.id %>">
+			</label>
+		</div>
+	<% end %>
 	<% if development.contacts.present? %>
 		<%= link_to development_contacts_path(development), class: 'panel-card-notifications' do %>
 			<% if (count = development.contacts.unread.count) > 0 %>
