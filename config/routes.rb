@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     end
     resources :contacts, except: [:new, :create], path: 'notifications' do
       collection do
+        get 'select', to: :select
         put '/', to: :update_all
         delete '/', to: :destroy_all
       end

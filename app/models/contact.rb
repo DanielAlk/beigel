@@ -7,6 +7,9 @@ class Contact < ActiveRecord::Base
   validates_length_of :message, minimum: 15, message: "debe contener al menos 15 caracteres"
   before_save :define_subject
   enum subject: [ :contact, :services, :investments, :assessments, :development, :property ]
+
+  scope :read, -> { where(read: true) }
+  scope :unread, -> { where(read: false) }
   
   def subject_es
     if self.subject.present?

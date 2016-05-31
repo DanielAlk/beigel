@@ -77,13 +77,20 @@
         <%= table_order 'Tel', :tel %>
         <%= table_order 'Subject', :subject %>
         <%= table_order 'Fecha', :created_at, :desc %>
-        <th colspan="3"></th>
+        <%= table_order '<i class="fa fa-exclamation fa-fw inactive" aria-hidden="true"></i>'.html_safe, :read %>
+        <th colspan="2"></th>
       </tr>
     </thead>
 
     <tbody>
       <% @contacts.each do |contact| %>
-        <tr class="<%= 'info' unless contact.read %>" id="contact_<%= contact.id %>">
+        <% if @object.present? %>
+          <% @contact_show_path = development_contact_path(@object, contact, back: request.url) if @object.class.name == 'Development' %>
+          <% @contact_show_path = property_contact_path(@object, contact, back: request.url) if @object.class.name == 'Property' %>
+        <% else %>
+          <% @contact_show_path = contact_path(contact, back: request.url) %>
+        <% end %>
+        <tr class="<%= 'bold' unless contact.read %>" id="contact_<%= contact.id %>" data-id="<%= contact.id %>">
           <td>
             <label class="checkbox-inline" style="height:auto;line-height:inherit;">
               <input class="checkbox-target" type="checkbox" name="contact[ids][]" id="contact_id_<%= contact.id %>" value="<%= contact.id %>">
@@ -97,29 +104,25 @@
                   <span><%= contact.contactable.title %></span>
                 <% end %>
               <% else %>
-                -
+                <div class="text-center"> - </div>
               <% end %>
             </td>
           <% end %>
-          <td><%= contact.name %></td>
-          <td><%= contact.email %></td>
-          <td><%= contact.tel %></td>
-          <td><%= contact.subject_es %></td>
-          <td><%= contact.created_at.strftime '%d-%m-%Y %H:%Mhs.' %></td>
-          <td>
-            <% if @object.present? %>
-              <% @contact_show_path = development_contact_path(@object, contact) if @object.class.name == 'Development' %>
-              <% @contact_show_path = property_contact_path(@object, contact) if @object.class.name == 'Property' %>
-            <% end %>
-            <%= link_to (@contact_show_path || contact), title: 'Leer', style: "color:#00944B;" do %>
-              <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
-            <% end %>
-          </td>
+          <td data-href="<%= @contact_show_path %>"><%= contact.name %></td>
+          <td data-href="<%= @contact_show_path %>"><%= contact.email %></td>
+          <td data-href="<%= @contact_show_path %>"><%= contact.tel %></td>
+          <td data-href="<%= @contact_show_path %>"><%= contact.subject_es %></td>
+          <td data-href="<%= @contact_show_path %>"><%= contact.created_at.strftime '%d-%m-%Y %H:%Mhs.' %></td>
           <td>
             <%= link_to contact, title: 'Marcar como leído/no leído', style: "color:#00944B;", class: 'active-toggle' + (contact.read ? ' active' : ''), data: { id: contact.id, read: contact.read } do %>
               <i class="fa fa-spinner fa-pulse fa-fw"></i>
               <i class="fa fa-exclamation fa-fw inactive" aria-hidden="true"></i>
               <i class="fa fa-check fa-fw active" aria-hidden="true"></i>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to @contact_show_path, title: 'Leer', style: "color:#00944B;" do %>
+              <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
             <% end %>
           </td>
           <td>

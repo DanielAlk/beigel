@@ -133,6 +133,10 @@ $panel-card-actions-width-7: 580px;
 	}
 }
 
+a.panel-card-notifications { position: absolute; left: 0; top: 0; display: block; font-size: 2em; line-height: 0; z-index: 1; margin: 0; padding: 3px 5px 1px; background-color: rgba(0,0,0,0.5); border-radius: 50%; text-align: center; width: 33px;
+	span { position: absolute; top: 0; left: 0; color: #000; font-size: .4em; width: 100%; line-height: 31px; }
+}
+
 a.panel-card-link { color: inherit;
 	&:hover h2 { text-decoration: underline; }
 }
@@ -196,3 +200,6 @@ a.panel-card-link { color: inherit;
 .panel-actions-3 { @extend .panel-actions;
 	a { width: calc(33.33% - 10px); }
 }
+
+/* TABLE TWEAK */
+table.table tr.bold { font-weight: 600; background-color: #f8f8f8; }

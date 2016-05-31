@@ -1,4 +1,8 @@
 <% if request.subdomain[/panel/] %>
+	<% content_for :extra_js do %>
+		Panel.unreadNotifications();
+	<% end %>
+
 	<div class="admin-navigation">
 		<div class="admin-brand">
 			<%= link_to (admin_signed_in? ? panel_path : home_path) do %>
@@ -59,12 +63,11 @@
 						<% end %>
 					</li>
 				</ul>
-				<% if (unread_messages_count = Contact.where(read: false).count) > 0 %>
-					<%= link_to contacts_path do %>
+				<span id="unread-notifications" style="display:none;">
+					<%= link_to contacts_path() do %>
 						<i class="fa fa-exclamation-circle" aria-hidden="true" style="margin-left:10px;"></i>
-						<%= pluralize unread_messages_count, 'mensaje', 'mensajes' %> sin leer
 					<% end %>
-				<% end %>
+				</span>
 			<% end %>
 		</div>
 		<div class="btn-group">

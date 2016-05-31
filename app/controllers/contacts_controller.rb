@@ -7,7 +7,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    order_params = params.require(:order).permit(:contactable, :subject, :name, :email, :tel, :created_at) rescue {created_at: :desc}
+    order_params = params.require(:order).permit(:contactable, :subject, :name, :email, :tel, :read, :created_at) rescue {created_at: :desc}
     method_name = params.require(:filter).permit(Contact.subjects.keys.map {|k|k.to_sym}).keys[0] rescue :all
     contacts = Contact.where(nil)
     if params[:id].present?
@@ -26,6 +26,19 @@ class ContactsController < ApplicationController
       contacts = contacts.public_send(method_name).order(order_params)
     end
     @contacts = contacts.paginate(:page => params[:page], :per_page => 16)
+  end
+
+  # GET /contacts/select.json
+  def select
+    select_params = params.require(:select)
+    if select_params[:count].blank?
+      @contacts = Contact.select(:id, select_params[:param]).find(select_params[:ids])
+    else
+      @contacts = Contact.where(select_params[:param].map {|p| {p[0] => p[1]}}[0]).count
+    end
+    respond_to do |format|
+      format.json { render :json => @contacts, status: :ok, location: contacts_path }
+    end
   end
 
   # GET /contacts/1
@@ -140,7 +153,7 @@ class ContactsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:property_contact_id] || params[:id])
+      @contact = Contact.find(params[:property_contact_id] || params[:development_contact_id] || params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

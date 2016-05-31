@@ -86,3 +86,5 @@ th[data-order] { cursor: pointer;
 	&.asc:before { content: '\f0dd'; vertical-align: top; margin-right: 6px;}
 	&.desc:before { content: '\f0de'; vertical-align: bottom; margin-right: 6px;}
 }
+
+[data-href] { cursor: pointer; }

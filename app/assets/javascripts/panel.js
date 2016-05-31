@@ -5,6 +5,44 @@ Panel.contacts = function() {
 	Panel.tableOrder();
 	Panel.contactToggleRead();
 	Panel.contactActions();
+	$(window).load(function() {
+		setTimeout(Panel.reloadReadState, 10);
+	});
+};
+
+Panel.reloadReadState = function() {
+	var ids = [];
+	$('tbody tr').each(function() { ids.push($(this).data('id')); });
+	$.get('/notifications/select', {select: { param: 'read', ids: ids }}, function(response) {
+		response.forEach(function(contact) {
+			var $tr = $('tr#contact_' + contact.id);
+			var $read = $tr.find('.active-toggle');
+			if (contact.read) {
+				$tr.removeClass('bold');
+				$read.addClass('active').data('read', contact.read);
+			} else {
+				$tr.addClass('bold');
+				$read.removeClass('active').data('read', contact.read);
+			};
+		});
+	}, 'json');
+};
+
+Panel.showUnreadNotifications = function(count) {
+	var $span = $('#unread-notifications');
+	var text;
+	if (!count) $span.hide();
+	else $span.show().find('a').html($span.find('i').get(0).outerHTML + ' ' + count);
+};
+
+Panel.unreadNotifications = function() {
+	var getCount = function() {
+		$.get('/notifications/select', {select: { param: {read: 0}, count: true }}, function(response) {
+			Panel.showUnreadNotifications(response);
+		}, 'json');
+	};
+	setInterval(getCount, 20000);
+	getCount();
 };
 
 Panel.tableOrder = function() {
@@ -29,10 +67,10 @@ Panel.contactToggleRead = function() {
 			$toggle.removeClass('loading').data('read', response.read);
 			if (response.read) {
 				$toggle.addClass('active');
-				$contact.removeClass('info');
+				$contact.removeClass('bold');
 			} else {
 				$toggle.removeClass('active');
-				$contact.addClass('info');
+				$contact.addClass('bold');
 			};
 		});
 	});
@@ -46,13 +84,13 @@ Panel.contactActions = function() {
 		var path = $(this).attr('href');
 		Panel.put(path, { contact: { ids: ids, read: read } }, function(response) {
 			response.forEach(function(contact) {
-				$tr = $('tr#contact_' + contact.id);
-				$read = $tr.find('.active-toggle');
+				var $tr = $('tr#contact_' + contact.id);
+				var $read = $tr.find('.active-toggle');
 				if (contact.read) {
-					$tr.removeClass('info');
+					$tr.removeClass('bold');
 					$read.addClass('active').data('read', contact.read);
 				} else {
-					$tr.addClass('info');
+					$tr.addClass('bold');
 					$read.removeClass('active').data('read', contact.read);
 				};
 			});
@@ -69,6 +107,11 @@ Panel.contactActions = function() {
 	$checkboxes.change(function() {
 		if ($checkboxes.filter(':checked').length) $buttons.removeClass('disabled');
 		else $buttons.addClass('disabled');
+		if ($(this).hasClass('checkbox-target')) {
+			var $tr = $(this).closest('tr');
+			if (this.checked) $tr.addClass('success');
+			else $tr.removeClass('success');
+		};
 	});
 	$buttons.click(function(e) {
 		e.preventDefault();

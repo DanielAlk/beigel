@@ -2,6 +2,16 @@
 <% card_actions = true unless local_assigns.has_key? :card_actions %>
 
 <div class="panel-card actions-toggle <%= 'small-actions' if format == :development %>">
+	<% if property.contacts.present? %>
+		<%= link_to property_contacts_path(property), class: 'panel-card-notifications' do %>
+			<% if (count = property.contacts.unread.count) > 0 %>
+				<i class="fa fa-circle" aria-hidden="true"></i>
+				<span><%= count %></span>
+			<% else %>
+				<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+			<% end %>
+		<% end %>
+	<% end %>
 	<%= link_to property, class: 'panel-card-link' do %>
 		<div class="panel-card-image">
 			<%= image_tag property.images.first.item.url(:thumb) rescue nil %>
