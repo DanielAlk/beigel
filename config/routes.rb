@@ -51,12 +51,7 @@ Rails.application.routes.draw do
         delete '/', to: :destroy_many
       end
     end
-    resources :showcase_items do
-      collection do
-        put '/', to: :create_many
-        delete '/', to: :destroy_many
-      end
-    end
+    resources :showcase_items
     resources :promotions
   end
 
