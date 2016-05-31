@@ -110,7 +110,7 @@ class ContactsController < ApplicationController
       if @contacts.update_all(contact_params)
         format.json { render :index, status: :ok, location: contacts_path }
       else
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
+        format.json { render json: @contacts.errors, status: :unprocessable_entity }
       end
     end
   end
