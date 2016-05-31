@@ -133,6 +133,15 @@ $panel-card-actions-width-7: 580px;
 	}
 }
 
+.panel-card.checkeable { padding-left: 130px;
+	a.panel-card-notifications { left: 17px; }
+	.panel-card-image { left: 20px; }
+}
+
+.panel-card-checkbox { position: absolute; left: 0; top: 0; height: 100%; width: 29px; line-height: 95px; text-align: center; background-color: #F5F5F5; box-shadow: 0px 0px 2px 0px #c0c0c0;
+	label {padding-left: 15px;}
+}
+
 a.panel-card-notifications { position: absolute; left: 0; top: 0; display: block; font-size: 2em; line-height: 0; z-index: 1; margin: 0; padding: 3px 5px 1px; background-color: rgba(0,0,0,0.5); border-radius: 50%; text-align: center; width: 33px;
 	span { position: absolute; top: 0; left: 0; color: #000; font-size: .4em; width: 100%; line-height: 31px; }
 }
@@ -203,3 +212,14 @@ a.panel-card-link { color: inherit;
 
 /* TABLE TWEAK */
 table.table tr.bold { font-weight: 600; background-color: #f8f8f8; }
+
+
+/* CONTROL BUTTONS */
+.control-buttons {
+	&>.btn { height: 35px; padding: 6px; width: 60px;
+		i { font-size: 20px; vertical-align: middle; }
+	}
+	&>span.btn { cursor: default;
+		&:active, &:hover { box-shadow: none; z-index: 0; }
+	}
+}

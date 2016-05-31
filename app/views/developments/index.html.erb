@@ -1,9 +1,30 @@
 <% content_for :extra_js do %>
 	Panel.showcaseToggle('<%= showcase_items_path %>');
+	Panel.controlButtons();
+	Utils.checkboxes();
 <% end %>
 
 <h1 style="margin-bottom:30px;"><i class="fa fa-building-o fa-fh" aria-hidden="true"></i> Emprendimientos <%= link_to 'Crear nuevo', new_development_path, class: 'pull-right btn btn-warning' %></h1>
 <p><%= page_entries_info @developments %></p>
+
+<div class="clear-both">
+	<div class="admin-options control-buttons btn-group pull-right">
+		<span title: "Seleccionar todos", class="btn btn-default">
+			<label class="checkbox-inline" style="height:auto;line-height:inherit;">
+				<input type="checkbox" name="select_all" data-target=".checkbox-target">
+			</label>
+		</span>
+		<%= link_to create_many_showcase_items_path, title: 'Agregar seleccionados a Showcase', class: 'btn btn-warning disabled', data: { http_method: :post, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Development' } do %>
+	    <i class="fa fa-star fa-fw" aria-hidden="true"></i>
+	  <% end %>
+		<%= link_to showcase_items_path, title: 'Elminar seleccionados del Showcase', class: 'btn btn-success disabled', data: { http_method: :delete, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Development' } do %>
+	    <i class="fa fa-star-o fa-fw" aria-hidden="true"></i>
+	  <% end %>
+	  <%= link_to '#destroy_all', title: 'Eliminar seleccionados', class: 'btn btn-danger disabled', data: {  } do %>
+	    <i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>
+	  <% end %>
+	</div>
+</div>
 
 <% @developments.each do |development| %>
   <%= render 'card', development: development %>

@@ -59,19 +59,20 @@ class ImagesController < ApplicationController
 
   # PUT /images.json
   def update_many
+    image_errors = []
     image_ids = params.require(:image)[:ids]
     image_positions = params.require(:image)[:positions]
     image_ids.each_with_index do |id, index|
       image = Image.find(id)
       unless image.update(id: id, position: image_positions[index])
-        @image_errors << image.errors
+        image_errors << image.errors
       end
     end
     respond_to do |format|
-      unless @image_errors.present? && @image_errors.count > 0
+      unless image_errors.count > 0
         format.json { render :index, status: :ok, location: images_path }
       else
-        format.json { render json: @image_errors, status: :unprocessable_entity }
+        format.json { render json: image_errors, status: :unprocessable_entity }
       end
     end
   end

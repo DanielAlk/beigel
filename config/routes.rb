@@ -15,43 +15,48 @@ Rails.application.routes.draw do
 
     resources :images, :defaults => { :format => :json } do
       collection do
-        put '/', to: :update_many
+        put '/', action: :update_many
       end
     end
     resources :properties do
       collection do
-        get '/search', to: :search, as: :search
+        get '/search', action: :search, as: :search
       end
       member do
-        get '/edit/(*step)', to: :edit, step: /principal|caracteristicas|media/, as: :edit
-        put '/clone', to: :clone, as: :clone
+        get '/edit/(*step)', action: :edit, step: /principal|caracteristicas|media/, as: :edit
+        put '/clone', action: :clone, as: :clone
         resources :contacts, only: :index, as: :property_contacts, path: 'notifications' do
           collection do
-            delete '/', to: :destroy_many
+            delete '/', action: :destroy_many
           end
-          get '/', to: :show
+          get '/', action: :show
         end
       end
     end
     resources :developments do
       member do
-        get '/edit/(*step)(/:property_id)', to: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
+        get '/edit/(*step)(/:property_id)', action: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
         resources :contacts, only: :index, as: :development_contacts, path: 'notifications' do
           collection do
-            delete '/', to: :destroy_many
+            delete '/', action: :destroy_many
           end
-          get '/', to: :show
+          get '/', action: :show
         end
       end
     end
     resources :contacts, except: [:new, :create], path: 'notifications' do
       collection do
-        get 'select', to: :select
-        put '/', to: :update_many
-        delete '/', to: :destroy_many
+        get 'select', action: :select
+        put '/', action: :update_many
+        delete '/', action: :destroy_many
       end
     end
-    resources :showcase_items
+    resources :showcase_items do
+      collection do
+        post 'many', action: :create_many, as: :create_many
+        delete '/', action: :destroy_many
+      end
+    end
     resources :promotions
   end
 

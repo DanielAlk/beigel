@@ -1,5 +1,35 @@
 var Panel = {};
 
+Panel.controlButtons = function() {
+	var $buttons = $('.control-buttons a').tooltip();
+	$('.checkbox-target').change(function(e) {
+		if ($('.checkbox-target:checked').length) $buttons.removeClass('disabled');
+		else $buttons.addClass('disabled');
+	});
+	$buttons.click(function(e) {
+		e.preventDefault();
+		var $btn = $(this);
+		var url = $btn.attr('href');
+		var domd = $btn.data();
+		var className = domd.className;
+		var method = domd.httpMethod.toUpperCase();
+		var ids = [];
+		var data = {};
+		$('.checkbox-target:checked').each(function() { ids.push($(this).val()); });
+		data[className] = {};
+		for (var key in domd) {
+			var paramName = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+			switch(domd[key]) {
+				case '{{ids}}': data[paramName] = ids; break;
+				default: if (key != 'httpMethod' && key != 'className' && !key.match(/tooltip/)) data[className][paramName] = domd[key];
+			};
+		};
+		$.ajax({ url: url, method: method, data: data, dataType: 'json' }).done(function(response) {
+			console.log(response);
+		});
+	});
+};
+
 Panel.contacts = function() {
 	Utils.checkboxes();
 	Panel.tableOrder();

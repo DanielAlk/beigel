@@ -1,5 +1,6 @@
 class ShowcaseItem < ActiveRecord::Base
   belongs_to :showcaseable, polymorphic: true
+  validates :showcaseable_id, uniqueness: { scope: :showcaseable_type }
 
   def cover
   	self.showcaseable.images.first.item.url(:big)

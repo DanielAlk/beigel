@@ -63,7 +63,56 @@ class ShowcaseItemsController < ApplicationController
     end
   end
 
+  # POST /showcase_items/many
+  # POST /showcase_items/many.json
+  def create_many
+    ids = []
+    showcase_items_errors = []
+    showcaseable_ids = params.require(:showcaseable_ids)
+    showcaseable_type = showcase_item_params[:showcaseable_type]
+    showcaseable_ids.each do |id|
+      showcase_item = ShowcaseItem.where(showcaseable_id: id, showcaseable_type: showcaseable_type).first
+      if showcase_item.blank?
+        showcase_item = ShowcaseItem.new(showcaseable_id: id, showcaseable_type: showcaseable_type)
+        unless showcase_item.save
+          showcase_items_errors << showcase_item.errors
+        end
+      end
+      ids << showcase_item.id
+    end
+    @showcase_items = ShowcaseItem.find(ids)
+    respond_to do |format|
+      unless showcase_items_errors.count > 0
+        format.json { render :index, status: :created, location: showcase_items_url }
+      else
+        format.json { render json: showcase_items_errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /showcase_items
+  # DELETE /showcase_items.json
+  def destroy_many
+    showcaseable_ids = params.require(:showcaseable_ids)
+    showcaseable_type = showcase_item_params[:showcaseable_type]
+    @showcase_items = ShowcaseItem.where(showcaseable_id: showcaseable_ids, showcaseable_type: showcaseable_type)
+    @showcase_items.destroy_all
+    respond_to do |format|
+      format.html { redirect_to after_destroy_path, notice: 'Showcase items where successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
+
+    def after_destroy_path
+      if params[:after_destroy_path].present?
+        params[:after_destroy_path]
+      else
+        showcase_items_url
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_showcase_item
       @showcase_item = ShowcaseItem.find(params[:id])
