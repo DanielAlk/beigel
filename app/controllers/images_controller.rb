@@ -48,8 +48,17 @@ class ImagesController < ApplicationController
     end
   end
 
+  # DELETE /images/1.json
+  def destroy
+    @image.destroy
+    respond_to do |format|
+      format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   # PUT /images.json
-  def update_all
+  def update_many
     image_ids = params.require(:image)[:ids]
     image_positions = params.require(:image)[:positions]
     image_ids.each_with_index do |id, index|
@@ -64,15 +73,6 @@ class ImagesController < ApplicationController
       else
         format.json { render json: @image_errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /images/1.json
-  def destroy
-    @image.destroy
-    respond_to do |format|
-      format.html { redirect_to images_url, notice: 'Image was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

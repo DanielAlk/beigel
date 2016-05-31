@@ -103,7 +103,7 @@ class ContactsController < ApplicationController
   end
 
   # PATCH/PUT /contacts.json
-  def update_all
+  def update_many
     contact_ids = params.require(:contact)[:ids]
     @contacts = Contact.where(id: contact_ids)
     respond_to do |format|
@@ -117,7 +117,7 @@ class ContactsController < ApplicationController
 
   # DELETE /contacts
   # DELETE /contacts.json
-  def destroy_all
+  def destroy_many
     contact_ids = params.require(:contact)[:ids]
     @contacts = Contact.where(id: contact_ids)
     @contacts.destroy_all

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
     resources :images, :defaults => { :format => :json } do
       collection do
-        put '/', to: :update_all, as: :update_all
+        put '/', to: :update_many
       end
     end
     resources :properties do
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         put '/clone', to: :clone, as: :clone
         resources :contacts, only: :index, as: :property_contacts, path: 'notifications' do
           collection do
-            delete '/', to: :destroy_all
+            delete '/', to: :destroy_many
           end
           get '/', to: :show
         end
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
         get '/edit/(*step)(/:property_id)', to: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
         resources :contacts, only: :index, as: :development_contacts, path: 'notifications' do
           collection do
-            delete '/', to: :destroy_all
+            delete '/', to: :destroy_many
           end
           get '/', to: :show
         end
@@ -47,11 +47,16 @@ Rails.application.routes.draw do
     resources :contacts, except: [:new, :create], path: 'notifications' do
       collection do
         get 'select', to: :select
-        put '/', to: :update_all
-        delete '/', to: :destroy_all
+        put '/', to: :update_many
+        delete '/', to: :destroy_many
       end
     end
-    resources :showcase_items
+    resources :showcase_items do
+      collection do
+        put '/', to: :create_many
+        delete '/', to: :destroy_many
+      end
+    end
     resources :promotions
   end
 
