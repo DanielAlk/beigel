@@ -71,10 +71,12 @@ Gallery.extension = function(options) {
 		};
 		var next = function(e) {
 			e.preventDefault();
+			e.stopPropagation();
 			go('next');
 		};
 		var prev = function(e) {
 			e.preventDefault();
+			e.stopPropagation();
 			go('prev');
 		};
 		var setTimeoutToShow = function() {
@@ -124,7 +126,7 @@ Gallery.extension = function(options) {
 				$gallery.swiperight(prev);
 				$items.on('transitionend', onTransitionEnd);
 			} else $right.add($left).remove();
-			if (options.toggle || options.fullscreen) $toggle.click(toggle);
+			if (options.toggle || options.fullscreen) $toggle.add($gallery).css('cursor', 'pointer').click(toggle);
 			if (options.fullscreen) fullscreenGalleryInit();
 		};
 		init();
