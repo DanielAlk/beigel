@@ -30,6 +30,18 @@ class Property < ActiveRecord::Base
   scope :area, -> (area) { where(area: area) }
   scope :title, -> (title) { where('title LIKE ?', ['%' + title + '%']) }
   scope :status_filter, -> (status) { where(status: status) }
+  scope :order_filter, -> (filter) do
+    filter = filter.respond_to?(:each) ? filter[0] : filter
+    way = filter.to_s.slice(/_asc|_desc/).remove('_')
+    property = filter.to_s.remove(/_asc|_desc/)
+    if property == 'price'
+      argument = [ { sale_price: way }, { rent_price: way } ]
+    else
+      argument = {}
+      argument[property] = way
+    end
+    order(argument)
+  end
 
   enum status: [ :property, :characteristics, :multimedia, :active, :inactive, :copy ]
   enum step: [ :principal, :caracteristicas, :media ]

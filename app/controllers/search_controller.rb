@@ -40,7 +40,8 @@ class SearchController < ApplicationController
 	  			price_max: 5
   			},
   			area: 6,
-  			rooms: 7
+  			rooms: 7,
+        order_filter: 8
   		}
   	end
 

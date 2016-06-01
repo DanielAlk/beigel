@@ -1,7 +1,13 @@
+<% order_filter = false unless local_assigns.has_key? :order_filter %>
 <% @search_params = {} unless @search_params.present? %>
 <section class="search-box">
 	<div class="container bg-primary">
 		<%= form_tag search_path, method: :post, role: 'form' do %>
+			<% if order_filter %>
+				<div class="search-box-order-filter">
+					<%= select_tag 'search[order_filter]', options_for_select([['Más reciente', :created_at_desc], ['Más antigua', :created_at_asc], ['Menor precio', :price_asc], ['Mayor precio', :price_desc], ['Menor metros totales', :area_asc], ['Mayor metros totales', :area_desc], ['Menor nº de ambientes', :environments_asc], ['Mayor nº de ambientes', :environments_desc]], @search_params[:order_filter]), title: 'Ordenar', class: 'form-control selectpicker-submit',multiple: !browser.mobile?, data: { max_options: 1, mobile: browser.mobile? }, prompt: browser.mobile? ? 'Ordenar' : nil %>
+				</div>
+			<% end %>
 			<div class="row drawer-xs-285 closed" data-handle="#search-box-handle">
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">

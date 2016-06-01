@@ -14,6 +14,8 @@ section.search-box {
 	}
 }
 
+.search-box-order-filter { position: absolute; top: calc(100% + 20px); right: 0; background-color: #029351; margin-top: 55px; width: 170px; }
+
 @media(max-width: $screen-md-max) {
 	section.search-box form { padding-right: 40px; }
 	section.search-box .search-box-submit { position: static; right: auto; top: auto; margin: 20px auto 0; text-align: center; }
@@ -24,4 +26,5 @@ section.search-box {
 @media(max-width: $screen-xs-max) {
 	section.search-box form { padding-left: 10px; padding-right: 10px; }
 	section.search-box .search-box-submit { margin-top: 0; }
+	.search-box-order-filter { margin-top: 5px; }
 }

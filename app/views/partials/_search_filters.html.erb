@@ -1,11 +1,19 @@
 <% @search_params = {} unless @search_params.present? %>
+<script type="text/javascript">
+	console.log('<%= @search_params[:order_filter] %>');
+</script>
 <section class="search-box">
 	<div class="container bg-primary">
 		<%= form_tag search_properties_path, method: :get, role: 'form' do %>
 			<div class="row drawer-xs-380 closed" data-handle="#search-box-handle">
-				<div class="col-xs-12 col-sm-6 col-md-8">
+				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="form-group">
 						<%= text_field_tag :title, @search_params[:title], class: 'form-control', placeholder: 'Título' %>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="form-group">
+						<%= select_tag :order_filter, options_for_select([['Más reciente', :created_at_desc], ['Más antigua', :created_at_asc], ['Menor precio', :price_asc], ['Mayor precio', :price_desc], ['Menor metros totales', :area_asc], ['Mayor metros totales', :area_desc], ['Menor nº de ambientes', :environments_asc], ['Mayor nº de ambientes', :environments_desc]], @search_params[:order_filter]), class: 'form-control', data: { mobile: browser.mobile? } %>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">

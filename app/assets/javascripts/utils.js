@@ -110,7 +110,10 @@ Utils.dataHref = function() {
 };
 
 Utils.selectpicker = function() {
-	$('select.form-control, .field select').selectpicker({size:10});
+	$('select.form-control, .field select').selectpicker({size:10, selectOnTab:true});
+	$('.selectpicker-submit').on('change.bs.select', function(e) {
+		$(this).closest('form').submit();
+	});
 };
 
 Utils.autonumeric = function() {
