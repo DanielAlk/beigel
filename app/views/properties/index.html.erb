@@ -2,12 +2,46 @@
 	Utils.init();
 	Panel.showcaseToggle('<%= showcase_items_path %>');
 	Panel.promotionToggle('<%= promotions_path %>');
+	Panel.controlButtons('property', ['showcaseable', 'promotionable']);
+	Panel.ajaxPut('property');
+	Utils.checkboxes();
+	$('[title]').tooltip();
 <% end %>
 
 <%= render 'partials/search_filters' %>
 
 <h1 style="margin-bottom:30px;"><i class="fa fa-home fa-fh" aria-hidden="true"></i> Inmuebles <%= link_to 'Crear nueva', new_property_path, class: 'pull-right btn btn-warning' %></h1>
 <p><%= page_entries_info @properties %></p>
+
+<% if @properties.present? %>
+	<div class="hidden">
+		<%= form_for properties_path, html: { id: 'destroy_all' }, method: :delete, data: { confirm: '¿Seguro eliminar?' } {} %>
+	</div>
+	<div class="clear-both">
+		<div class="admin-options control-buttons btn-group pull-right">
+			<span title: "Seleccionar todos", class="btn btn-default">
+				<label class="checkbox-inline" style="height:auto;line-height:inherit;">
+					<input type="checkbox" name="select_all" data-target=".checkbox-target">
+				</label>
+			</span>
+		  <%= link_to create_many_promotions_path, title: 'Agregar seleccionados a promociones', class: 'btn btn-primary disabled', data: { http_method: :post, class_name: 'promotion', promotionable_ids: '{{ids}}', promotionable_type: 'Property' } do %>
+		    <i class="fa fa-bomb fa-fw" aria-hidden="true"></i>
+		  <% end %>
+			<%= link_to promotions_path, title: 'Quitar seleccionados de promociones', class: 'btn btn-warning disabled', data: { http_method: :delete, class_name: 'promotion', promotionable_ids: '{{ids}}', promotionable_type: 'Property' } do %>
+		    <i class="fa fa-certificate fa-fw" aria-hidden="true"></i>
+		  <% end %>
+		  <%= link_to create_many_showcase_items_path, title: 'Agregar seleccionados a Showcase', class: 'btn btn-primary disabled', data: { http_method: :post, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Property' } do %>
+		    <i class="fa fa-star fa-fw" aria-hidden="true"></i>
+		  <% end %>
+			<%= link_to showcase_items_path, title: 'Quitar seleccionados del Showcase', class: 'btn btn-warning disabled', data: { http_method: :delete, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Property' } do %>
+		    <i class="fa fa-star-o fa-fw" aria-hidden="true"></i>
+		  <% end %>
+		  <%= button_tag :button, type: :button, class: 'btn btn-danger disabled', title: 'Eliminar seleccionados', data: { form: '#destroy_all' } do %>
+		  	<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>
+	  	<% end %>
+		</div>
+	</div>
+<% end %>
 
 <% @properties.each do |property| %>
 	<%= render 'card', property: property %>

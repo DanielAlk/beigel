@@ -1,34 +1,5 @@
 var Panel = {};
 
-Panel.controlButtons = function() {
-	var $buttons = $('.control-buttons a').tooltip();
-	$('.checkbox-target').change(function(e) {
-		if ($('.checkbox-target:checked').length) $buttons.removeClass('disabled');
-		else $buttons.addClass('disabled');
-	});
-	$buttons.click(function(e) {
-		e.preventDefault();
-		var $btn = $(this);
-		var url = $btn.attr('href');
-		var domd = $btn.data();
-		var className = domd.className;
-		var method = domd.httpMethod.toUpperCase();
-		var ids = [];
-		var data = {};
-		$('.checkbox-target:checked').each(function() { ids.push($(this).val()); });
-		data[className] = {};
-		for (var key in domd) {
-			var paramName = key.replace(/([A-Z])/g, '_$1').toLowerCase();
-			switch(domd[key]) {
-				case '{{ids}}': data[paramName] = ids; break;
-				default: if (key != 'httpMethod' && key != 'className' && !key.match(/tooltip/)) data[className][paramName] = domd[key];
-			};
-		};
-		$.ajax({ url: url, method: method, data: data, dataType: 'json' }).done(function(response) {
-			console.log(response);
-		});
-	});
-};
 
 Panel.contacts = function() {
 	Utils.checkboxes();
@@ -40,9 +11,120 @@ Panel.contacts = function() {
 	});
 };
 
+Panel.controlButtons = function(record, relations) {
+	var $buttons = $('.control-buttons a');
+	var $formButtons = $('.control-buttons button');
+	var cardSelector = function(object) {
+		for (var i = 0; i<relations.length; i++) {
+			if (!!object[relations[i] + '_id']) return '#' + record + '_' + object[relations[i] + '_id'];
+		};
+	};
+	$('.checkbox-target').change(function(e) {
+		if ($('.checkbox-target:checked').length) $buttons.add($formButtons).removeClass('disabled');
+		else $buttons.add($formButtons).addClass('disabled');
+	});
+	$formButtons.click(function(e) {
+		e.preventDefault();
+		var $btn = $(this);
+		var $form = $($btn.data('form'));
+		var ids = [];
+		$('.checkbox-target:checked').each(function() {
+			$form.append($('<input>', { name: 'ids[]', value: $(this).val() }));
+		});
+		$form.submit();
+	});
+	$buttons.click(function(e) {
+		e.preventDefault();
+		var $btn = $(this);
+		var url = $btn.attr('href');
+		var domd = $btn.data();
+		var method = domd.httpMethod.toUpperCase();
+		var className = domd.className;
+		var htmlClass = '.' + className.replace('_', '-') + '-toggle';
+		var ids = [];
+		var cardToggles = [];
+		var data = {};
+		data[className] = {};
+		$('.checkbox-target:checked').each(function() { ids.push($(this).val()); });
+		for (var key in domd) {
+			var paramName = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+			switch(domd[key]) {
+				case '{{ids}}': data[paramName] = ids; break;
+				default: if (key != 'httpMethod' && key != 'className' && !key.match(/tooltip/)) data[className][paramName] = domd[key];
+			};
+		};
+		ids.forEach(function(id) {
+			cardToggles.push($('#' + record + '_' + id).find(htmlClass).get(0));
+		});
+		$(cardToggles).removeClass('active').addClass('loading');
+		$.ajax({ url: url, method: method, data: data, dataType: 'json' }).done(function(response) {
+			if (response) {
+				response.forEach(function(r) {
+					$(cardSelector(r)).find(htmlClass).data('id', r.id).removeClass('loading').addClass('active');
+				});
+			} else $(cardToggles).removeClass('loading');
+		});
+	});
+};
+
+Panel.ajaxPut = function(record) {
+	var $buttons = $('.ajax-put');
+	$buttons.click(function(e) {
+		e.preventDefault();
+		var record_data = {};
+		var $btn = $(this);
+		var $holder = $btn.closest('.ajax-put-holder');
+		var $targets = $holder.find('.ajax-put-target');
+		var path = $btn.attr('href');
+		var data = $btn.data();
+		var ajaxToggle = data.ajaxToggle;
+		var value, param;
+		var newValue = function(key, val) {
+			return ajaxToggle[key][0] == val ? ajaxToggle[key][1] : ajaxToggle[key][0];
+		};
+		record_data[record] = {};
+		for (var key in data) {
+			if (key.match('ajax')) continue;
+			value = data[key];
+			param = key.replace(/([A-Z])/g, '_$1');
+			record_data[record][param] = value;
+		};
+		$btn.addClass('loading');
+		$.ajax({ url: path, data: record_data, dataType: 'json', method: 'PUT', global: false })
+		.done(function(response) {
+			var key;
+			for (var param in response) {
+				value = response[param];
+				key = param.replace('_', '-');
+				if ($btn.data(key)) $btn.data(key, newValue(key, value));
+				var $target = $targets.filter('[data-'+ key +']');
+				var targetData = $target.data();
+				for (var key in targetData) {
+					param = key.replace(/([A-Z])/g, '_$1');
+					var format = targetData[key];
+					if (format[value]) $target.text(format[value]);
+				};
+			};
+			$btn.removeClass('loading').toggleClass('active');
+		})
+		.fail(function(response) {
+			var alert = '<b>No se puede completar porque:</b><br>';
+			var errors = response.responseJSON;
+			for (var attr in errors) {
+				alert+= '<b>' + attr + '</b> ';
+				errors[attr].forEach(function(error) { alert+= error + ', ' });
+				alert = alert.substr(0, alert.length - 2) + '.<br>';
+			};
+			Alerts.danger(alert);
+			$btn.removeClass('loading');
+		});
+	});
+};
+
 Panel.reloadReadState = function() {
 	var ids = [];
 	$('tbody tr').each(function() { ids.push($(this).data('id')); });
+	if (!ids.length) return;
 	$.get('/notifications/select', {select: { param: 'read', ids: ids }}, function(response) {
 		response.forEach(function(contact) {
 			var $tr = $('tr#contact_' + contact.id);
@@ -157,12 +239,12 @@ Panel.contactActions = function() {
 };
 
 Panel.put = function(url, data, callback) {
-	$.ajax({ url: url, data: data, dataType: 'json', method: 'PUT' }).done(callback);
+	return $.ajax({ url: url, data: data, dataType: 'json', method: 'PUT' }).done(callback);
 };
 
 Panel.delete = function(url, data, callback) {
 	if (typeof data == 'function') { callback = data; data = {}; };
-	$.ajax({ url:url, dataType: 'json', data: data, method: 'DELETE' }).done(callback);
+	return $.ajax({ url:url, dataType: 'json', data: data, method: 'DELETE' }).done(callback);
 };
 
 Panel.showcaseToggle = function(showcase_items_path) {

@@ -9,14 +9,14 @@ class PropertiesController < ApplicationController
 
   def search
     @properties = Property.where(development: nil).filter(@search_filters)
-    @properties = @properties.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 6)
+    @properties = @properties.order(created_at: :desc).paginate(:page => params[:page], :per_page => 6)
     render :index
   end
 
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.where(development: nil).order(updated_at: :desc).paginate(:page => params[:page], :per_page => 6)
+    @properties = Property.where(development: nil).order(created_at: :desc).paginate(:page => params[:page], :per_page => 6)
   end
 
   # GET /properties/1
@@ -104,6 +104,29 @@ class PropertiesController < ApplicationController
     end
   end
 
+  # PATCH/PUT /properties.json
+  def update_many
+    @properties = Property.where(id: params[:ids])
+    respond_to do |format|
+      if @properties.update_all(property_params)
+        format.json { render :index, status: :ok, location: properties_path }
+      else
+        format.json { render json: @properties.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /properties
+  # DELETE /properties.json
+  def destroy_many
+    @properties = Property.where(id: params[:ids])
+    @properties.destroy_all
+    respond_to do |format|
+      format.html { redirect_to after_destroy_path, notice: 'Properties where successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     def after_save_path
       if params[:after_save_path].present?
@@ -116,7 +139,9 @@ class PropertiesController < ApplicationController
     end
 
     def after_destroy_path
-      if @property.development.present?
+      if params[:after_destroy_path].present?
+        params[:after_destroy_path]
+      elsif @property.present? && @property.development.present?
         edit_development_path @property.development, Development.steps.keys[Development.statuses[:properties]]
       else
         properties_url

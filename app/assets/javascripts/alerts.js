@@ -1,6 +1,7 @@
 var Alerts = {};
 
 Alerts.notice = function() {
+	var timer;
 	var $alert = $('#alertNotice');
 	var fadeOutAndRemove = function($alert) {
 		if (!$alert.length) return;
@@ -12,11 +13,13 @@ Alerts.notice = function() {
 	$alert.find('button.close').click(function(e) {
 		e.preventDefault();
 		fadeOutAndRemove($alert);
+		clearTimeout(timer);
 	});
-	setTimeout(function() {
-		if ($('#alertNotice').length) fadeOutAndRemove($('#alertNotice'));
-	}, 6000);
-	$alert.fadeIn();
+	$alert.fadeIn(function() {
+		timer = setTimeout(function() {
+			fadeOutAndRemove($('#alertNotice'));
+		}, 6000);
+	});
 };
 
 Alerts.danger = function(text) {

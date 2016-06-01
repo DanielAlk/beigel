@@ -63,7 +63,56 @@ class PromotionsController < ApplicationController
     end
   end
 
+  # POST /promotions/many
+  # POST /promotions/many.json
+  def create_many
+    ids = []
+    promotions_errors = []
+    promotionable_ids = params.require(:promotionable_ids)
+    promotionable_type = promotion_params[:promotionable_type]
+    promotionable_ids.each do |id|
+      promotion = Promotion.where(promotionable_id: id, promotionable_type: promotionable_type).first
+      if promotion.blank?
+        promotion = Promotion.new(promotionable_id: id, promotionable_type: promotionable_type)
+        unless promotion.save
+          promotions_errors << promotion.errors
+        end
+      end
+      ids << promotion.id
+    end
+    @promotions = Promotion.find(ids)
+    respond_to do |format|
+      unless promotions_errors.count > 0
+        format.json { render :index, status: :created, location: promotions_url }
+      else
+        format.json { render json: promotions_errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /promotions
+  # DELETE /promotions.json
+  def destroy_many
+    promotionable_ids = params.require(:promotionable_ids)
+    promotionable_type = promotion_params[:promotionable_type]
+    @promotions = Promotion.where(promotionable_id: promotionable_ids, promotionable_type: promotionable_type)
+    @promotions.destroy_all
+    respond_to do |format|
+      format.html { redirect_to after_destroy_path, notice: 'Promotions where successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
+
+    def after_destroy_path
+      if params[:after_destroy_path].present?
+        params[:after_destroy_path]
+      else
+        promotions_url
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_promotion
       @promotion = Promotion.find(params[:id])

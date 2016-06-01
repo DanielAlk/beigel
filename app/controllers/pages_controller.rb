@@ -59,11 +59,11 @@ class PagesController < ApplicationController
 	  end
 
     def set_developments
-      @developments = Development.active.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
+      @developments = Development.active.order(created_at: :desc).paginate(:page => params[:page], :per_page => 8)
     end
 
 	  def set_promotions
-	  	@promotions = Promotion.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
+	  	@promotions = Promotion.order(created_at: :desc).paginate(:page => params[:page], :per_page => 8)
 	  end
 
 end

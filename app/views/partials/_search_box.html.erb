@@ -35,7 +35,7 @@
 				<div class="clearfix-xs clearfix-sm"></div>
 				<div class="cols-sm-2 col-md-4">
 					<div class="form-group">
-						<% @zones = Property.select('zone_id').distinct.map { |property| [Zone.find(property.zone_id).name, Zone.find(property.zone_id).slug] } %>
+						<% @zones = Property.active.select('zone_id').distinct.map { |property| [Zone.find(property.zone_id).name, Zone.find(property.zone_id).slug] } %>
 						<%= select_tag 'search[zone_slug]', options_for_select(@zones, @search_params[:zone_slug]), class: 'form-control', multiple: true, title: 'Barrio', data: { mobile: browser.mobile?, actions_box: true } %>
 					</div>
 					<div class="form-group">

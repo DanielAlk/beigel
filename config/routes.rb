@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :properties do
       collection do
         get '/search', action: :search, as: :search
+        put '/', action: :update_many
+        delete '/', action: :destroy_many
       end
       member do
         get '/edit/(*step)', action: :edit, step: /principal|caracteristicas|media/, as: :edit
@@ -34,6 +36,10 @@ Rails.application.routes.draw do
       end
     end
     resources :developments do
+      collection do
+        put '/', action: :update_many
+        delete '/', action: :destroy_many
+      end
       member do
         get '/edit/(*step)(/:property_id)', action: :edit, step: /principal|propiedades|caracteristicas|media/, as: :edit
         resources :contacts, only: :index, as: :development_contacts, path: 'notifications' do
@@ -57,7 +63,12 @@ Rails.application.routes.draw do
         delete '/', action: :destroy_many
       end
     end
-    resources :promotions
+    resources :promotions do
+      collection do
+        post 'many', action: :create_many, as: :create_many
+        delete '/', action: :destroy_many
+      end
+    end
   end
 
   root 'pages#home'

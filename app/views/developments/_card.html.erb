@@ -1,7 +1,7 @@
 <% card_actions = true unless local_assigns.has_key? :card_actions %>
 <% checkable = true unless local_assigns.has_key? :checkable %>
 
-<div class="panel-card actions-toggle panel-card-actions-5 <%= 'checkable' if checkable %>">
+<div class="panel-card actions-toggle ajax-put-holder panel-card-actions-5 <%= 'checkable' if checkable %>" id="development_<%= development.id %>">
 	<% if checkable %>
 		<div class="panel-card-checkbox">
 			<label class="checkbox-inline">
@@ -46,13 +46,15 @@
 			<div class="panel-card-status">
 				<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
 				<%= development.created_at.strftime('%d/%m/%Y') %>
-				<% if development.draft? %>
-					<span class="panel-card-status-draft"> > Editando</span>
-				<% elsif development.active? %>
-					<span class="panel-card-status-active"> > Activa</span>
-				<% else %>
-					<span class="panel-card-status-paused"> > Pausada</span>
-				<% end %>
+				> <span class="ajax-put-target" data-status='{ "development": "Editando", "properties": "Editando", "characteristics": "Editando", "multimedia": "Editando", "active": "Activa", "inactive": "Pausada", "copy": "Pausada" }'>
+					<% if development.draft? %>
+						Editando
+					<% elsif development.active? %>
+						Activa
+					<% else %>
+						Pausada
+					<% end %>
+				</span>
 			</div>
 		</div>
 	<% end %>
@@ -69,18 +71,12 @@
 				<i class="fa fa-pencil fa-fh" aria-hidden="true"></i>
 				<span>Editar</span>
 			<% end %>
-			<%= form_for development do |f| %>
-				<%= f.hidden_field :status, value: (development.active? ? :inactive : :active) %>
-				<%= hidden_field_tag :after_save_path, developments_path %>
-				<%= f.button :submit do %>
-					<% if development.active? %>
-						<i class="fa fa-pause" aria-hidden="true"></i>
-						<span>Pausar</span>
-					<% else %>
-						<i class="fa fa-play" aria-hidden="true"></i>
-						<span>Activar</span>
-					<% end %>
-				<% end %>
+			<%= link_to development, class: 'ajax-put ' + (development.active? ? 'active' : ''), data: { status: (development.active? ? :inactive : :active), ajax_toggle: { status: [:active, :inactive] }.to_json } do %>
+				<i class="fa fa-spinner fa-pulse fa-fh"></i>
+				<i class="fa fa-pause fa-fh active" aria-hidden="true"></i>
+				<i class="fa fa-play fa-fh inactive" aria-hidden="true"></i>
+				<span class="inactive">Activar</span>
+				<span class="active">Desactivar</span>
 			<% end %>
 			<%= link_to development do %>
 				<i class="fa fa-external-link fa-fh" aria-hidden="true"></i>

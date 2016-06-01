@@ -72,12 +72,12 @@ Gallery.extension = function(options) {
 		var next = function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			go('next');
+			if ($items.length > 1) go('next');
 		};
 		var prev = function(e) {
 			e.preventDefault();
 			e.stopPropagation();
-			go('prev');
+			if ($items.length > 1) go('prev');
 		};
 		var setTimeoutToShow = function() {
 			if (is_transitioning) setTimeout(show, 30);

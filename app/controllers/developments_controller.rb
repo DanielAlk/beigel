@@ -7,7 +7,7 @@ class DevelopmentsController < ApplicationController
   # GET /developments
   # GET /developments.json
   def index
-    @developments = Development.order(updated_at: :desc).paginate(:page => params[:page], :per_page => 6)
+    @developments = Development.order(created_at: :desc).paginate(:page => params[:page], :per_page => 6)
   end
 
   # GET /developments/1
@@ -67,7 +67,39 @@ class DevelopmentsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /developments.json
+  def update_many
+    @developments = Development.where(id: params[:ids])
+    respond_to do |format|
+      if @developments.update_all(development_params)
+        format.json { render :index, status: :ok, location: developments_path }
+      else
+        format.json { render json: @developments.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /developments
+  # DELETE /developments.json
+  def destroy_many
+    @developments = Development.where(id: params[:ids])
+    @developments.destroy_all
+    respond_to do |format|
+      format.html { redirect_to after_destroy_path, notice: 'developments where successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
+
+    def after_destroy_path
+      if params[:after_destroy_path].present?
+        params[:after_destroy_path]
+      else
+        developments_url
+      end
+    end
+
     def after_save_path
       if params[:after_save_path].present?
         params[:after_save_path]

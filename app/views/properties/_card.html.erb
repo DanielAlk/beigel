@@ -1,7 +1,15 @@
 <% format = :default unless local_assigns.has_key? :format %>
 <% card_actions = true unless local_assigns.has_key? :card_actions %>
+<% checkable = (format == :default ? true : false) unless local_assigns.has_key? :checkable %>
 
-<div class="panel-card actions-toggle <%= 'small-actions' if format == :development %>">
+<div class="panel-card actions-toggle ajax-put-holder <%= 'checkable' if checkable %> <%= 'small-actions' if format == :development %>" id="property_<%= property.id %>">
+	<% if checkable %>
+		<div class="panel-card-checkbox">
+			<label class="checkbox-inline">
+			  <input class="checkbox-target" type="checkbox" name="property[ids][]" id="property_id_<%= property.id %>" value="<%= property.id %>">
+			</label>
+		</div>
+	<% end %>
 	<% if property.contacts.present? %>
 		<%= link_to property_contacts_path(property), class: 'panel-card-notifications' do %>
 			<% if (count = property.contacts.unread.count) > 0 %>
@@ -38,13 +46,15 @@
 				<div class="panel-card-status">
 					<i class="fa fa-calendar-check-o" aria-hidden="true"></i>
 					<%= property.created_at.strftime('%d/%m/%Y') %>
-					<% if property.draft? %>
-						<span class="panel-card-status-draft"> > Editando</span>
-					<% elsif property.active? %>
-						<span class="panel-card-status-active"> > Activa</span>
-					<% else %>
-						<span class="panel-card-status-paused"> > Pausada</span>
-					<% end %>
+					> <span class="ajax-put-target" data-status='{ "property": "Editando", "characteristics": "Editando", "multimedia": "Editando", "active": "Activa", "inactive": "Pausada", "copy": "Pausada" }'>
+						<% if property.draft? %>
+							Editando
+						<% elsif property.active? %>
+							Activa
+						<% else %>
+							Pausada
+						<% end %>
+					</span>
 				</div>
 			<% end %>
 		</div>
@@ -75,18 +85,12 @@
 				<span>Duplicar</span>
 			<% end %>
 			<% if format == :default %>
-				<%= form_for property do |f| %>
-					<%= f.hidden_field :status, value: (property.active? ? :inactive : :active) %>
-					<%= hidden_field_tag :after_save_path, properties_path %>
-					<%= f.button :submit do %>
-						<% if property.active? %>
-							<i class="fa fa-pause" aria-hidden="true"></i>
-							<span>Pausar</span>
-						<% else %>
-							<i class="fa fa-play" aria-hidden="true"></i>
-							<span>Activar</span>
-						<% end %>
-					<% end %>
+				<%= link_to property, class: 'ajax-put ' + (property.active? ? 'active' : ''), data: { status: (property.active? ? :inactive : :active), ajax_toggle: { status: [:active, :inactive] }.to_json } do %>
+					<i class="fa fa-spinner fa-pulse fa-fh"></i>
+					<i class="fa fa-pause fa-fh active" aria-hidden="true"></i>
+					<i class="fa fa-play fa-fh inactive" aria-hidden="true"></i>
+					<span class="inactive">Activar</span>
+					<span class="active">Desactivar</span>
 				<% end %>
 			<% end %>
 			<%= link_to property do %>

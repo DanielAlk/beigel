@@ -1,1 +1,1 @@
-json.extract! @development, :id, :name, :info, :description, :status, :development_type, :stage, :delivery_month, :delivery_year, :zone_id, :address, :zip_code, :lat, :lng, :slug, :created_at, :updated_at
+json.extract! @development, :id, :title, :info, :description, :status, :development_type, :stage, :delivery_month, :delivery_year, :zone_id, :address, :zip_code, :lat, :lng, :slug, :created_at, :updated_at
