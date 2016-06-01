@@ -23,6 +23,8 @@ Gallery.extension = function(options) {
 		var is_transitioning, is_fullscreen_gallery_initiated, show;
 		var toggle = function(e) {
 			e.preventDefault();
+			e.stopPropagation();
+			e.stopImmediatePropagation();
 			if (options.toggle) $fullscreen_version.trigger('gallery.show');
 			if (options.fullscreen) $gallery.fadeOut(100);
 		};
