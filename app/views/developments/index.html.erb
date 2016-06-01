@@ -3,7 +3,7 @@
 	Panel.controlButtons('development', ['showcaseable']);
 	Panel.ajaxPut('development');
 	Utils.checkboxes();
-	$('[title]').tooltip();
+	$('.admin-options [title]').tooltip();
 <% end %>
 
 <h1 style="margin-bottom:30px;"><i class="fa fa-building-o fa-fh" aria-hidden="true"></i> Emprendimientos <%= link_to 'Crear nuevo', new_development_path, class: 'pull-right btn btn-warning' %></h1>

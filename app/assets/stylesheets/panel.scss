@@ -66,6 +66,9 @@ label.checkbox-inline:not(.active)+.characteristic-option {
 
 .nav.nav-tabs { margin: 20px 0 30px; }
 
+.tooltip { white-space: nowrap; }
+.tooltip-inner { max-width: none; }
+
 /*PANEL CARD */
 $panel-card-actions-width-2: 150px;
 $panel-card-actions-width-3: 220px;
@@ -215,7 +218,7 @@ table.table tr.bold { font-weight: 600; background-color: #f8f8f8; }
 
 
 /* CONTROL BUTTONS */
-.control-buttons {
+.control-buttons { margin-top: -38px;
 	&>.btn { height: 35px; padding: 6px; width: 60px;
 		i { font-size: 20px; vertical-align: middle; }
 	}

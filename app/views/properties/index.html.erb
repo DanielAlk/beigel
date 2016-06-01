@@ -5,7 +5,7 @@
 	Panel.controlButtons('property', ['showcaseable', 'promotionable']);
 	Panel.ajaxPut('property');
 	Utils.checkboxes();
-	$('[title]').tooltip();
+	$('.admin-options [title]').tooltip();
 <% end %>
 
 <%= render 'partials/search_filters' %>
@@ -27,10 +27,10 @@
 		  <%= link_to create_many_promotions_path, title: 'Agregar seleccionados a promociones', class: 'btn btn-primary disabled', data: { http_method: :post, class_name: 'promotion', promotionable_ids: '{{ids}}', promotionable_type: 'Property' } do %>
 		    <i class="fa fa-bomb fa-fw" aria-hidden="true"></i>
 		  <% end %>
-			<%= link_to promotions_path, title: 'Quitar seleccionados de promociones', class: 'btn btn-warning disabled', data: { http_method: :delete, class_name: 'promotion', promotionable_ids: '{{ids}}', promotionable_type: 'Property' } do %>
+			<%= link_to promotions_path, title: 'Quitar seleccionados de promociones', class: 'btn btn-primary disabled', data: { http_method: :delete, class_name: 'promotion', promotionable_ids: '{{ids}}', promotionable_type: 'Property' } do %>
 		    <i class="fa fa-certificate fa-fw" aria-hidden="true"></i>
 		  <% end %>
-		  <%= link_to create_many_showcase_items_path, title: 'Agregar seleccionados a Showcase', class: 'btn btn-primary disabled', data: { http_method: :post, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Property' } do %>
+		  <%= link_to create_many_showcase_items_path, title: 'Agregar seleccionados a Showcase', class: 'btn btn-warning disabled', data: { http_method: :post, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Property' } do %>
 		    <i class="fa fa-star fa-fw" aria-hidden="true"></i>
 		  <% end %>
 			<%= link_to showcase_items_path, title: 'Quitar seleccionados del Showcase', class: 'btn btn-warning disabled', data: { http_method: :delete, class_name: 'showcase_item', showcaseable_ids: '{{ids}}', showcaseable_type: 'Property' } do %>
