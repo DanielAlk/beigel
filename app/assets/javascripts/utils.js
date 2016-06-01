@@ -36,7 +36,7 @@ Utils.paginationNext = function() {
 
 Utils.disableAfterClick = function() {
 	$(document).on('click', '.disable-after-click', function(e) {
-		$(this).prop('disabled', true).addClass('disabled');
+		$(this).prop('disabled', true).attr('disabled', true).addClass('disabled').attr('href', null).off('click');
 	});
 };
 
