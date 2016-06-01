@@ -7,7 +7,7 @@ class DevelopmentsController < ApplicationController
   # GET /developments
   # GET /developments.json
   def index
-    @developments = Development.order(created_at: :desc).paginate(:page => params[:page], :per_page => 6)
+    @developments = Development.order(created_at: :desc).paginate(:page => params[:page], :per_page => 8)
   end
 
   # GET /developments/1
