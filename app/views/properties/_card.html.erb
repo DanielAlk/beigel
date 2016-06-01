@@ -80,7 +80,7 @@
 					<span>Editar</span>
 				<% end %>
 			<% end %>
-			<%= link_to clone_property_path(property), method: :put do %>
+			<%= link_to clone_property_path(property), method: :put, class: 'disable-after-click' do %>
 				<i class="fa fa-clone fa-fh" aria-hidden="true"></i>
 				<span>Duplicar</span>
 			<% end %>

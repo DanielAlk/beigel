@@ -38,7 +38,7 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= link_to clone_property_path(property), method: :put, class: 'btn btn-sm btn-primary' do %>
+    <%= link_to clone_property_path(property), method: :put, class: 'btn btn-sm btn-primary disable-after-click' do %>
       <i class="fa fa-clone fa-fh" aria-hidden="true"></i> Duplicar
     <% end %>
     <% if property.development.blank? %>

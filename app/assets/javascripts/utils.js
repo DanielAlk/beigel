@@ -14,6 +14,7 @@ Utils.load = function() {
 	Utils.submitTriggers();
 	Utils.dataHref();
 	Utils.classToggler();
+	Utils.disableAfterClick();
 	Utils.nav();
 };
 
@@ -30,6 +31,12 @@ Utils.paginationNext = function() {
 		var next_page = $(this).data('page');
 		$(this).data('page', Number(next_page)+1);
 		$.getScript(this.href + next_page);
+	});
+};
+
+Utils.disableAfterClick = function() {
+	$(document).on('click', '.disable-after-click', function(e) {
+		$(this).prop('disabled', true).addClass('disabled');
 	});
 };
 
