@@ -107,7 +107,7 @@ class Property < ActiveRecord::Base
         self.lat = self.development.lat
         self.lng = self.development.lng
         self.age = 0
-        self.images.new(item: self.development.images.first.item) if self.images.blank?
+        self.images.new(item: self.development.images.first.item) if self.images.blank? && self.development.images.present?
         self.status = self.development.draft? ? :property : self.development.status
       end
     end
