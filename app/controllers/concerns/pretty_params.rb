@@ -17,7 +17,8 @@ module PrettyParams
   			end
   			string << group_string if param_is_present
   		elsif params_list[key].present?
-  			string << '/' + params_list[key].join('-' + param.to_s + '/')
+        params_list_value = params_list[key].respond_to?(:join) ? params_list[key] : [params_list[key]]
+  			string << '/' + params_list_value.join('-' + param.to_s + '/')
   			string << '-' + param.to_s
   		end
   	end

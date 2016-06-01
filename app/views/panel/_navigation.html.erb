@@ -1,6 +1,8 @@
 <% if request.subdomain[/panel/] %>
-	<% content_for :extra_js do %>
-		Panel.unreadNotifications();
+	<% if admin_signed_in? %>
+		<% content_for :extra_js do %>
+			Panel.unreadNotifications();
+		<% end %>
 	<% end %>
 
 	<div class="admin-navigation">
