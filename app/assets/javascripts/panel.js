@@ -141,20 +141,27 @@ Panel.reloadReadState = function() {
 };
 
 Panel.showUnreadNotifications = function(count) {
+	var title = Panel.unreadNotifications.originalTitle;
 	var $span = $('#unread-notifications');
-	var text;
-	if (!count) $span.hide();
-	else $span.show().find('a').html($span.find('i').get(0).outerHTML + ' ' + count);
+	if (!count) {
+		document.title = title;
+		$span.hide();
+	} else {
+		document.title = '(' + count + ') ' + title;
+		$span.show().find('a span').text(count);
+	};
 };
 
 Panel.unreadNotifications = function() {
-	var getCount = function() {
-		$.get('/notifications/select', {select: { param: {read: 0}, count: true }}, function(response) {
-			Panel.showUnreadNotifications(response);
-		}, 'json');
-	};
-	setInterval(getCount, 20000);
-	getCount();
+	Panel.unreadNotifications.originalTitle = document.title;
+	setInterval(Panel.unreadNotifications.getCount, 60000);
+	Panel.unreadNotifications.getCount();
+};
+
+Panel.unreadNotifications.getCount = function() {
+	$.get('/notifications/select', {select: { param: {read: 0}, count: true }}, function(response) {
+		Panel.showUnreadNotifications(response);
+	}, 'json');
 };
 
 Panel.tableOrder = function() {
@@ -176,6 +183,7 @@ Panel.contactToggleRead = function() {
 		var $contact = $toggle.closest('tr');
 		$toggle.addClass('loading');
 		Panel.put(url, { contact: { id: data.id, read: !data.read } }, function(response) {
+			Panel.unreadNotifications.getCount();
 			$toggle.removeClass('loading').data('read', response.read);
 			if (response.read) {
 				$toggle.addClass('active');
@@ -195,6 +203,7 @@ Panel.contactActions = function() {
 		var read = $(this).data('read');
 		var path = $(this).attr('href');
 		Panel.put(path, { contact: { ids: ids, read: read } }, function(response) {
+			Panel.unreadNotifications.getCount();
 			response.forEach(function(contact) {
 				var $tr = $('tr#contact_' + contact.id);
 				var $read = $tr.find('.active-toggle');
