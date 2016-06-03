@@ -54,17 +54,17 @@ module ApplicationHelper
 
 	def head_og_image_width
 		if params[:action] == 'file' && (object = @property || @development).present?
-			'270px'
+			'270'
 		else
-			'435px'
+			'435'
 		end
 	end
 
 	def head_og_image_height
 		if params[:action] == 'file' && (object = @property || @development).present?
-			'197px'
+			'197'
 		else
-			'257px'
+			'257'
 		end
 	end
 end
