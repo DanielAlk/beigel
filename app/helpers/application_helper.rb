@@ -46,9 +46,9 @@ module ApplicationHelper
 
 	def head_og_image
 		if params[:action] == 'file' && (object = @property || @development).present?
-			object.images.first.item.url(:medium)
+			URI.join(request.url, object.images.first.item.url(:medium))
 		else
-			asset_path 'beigel-bienes-raices.jpg'
+			asset_url 'beigel-bienes-raices.jpg'
 		end
 	end
 
