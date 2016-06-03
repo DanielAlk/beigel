@@ -46,7 +46,7 @@ module ApplicationHelper
 
 	def head_og_image
 		if params[:action] == 'file' && (object = @property || @development).present?
-			URI.join(request.url, object.images.first.item.url(:medium))
+			URI.join(request.url, object.images.first.item.url(:thumb))
 		else
 			asset_url 'beigel-bienes-raices.jpg'
 		end
@@ -54,7 +54,7 @@ module ApplicationHelper
 
 	def head_og_image_width
 		if params[:action] == 'file' && (object = @property || @development).present?
-			'613px'
+			'270px'
 		else
 			'435px'
 		end
@@ -62,7 +62,7 @@ module ApplicationHelper
 
 	def head_og_image_height
 		if params[:action] == 'file' && (object = @property || @development).present?
-			'288px'
+			'197px'
 		else
 			'257px'
 		end
