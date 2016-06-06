@@ -69,6 +69,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
+        AdminMailer.notification(@contact).deliver_now
         format.html { redirect_to after_save_path, notice: 'Gracias por comunicarte con Beigel Bienes Raices.<br>Un profesional responderá su consulta a la brevedad.' }
         format.json { render :show, status: :created, location: @contact }
       else

@@ -1,0 +1,14 @@
+<h1><%= @subject %></h1>
+
+<b>Nombre:</b> <%= @contact.name %><br>
+<b>Email:</b> <%= @contact.email %><br>
+<b>Teléfono:</b> <%= @contact.tel %><br>
+<b>Mensaje:</b> <%= @contact.message %><br>
+<%= link_to 'Ver en panel >', contact_url(@contact) %><br>
+<br>
+
+<% if @contact.contactable.present? %>
+	<b>Contacto en:</b>
+	<%= link_to @contact.contactable.title, development_url(@contact.contactable) if @contact.contactable.class.name == 'Development' %>
+	<%= link_to @contact.contactable.title, property_url(@contact.contactable) if @contact.contactable.class.name == 'Property' %>
+<% end %>

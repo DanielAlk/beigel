@@ -1,0 +1,13 @@
+<%= @subject %>
+
+Nombre: <%= @contact.name %>
+Email: <%= @contact.email %>
+Teléfono: <%= @contact.tel %>
+Mensaje: <%= @contact.message %>
+Link al panel: <%= contact_url(@contact) %>
+
+<% if @contact.contactable.present? %>
+Contacto en: <%= @contact.contactable.title %>
+<%= 'Link al emprendimiento: ' + development_url(@contact.contactable) if @contact.contactable.class.name == 'Development' %>
+<%= 'Link al inmueble: ' + property_url(@contact.contactable) if @contact.contactable.class.name == 'Property' %>
+<% end %>
