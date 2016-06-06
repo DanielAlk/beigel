@@ -16,7 +16,7 @@ class ContactsController < ApplicationController
       elsif request.path.start_with? '/developments'
         @object = Development.select(:id, :slug, :title).friendly.find(params[:id])
       end
-      contacts = contacts.where(contactable_id: @object.id)
+      contacts = contacts.where(contactable_id: @object.id, contactable_type: @object.class.name)
     end
     if order_params.present? && order_params[:contactable].present?
       contacts = contacts.public_send(method_name).includes(:property, :development).references(:all)
