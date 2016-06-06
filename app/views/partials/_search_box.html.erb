@@ -5,7 +5,7 @@
 		<%= form_tag search_path, method: :post, role: 'form' do %>
 			<% if order_filter %>
 				<div class="search-box-order-filter">
-					<%= select_tag 'search[order_filter]', options_for_select([['Más reciente', :created_at_desc], ['Más antigua', :created_at_asc], ['Menor precio', :price_asc], ['Mayor precio', :price_desc], ['Menor metros totales', :area_asc], ['Mayor metros totales', :area_desc], ['Menor nº de ambientes', :environments_asc], ['Mayor nº de ambientes', :environments_desc]], @search_params[:order_filter]), class: 'form-control selectpicker-submit', data: { mobile: browser.mobile? } %>
+					<%= select_tag 'search[order_filter]', options_for_select([['Más reciente', nil], ['Más antigua', :created_at_asc], ['Menor precio', :price_asc], ['Mayor precio', :price_desc], ['Menor metros totales', :area_asc], ['Mayor metros totales', :area_desc], ['Menor nº de ambientes', :environments_asc], ['Mayor nº de ambientes', :environments_desc]], @search_params[:order_filter]), class: 'form-control selectpicker-submit', data: { mobile: browser.mobile? } %>
 				</div>
 			<% end %>
 			<div class="row drawer-xs-285 closed" data-handle="#search-box-handle">
