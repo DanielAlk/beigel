@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
   def index
   	search_params = params.require(:search)
-  	operation_type = 'rent'
+  	operation_type = 'buy'
   	if search_params.has_key?(:operation_type)
   		operation_type = search_params[:operation_type].respond_to?(:each)? search_params[:operation_type][0] : search_params[:operation_type]
   	end
