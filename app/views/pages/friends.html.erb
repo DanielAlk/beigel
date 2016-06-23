@@ -4,46 +4,92 @@
 		<div class="container bg-white">
 			<div class="section-title">
 				<h2>Empresas amigas</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+				<p class="wide">Algunas empresas con las que trabajamos desde hace 45 años, y que nos ayudan a brindar la mayor excelencia en servicios inmobiliarios, completando la experiencia de comprar y vender de la manera mas segura y confiable.</p>
 			</div>
-			<div>
-				<%= link_to 'https://www.neoda.com/', target: '_blank', class: 'card' do %>
-					<div class="card-image">
-						<%= image_tag 'friends-neoda.jpg' %>
+			<div class="row text-center">
+				<div class="partner-logos clear-both">
+					<div class="partner-logo">
+						<div class="vertical-align">
+							<div class="middle">
+								<%= link_to 'http://www.gurfein-todres.com/', title: 'Gurfein & Todres Abogados', target: '_blank' do %>
+									<%= image_tag 'logo-gurfein-todres.png' %>
+								<% end %>
+							</div>
+						</div>
 					</div>
-					<div class="card-body">
-						<h2 class="card-title">20% de descuento y 12 cuotas sin interes.</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<div class="partner-logo">
+						<div class="vertical-align">
+							<div class="middle">
+								<%= link_to 'http://www.graficainmobiliaria.com.ar/', title: 'Gráfica Inmobiliaria', target: '_blank' do %>
+									<%= image_tag 'logo-gi.png' %>
+								<% end %>
+							</div>
+						</div>
 					</div>
-				<% end %>
-				<%= link_to 'http://www.pintureriasrex.com/', target: '_blank', class: 'card' do %>
-					<div class="card-image">
-						<%= image_tag 'friends-rex.jpg' %>
+					<div class="partner-logo">
+						<div class="vertical-align">
+							<div class="middle">
+								<%= link_to 'http://www.gestionexpress.com.ar/', title: 'Gestión Express', target: '_blank' do %>
+									<%= image_tag 'logo-gestion-express.jpg' %>
+								<% end %>
+							</div>
+						</div>
 					</div>
-					<div class="card-body">
-						<h2 class="card-title">25% de descuento con la compra de 20 litros o mas.</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					<div class="partner-logo">
+						<div class="vertical-align">
+							<div class="middle">
+								<%= link_to 'tel:1149611377', title: 'Escribana Natialia Buenos', target: '_blank' do %>
+									<%= image_tag 'logo-escribana-natalia.png' %>
+								<% end %>
+							</div>
+						</div>
 					</div>
-				<% end %>
-				<%= link_to 'http://www.electra.com.ar/', target: '_blank', class: 'card' do %>
-					<div class="card-image">
-						<%= image_tag 'friends-electra.jpg' %>
-					</div>
-					<div class="card-body">
-						<h2 class="card-title">25% de descuento y 6 cuotas sin interes.</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-				<% end %>
-				<%= link_to 'http://www.ribeiro.com.ar/', target: '_blank', class: 'card' do %>
-					<div class="card-image">
-						<%= image_tag 'friends-ribeiro.jpg' %>
-					</div>
-					<div class="card-body">
-						<h2 class="card-title">15% de descuento y 6 cuotas sin interes en led tvs.</h2>
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-				<% end %>
+				</div>
 			</div>
+			<% if false %>
+				<div class="section-title">
+					<h2>Empresas amigas</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+				</div>
+				<div>
+					<%= link_to 'https://www.neoda.com/', target: '_blank', class: 'card' do %>
+						<div class="card-image">
+							<%= image_tag 'friends-neoda.jpg' %>
+						</div>
+						<div class="card-body">
+							<h2 class="card-title">20% de descuento y 12 cuotas sin interes.</h2>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						</div>
+					<% end %>
+					<%= link_to 'http://www.pintureriasrex.com/', target: '_blank', class: 'card' do %>
+						<div class="card-image">
+							<%= image_tag 'friends-rex.jpg' %>
+						</div>
+						<div class="card-body">
+							<h2 class="card-title">25% de descuento con la compra de 20 litros o mas.</h2>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						</div>
+					<% end %>
+					<%= link_to 'http://www.electra.com.ar/', target: '_blank', class: 'card' do %>
+						<div class="card-image">
+							<%= image_tag 'friends-electra.jpg' %>
+						</div>
+						<div class="card-body">
+							<h2 class="card-title">25% de descuento y 6 cuotas sin interes.</h2>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						</div>
+					<% end %>
+					<%= link_to 'http://www.ribeiro.com.ar/', target: '_blank', class: 'card' do %>
+						<div class="card-image">
+							<%= image_tag 'friends-ribeiro.jpg' %>
+						</div>
+						<div class="card-body">
+							<h2 class="card-title">15% de descuento y 6 cuotas sin interes en led tvs.</h2>
+							<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
 		</div>
 	</section>
 </div>
