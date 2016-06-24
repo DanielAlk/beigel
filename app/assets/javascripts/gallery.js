@@ -37,7 +37,8 @@ Gallery.extension = function(options) {
 				if (height < width) {
 					$img.addClass('wide');
 					setTimeout(function() {
-						$img.css('margin-top', containerHeight/2 - $img.height()/2);
+						if ($img.height() > containerHeight) $img.addClass('tall');
+						else $img.css('margin-top', containerHeight/2 - $img.height()/2);
 					},30);
 				};
 			} else {
