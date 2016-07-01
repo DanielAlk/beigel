@@ -1,3 +1,7 @@
+<% content_for :extra_js do %>
+	$('form#contact_email').validate();
+<% end %>
+
 <footer>
 	<div class="container">
 		<div class="row">
@@ -56,9 +60,12 @@
 			<div class="col-xs-12 col-sm-3">
 				<div class="footer-contact-form">
 					<p>Dejanos tu mail y nos contactaremos para asesorarte.</p>
-					<%= form_tag '', method: :post, role: 'form', class: 'alternative-inputs' do %>
+					<%= form_for Contact.new, method: :post, html: {role: 'form', class: 'alternative-inputs', id: 'contact_email'} do |f| %>
+						<%= hidden_field_tag :after_save_path, request.path %>
+						<%= f.hidden_field :name, value: '-' %>
+						<%= f.hidden_field :message, value: 'El usuario dejó su email para ser contactado' %>
 						<div class="form-group">
-							<%= email_field_tag :email, nil, class: 'form-control', placeholder: 'Email' %>
+							<%= f.email_field :email, class: 'form-control', placeholder: 'Email', required: true %>
 						</div>
 						<%= submit_tag 'Enviar', class: 'btn btn-sm btn-primary btn-fix' %>
 					<% end %>
