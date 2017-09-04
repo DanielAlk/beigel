@@ -1,6 +1,6 @@
 <%= render 'partials/main_slider' %>
 <div class="page-content">
-	<%= render 'partials/search_box' %>
+	<%= render 'partials/search_box', zonaprop: true %>
 	<%= render 'partials/services' %>
 	<%= render 'partials/promotions' %>
 	<%= render 'partials/developments', row_class: 'items-md-6 items-sm-4 items-xs-2' if @developments.present? %>
