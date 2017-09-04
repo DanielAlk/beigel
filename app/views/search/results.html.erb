@@ -5,10 +5,10 @@
 
 <section class="main-image" style="background-image: url('<%= asset_path('main-image-7.jpg') %>')"></section>
 <div class="page-content">
-	<%= render 'partials/search_box', order_filter: true %>
+	<%= render 'partials/search_box', order_filter: true, zonaprop: true %>
 	<section class="pad-xs-S-70">
 		<div class="container bg-white">
-			<div class="section-title">
+			<div class="section-title zonaprop-enabled">
 				<h2><%= @operation_type == :buy ? 'Comprar' : 'Alquilar' %></h2>
 				<p id="page_entries_info"><%= page_entries_info @properties %></p>
 			</div>
